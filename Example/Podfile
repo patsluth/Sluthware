@@ -1,0 +1,38 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/ABTSoftware/PodSpecs.git'
+
+# Uncomment the next line to define a global platform for your project
+platform :ios, '11.0'
+
+target 'Sluthware_Example' do
+    
+    use_frameworks!
+#    inhibit_all_warnings!
+
+    pod 'Sluthware/iOS', :path => '../'
+	pod 'Sluthware/API', :path => '../'
+	pod 'Sluthware/RxSwift', :path => '../'
+#	pod 'Sluthware/PromiseKit', :path => '../'
+#	pod 'Sluthware/SciChart', :path => '../'
+#	pod 'Sluthware/Firebase', :path => '../'
+#	pod 'Sluthware/ARKit', :path => '../'
+
+    target 'Sluthware_Tests' do
+        inherit! :search_paths
+    end
+	
+end
+
+
+
+
+
+post_install do |installer_representation|
+	installer_representation.pods_project.targets.each do |target|
+		target.build_configurations.each do |config|
+			if config.name == 'Release'
+				config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
+			end
+		end
+	end
+end

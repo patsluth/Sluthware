@@ -1,0 +1,173 @@
+{
+  "name": "Sluthware",
+  "version": "1.0.31",
+  "summary": "Sluthware shared framework",
+  "description": "Sluthware shared framework description",
+  "homepage": "https://sluthware.com",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "patsluth": "pat.sluth@gmail.com"
+  },
+  "source": {
+    "git": "https://patsluth@bitbucket.org/patsluth/sluthware.git",
+    "tag": "1.0.31"
+  },
+  "social_media_url": "https://twitter.com/patsluth",
+  "swift_version": "4.2",
+  "platforms": {
+    "ios": "9.0",
+    "osx": "10.11"
+  },
+  "static_framework": true,
+  "subspecs": [
+    {
+      "name": "iOS",
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "CoreGraphics",
+        "CoreLocation",
+        "UIKit",
+        "SystemConfiguration"
+      ],
+      "source_files": [
+        "Sluthware/Classes/Foundation/**/*",
+        "Sluthware/Classes/CoreGraphics/**/*",
+        "Sluthware/Classes/CoreLocation/**/*",
+        "Sluthware/Classes/UIKit/**/*",
+        "Sluthware/Classes/Reachability/**/*"
+      ]
+    },
+    {
+      "name": "OSX",
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "CoreGraphics",
+        "CoreLocation",
+        "SystemConfiguration"
+      ],
+      "source_files": [
+        "Sluthware/Classes/Foundation/**/*",
+        "Sluthware/Classes/CoreGraphics/**/*",
+        "Sluthware/Classes/CoreLocation/**/*",
+        "Sluthware/Classes/Reachability/**/*"
+      ]
+    },
+    {
+      "name": "CoreLocation",
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "CoreLocation"
+      ],
+      "source_files": "Sluthware/Classes/CoreLocation/**/*"
+    },
+    {
+      "name": "simd",
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "simd"
+      ],
+      "source_files": "Sluthware/Classes/simd/**/*"
+    },
+    {
+      "name": "SceneKit",
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "SceneKit"
+      ],
+      "dependencies": {
+        "Sluthware/simd": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/SceneKit/**/*"
+    },
+    {
+      "name": "ARKit",
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "ARKit"
+      ],
+      "dependencies": {
+        "Sluthware/simd": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/ARKit/**/*"
+    },
+    {
+      "name": "RxSwift",
+      "dependencies": {
+        "RxSwift": [
+
+        ],
+        "RxCocoa": [
+
+        ],
+        "RxSwiftExt": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/RxSwift/**/*"
+    },
+    {
+      "name": "PromiseKit",
+      "dependencies": {
+        "PromiseKit": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/PromiseKit/**/*"
+    },
+    {
+      "name": "Firebase",
+      "dependencies": {
+        "Firebase": [
+
+        ],
+        "Firebase/Core": [
+
+        ],
+        "Firebase/Auth": [
+
+        ],
+        "Firebase/Firestore": [
+
+        ],
+        "Sluthware/RxSwift": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/Firebase/**/*"
+    },
+    {
+      "name": "SciChart",
+      "dependencies": {
+        "SciChart": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/SciChart/**/*"
+    },
+    {
+      "name": "API",
+      "dependencies": {
+        "Alamofire": [
+
+        ],
+        "PromiseKit": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/API/**/*"
+    }
+  ]
+}
