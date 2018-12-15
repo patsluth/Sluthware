@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		29B63DE5944243FCCC9935DD /* Pods_Sluthware_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBD62E8238D46CEFE5F6293 /* Pods_Sluthware_Tests.framework */; };
 		2E24197B213B272D00BC30FA /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E24197A213B272D00BC30FA /* ViewController3.swift */; };
+		2E74632721C58C950077150D /* SluthwareAPI.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2E74632621C58C950077150D /* SluthwareAPI.podspec */; };
 		2E898518213DAD4500F86DE4 /* WatchlistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E898517213DAD4500F86DE4 /* WatchlistCell.swift */; };
 		2E898519213DB1F900F86DE4 /* WatchlistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E898516213DAD4500F86DE4 /* WatchlistCell.xib */; };
-		2E97E8C62198BFD600B33BA0 /* SluthwareAPI.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2E97E8C52198BFD600B33BA0 /* SluthwareAPI.podspec */; };
 		2ED0173A20D5A9A30094FCE5 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED0173920D5A9A30094FCE5 /* ViewController2.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -35,9 +35,9 @@
 /* Begin PBXFileReference section */
 		1CCF22AF35C016052A291C26 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		2E24197A213B272D00BC30FA /* ViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
+		2E74632621C58C950077150D /* SluthwareAPI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SluthwareAPI.podspec; sourceTree = "<group>"; };
 		2E898516213DAD4500F86DE4 /* WatchlistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WatchlistCell.xib; sourceTree = "<group>"; };
 		2E898517213DAD4500F86DE4 /* WatchlistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCell.swift; sourceTree = "<group>"; };
-		2E97E8C52198BFD600B33BA0 /* SluthwareAPI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SluthwareAPI.podspec; path = ../SluthwareAPI.podspec; sourceTree = "<group>"; };
 		2ED0173920D5A9A30094FCE5 /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		565101E196040F301DE28208 /* Pods-Sluthware_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sluthware_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sluthware_Example/Pods-Sluthware_Example.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Sluthware_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sluthware_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				BB1D64EEC12640A7C8443288 /* Sluthware.podspec */,
-				2E97E8C52198BFD600B33BA0 /* SluthwareAPI.podspec */,
+				2E74632621C58C950077150D /* SluthwareAPI.podspec */,
 				7012AE0799ECA6AF2CE9DC8A /* README.md */,
 				1CCF22AF35C016052A291C26 /* LICENSE */,
 			);
@@ -263,7 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
-				2E97E8C62198BFD600B33BA0 /* SluthwareAPI.podspec in Resources */,
+				2E74632721C58C950077150D /* SluthwareAPI.podspec in Resources */,
 				2E898519213DB1F900F86DE4 /* WatchlistCell.xib in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
