@@ -15,6 +15,7 @@ import CoreGraphics
 
 public protocol FloatingPointType: BinaryFloatingPoint, Codable
 {
+	init(_ value: IntegerLiteralType)
 	init(_ value: Float)
 	init(_ value: Double)
 	init(_ value: CGFloat)
@@ -71,9 +72,9 @@ public extension CGFloat
 
 public extension FloatingPointType
 {
-	public func value(percentage p: Self, between min: Self, and max: Self) -> Self
+	public func value(percentage: Self, between min: Self, and max: Self) -> Self
 	{
-		return ((p * (max - min)) + min)
+		return ((percentage * (max - min)) + min)
 	}
 	
 	public func percentage(between min: Self, and max: Self) -> Self
@@ -83,7 +84,7 @@ public extension FloatingPointType
 	
 	public func rounded(to places: Int) -> Self
 	{
-		let divisor = Self(pow(10.0, TimeInterval(places)))
+		let divisor = Self(pow(10.0, Double(places)))
 		return (self * divisor).rounded() / divisor
 	}
 }

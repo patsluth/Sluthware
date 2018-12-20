@@ -1,5 +1,5 @@
 //
-//  UIElementHierarchy.swift
+//  UIHierarchy.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-12-19.

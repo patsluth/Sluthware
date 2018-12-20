@@ -18,11 +18,14 @@ import Sluthware
 
 
 
-public enum Math
+public extension Math
 {
-	case Line(m: CGFloat, b: CGFloat)
-	case Circle(hk: CGFloat, r: CGFloat)
+	typealias Line<T> = (m: T, b: T)
+		where T: Sluthware.FloatingPointType
+	typealias Circle<T> = (hk: T, r: T)
+		where T: Sluthware.FloatingPointType
 }
+
 
 
 

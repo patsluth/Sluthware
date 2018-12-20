@@ -26,6 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
+		let f = Fraction(num: 4, den: 8)
+		//for i in stride(from: 0.25, to: 2.0, by: 0.15) {
+		print(Fraction(0.25))
+		print(Fraction(1.5, precision: 9))
+		//}
+		
+		
 		print(try? UIColor.red.getRGBA())
 		var a = [1, 2, 3]
 		print(a.indices.contains(2))
