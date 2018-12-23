@@ -11,6 +11,7 @@ import Foundation
 import FirebaseFirestore
 import RxSwift
 import RxCocoa
+import RxSwiftExt
 import PromiseKit
 
 
@@ -65,10 +66,10 @@ public final class FSField<T>
 			let data = [self.fieldName: FieldValue.delete()]
 			
 			if let batch = batch {
-				batch.setData(data, forDocument: self.reference)
+				batch.updateData(data, forDocument: self.reference)
 				promise.fulfill()
 			} else {
-				self.reference.setData(data) { error in
+				self.reference.updateData(data) { error in
 					if let error = error {
 						promise.reject(error)
 					} else {
@@ -79,7 +80,7 @@ public final class FSField<T>
 		}
 	}
 	
-	public func valueObservable() -> Observable<ValueResult<T>>
+	public func valueResultObservable() -> Observable<ValueResult<T>>
 	{
 		return Observable.create { observable in
 			
@@ -95,6 +96,34 @@ public final class FSField<T>
 			}
 		}
 	}
+	
+	//	public func valueObservable() -> Observable<Observable<T>>
+	//	{
+	//		return self.valueResultObservable()
+	//			.map({ valueResult -> Observable<T> in
+	//				switch valueResult {
+	//				case.Success(let value):	return Observable.just(value)
+	//				case.Failure(_):			return Observable.empty()
+	//				}
+	//			})
+	//			.asObservable()
+	////		.do(onNext: {
+	////			print("!!!", $0)
+	////		})
+	////			.map({ valueResult -> Observable<T> in
+	////				if let value = valueResult.value as? T {
+	////					return Observable.just(value)
+	////				} else {
+	////					return Observable.empty()
+	////				}
+	//////				switch valueResult {
+	//////				case.Success(let value):	return Observable.just(value)
+	//////				case.Failure(_):			return Observable.empty()
+	//////				}
+	////			})
+	//
+	//			//.unwrap()
+	//	}
 }
 
 

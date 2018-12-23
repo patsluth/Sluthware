@@ -23,18 +23,18 @@ public extension Reactive
 {
 	public func currentUser(_ refreshToken: Bool = false) -> Observable<User?>
 	{
-		return Observable.create { observable in
+		return Observable.create({ observable in
 			
 			let listener = self.base.addStateDidChangeListener({ auth, user in
 				if let user = user {
 					observable.onNext(user)
-//					user.getIDTokenForcingRefresh(true, completion: { token, error in
-//						if let error = error {
-//							print(#file.fileName, #function, error.localizedDescription)
-//						} else {
-//							observable.onNext(user)
-//						}
-//					})
+					//					user.getIDTokenForcingRefresh(true, completion: { token, error in
+					//						if let error = error {
+					//							print(#file.fileName, #function, error.localizedDescription)
+					//						} else {
+					//							observable.onNext(user)
+					//						}
+					//					})
 				} else {
 					observable.onNext(nil)
 				}
@@ -43,8 +43,7 @@ public extension Reactive
 			return Disposables.create {
 				self.base.removeStateDidChangeListener(listener)
 			}
-			
-			}.distinctUntilChanged()
+		}).distinctUntilChanged()
 	}
 	
 	@discardableResult

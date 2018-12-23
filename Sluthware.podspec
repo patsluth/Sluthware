@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     s.homepage         = 'https://sluthware.com'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
     s.author           = { 'patsluth' => 'pat.sluth@gmail.com' }
-    s.source           = { :git => 'https://patsluth@bitbucket.org/patsluth/sluthware.git', :tag => s.version.to_s }
+    s.source           = { :git => 'https://github.com/patsluth/Sluthware', :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/patsluth'
 
 	s.swift_version = '4.2'
