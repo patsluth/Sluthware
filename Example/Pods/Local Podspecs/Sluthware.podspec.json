@@ -12,7 +12,7 @@
     "patsluth": "pat.sluth@gmail.com"
   },
   "source": {
-    "git": "https://patsluth@bitbucket.org/patsluth/sluthware.git",
+    "git": "https://github.com/patsluth/Sluthware",
     "tag": "1.0.31"
   },
   "social_media_url": "https://twitter.com/patsluth",
@@ -33,6 +33,7 @@
         "UIKit",
         "SystemConfiguration"
       ],
+      "resources": "Sluthware/Resources/UIKit/**/*",
       "source_files": [
         "Sluthware/Classes/Foundation/**/*",
         "Sluthware/Classes/CoreGraphics/**/*",

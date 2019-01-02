@@ -21,7 +21,21 @@ public extension UIFont
 	{
 		return self.withSize(self.pointSize * CGFloat(percent))
 	}
+	
+	public func forFraction() -> UIFont
+	{
+		let fontDescriptor = self.fontDescriptor.addingAttributes([
+			UIFontDescriptor.AttributeName.featureSettings: [[
+				UIFontDescriptor.FeatureKey.featureIdentifier: kFractionsType,
+				UIFontDescriptor.FeatureKey.typeIdentifier: kDiagonalFractionsSelector,
+				],
+			]])
+		
+		return UIFont(descriptor: fontDescriptor, size: self.pointSize)
+	}
 }
+
+#elseif os(OSX)
 
 #endif
 

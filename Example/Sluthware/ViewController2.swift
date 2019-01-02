@@ -10,11 +10,29 @@ import UIKit
 
 
 
-extension UIView {
-	var ancestors: AnySequence<UIView> {
-		return sequence(first: self, next: { $0.superview }).dropFirst(0)
-	}
-}
+//extension UIView
+//{
+//	func addSubview(_ block: () -> UIView)
+//	{
+//		let view = 
+//	}
+//}
+
+
+
+
+
+
+
+
+
+
+
+//extension UIView {
+//	var ancestors: AnySequence<UIView> {
+//		return sequence(first: self, next: { $0.superview }).dropFirst(0)
+//	}
+//}
 
 
 
@@ -64,6 +82,47 @@ class ViewController2: UIViewController
 															   startPoint: CGPoint(x: 0.0, y: 0.5),
 															   endPoint: CGPoint(x: 1.0, y: 0.5),
 															   colors: color, color.darker(by: 0.5))
+		
+		
+		
+		
+		
+		let vc = DebugViewController(nibName: "DebugViewController",
+									 bundle: Bundle(for: DebugViewController.classForCoder()))
+		let nc = UINavigationController(rootViewController: vc)
+		self.present(nc, animated: true) {
+			let fracations: [Fraction] = [20 / 11,
+										  5 / 7,
+										  Fraction(0.25),
+										  4 / 0,
+										  0 / 4,
+										  Fraction.NaN]
+			
+			let attributedFormatter = FractionAttributedFormatter() {
+				$0.font = UIFont.systemFont(ofSize: 25.0)
+				$0.useProperFractions = true
+			}
+			
+			vc.textView.attributedText = fracations.reduce(into: NSAttributedString(), {
+				$0 += attributedFormatter.format($1.roundedTo(den: 15))
+				$0 += Char.NewLine
+			})
+		}
+		
+		
+		
+		
+		
+		//		print(formatter.attributedString(for: Fraction(10, 4)))
+		
+		//		textView.attributedText =
+		//			NSAttributedString("5", {
+		//				$0[NSAttributedString.Key.font] = font.forFraction()
+		//			}) +
+		//			Char.NewLine +
+		//			NSAttributedString(Fraction(10, 2).description, {
+		//				$0[NSAttributedString.Key.font] = font.forFraction()
+		//			})
 	}
 	
 	override func viewDidLayoutSubviews()

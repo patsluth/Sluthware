@@ -13,7 +13,7 @@ import Foundation
 
 
 public extension Collection
-	where Element: NumbericType
+	where Element: NumericType
 {
 	var sum: Element {
 		return self.reduce(Element.zero, +)

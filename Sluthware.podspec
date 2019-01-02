@@ -36,6 +36,8 @@ Pod::Spec.new do |s|
 		'UIKit',
 		'SystemConfiguration'
 		
+		ss.resource = 'Sluthware/Resources/UIKit/**/*'
+		
 		ss.source_files = 'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',

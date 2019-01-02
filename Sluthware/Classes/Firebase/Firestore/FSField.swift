@@ -35,7 +35,7 @@ public final class FSField<T>
 	}
 	
 	@discardableResult
-	public func setValue(_ value: T, _ batch: WriteBatch? = nil) -> Promise<T>
+	public func set(value: T, _ batch: WriteBatch? = nil) -> Promise<Void>
 	{
 		return Promise { promise in
 			do {
@@ -43,13 +43,13 @@ public final class FSField<T>
 				
 				if let batch = batch {
 					batch.setData(data, forDocument: self.reference)
-					promise.fulfill(value)
+					promise.fulfill()
 				} else {
 					self.reference.setData(data) { error in
 						if let error = error {
 							promise.reject(error)
 						} else {
-							promise.fulfill(value)
+							promise.fulfill()
 						}
 					}
 				}

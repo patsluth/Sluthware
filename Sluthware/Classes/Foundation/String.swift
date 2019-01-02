@@ -20,7 +20,12 @@ public extension String
 		return fileName.removingPercentEncoding ?? (fileName as String)
 	}
 	
+	@available(*, deprecated, renamed: "fileNameFull")
 	var fileNameWithExtension: String {
+		return self.fileNameFull
+	}
+	
+	var fileNameFull: String {
 		var fileName = (self as NSString)
 		fileName = (fileName.lastPathComponent as NSString)
 		return fileName.removingPercentEncoding ?? (fileName as String)

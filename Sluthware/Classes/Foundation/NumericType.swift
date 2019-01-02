@@ -13,7 +13,7 @@ import CoreGraphics
 
 
 
-public protocol NumbericType: Numeric
+public protocol NumericType: Numeric
 {
 	// FloatingPointType
 	init(_ value: Float)
@@ -31,31 +31,31 @@ public protocol NumbericType: Numeric
 	init(_ value: Int64)
 	init(_ value: UInt64)
 	
-	func to<T: NumbericType>() -> T
+	func to<T: NumericType>() -> T
 }
 
-public extension NumbericType
+public extension NumericType
 {
 	static var zero: Self {
-		return (0.0).to()
+		return (0).to()
 	}
 }
 
 // FloatingPointType
-extension Float:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension Double:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension CGFloat:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
+extension Float:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension Double:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension CGFloat:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
 // IntegerType
-extension Int:		NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension UInt:		NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension Int8:		NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension UInt8:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension Int16:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension UInt16:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension Int32:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension UInt32:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension Int64:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
-extension UInt64:	NumbericType { public func to<T: NumbericType>() -> T { return T(self) } }
+extension Int:		NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension UInt:		NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension Int8:		NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension UInt8:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension Int16:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension UInt16:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension Int32:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension UInt32:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension Int64:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
+extension UInt64:	NumericType { public func to<T: NumericType>() -> T { return T(self) } }
 
 
 

@@ -1,5 +1,5 @@
 //
-//  AttributedString.swift
+//  NSAttributedString.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-12-19.
@@ -9,11 +9,17 @@ import Foundation
 
 
 
+//public protocol NSAttributedStringConvertible
+//{
+//	var attributed: NSAttributedString { get }
+//}
+
+
 
 
 public extension String
 {
-	var attributed: NSAttributedString {
+	public var attributed: NSAttributedString {
 		return NSAttributedString(string: self)
 	}
 }
@@ -24,6 +30,23 @@ public extension String
 
 public extension NSAttributedString
 {
+	public typealias Attributes = [NSAttributedString.Key: Any]
+	
+	
+	
+	
+	
+	public convenience init(_ string: String,
+							_ attributesProvider: (inout Attributes) -> Void = { _ in })
+	{
+		var attributes = Attributes()
+		attributesProvider(&attributes)
+		
+		self.init(string: string, attributes: attributes)
+	}
+	
+	
+	
 	public static func +(lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString
 	{
 		let attributedString = NSMutableAttributedString()
