@@ -10,8 +10,10 @@ import Foundation
 
 #if os(iOS) || os(watchOS) || os(tvOS)
 public typealias Font = UIFont
+public typealias FontDescriptor = UIFontDescriptor
 #elseif os(macOS)
 public typealias Font = NSFont
+public typealias FontDescriptor = NSFontDescriptor
 #endif
 
 
@@ -20,24 +22,50 @@ public typealias Font = NSFont
 
 public extension Font
 {
-	func scaledBy<T>(percent: T) -> UIFont
+	func scaledBy<T>(percent: T) -> Font!
 		where T: Sluthware.FloatingPointType
 	{
 		return self.withSize(self.pointSize * CGFloat(percent))
 	}
 	
-	public func forFraction() -> UIFont
+	public func forFraction() -> Font!
 	{
-		let fontDescriptor = self.fontDescriptor.addingAttributes([
-			UIFontDescriptor.AttributeName.featureSettings: [[
-				UIFontDescriptor.FeatureKey.featureIdentifier: kFractionsType,
-				UIFontDescriptor.FeatureKey.typeIdentifier: kDiagonalFractionsSelector,
+		#if os(iOS) || os(watchOS) || os(tvOS)
+		let attributes = [
+			FontDescriptor.AttributeName.featureSettings: [[
+				FontDescriptor.FeatureKey.featureIdentifier: kFractionsType,
+				FontDescriptor.FeatureKey.typeIdentifier: kDiagonalFractionsSelector,
 				],
-			]])
+			]]
+		#elseif os(macOS)
+		let attributes = [
+			FontDescriptor.AttributeName.featureSettings: [[
+				FontDescriptor.FeatureKey.typeIdentifier: kFractionsType,
+				FontDescriptor.FeatureKey.selectorIdentifier: kDiagonalFractionsSelector,
+				],
+			]]
+		#endif
 		
-		return UIFont(descriptor: fontDescriptor, size: self.pointSize)
+		return Font(descriptor: self.fontDescriptor.addingAttributes(attributes),
+					size: self.pointSize)
 	}
 }
+
+
+
+
+
+#if os(macOS)
+
+extension NSFont
+{
+	func withSize(_ fontSize: CGFloat) -> NSFont!
+	{
+		return NSFont(descriptor: self.fontDescriptor, size: fontSize)
+	}
+}
+
+#endif
 
 
 
