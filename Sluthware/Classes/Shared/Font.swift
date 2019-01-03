@@ -1,5 +1,5 @@
 //
-//  UIFont.swift
+//  Font.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-09-30.
@@ -8,13 +8,17 @@
 
 import Foundation
 
+#if os(iOS) || os(watchOS) || os(tvOS)
+public typealias Font = UIFont
+#elseif os(macOS)
+public typealias Font = NSFont
+#endif
 
 
 
 
-#if os(iOS)
 
-public extension UIFont
+public extension Font
 {
 	func scaledBy<T>(percent: T) -> UIFont
 		where T: Sluthware.FloatingPointType
@@ -34,10 +38,6 @@ public extension UIFont
 		return UIFont(descriptor: fontDescriptor, size: self.pointSize)
 	}
 }
-
-#elseif os(OSX)
-
-#endif
 
 
 

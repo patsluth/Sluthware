@@ -35,7 +35,8 @@ public final class CurrencyFormatter: NumberFormatter
 		fatalError(#function + " has not been implemented")
 	}
 	
-	public func string<T: FloatingPointType>(_ value: T?) -> String
+	public func string<T>(_ value: T!) -> String
+		where T: FloatingPointType
 	{
 		guard let value = value else { return self.errorString }
 		guard let string = self.string(from: NSNumber(value: Double(value))) else { return self.errorString }
