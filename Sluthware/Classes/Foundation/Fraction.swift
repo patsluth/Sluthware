@@ -17,14 +17,17 @@ public struct Fraction
 	public let num: Int
 	public let den: Int
 	
+	public let doubleValue: Double
 	
 	
 	
 	
-	public init(_ num: Int, _ den: Int)
+	
+	public init(_ num: Int, _ den: Int = 1)
 	{
 		self.num = num
 		self.den = den
+		self.doubleValue = (Double(self.num) / Double(self.den))
 	}
 	
 	public init<T>(_ value: T, precision: T = 1.0e6)
@@ -46,6 +49,7 @@ public struct Fraction
 		
 		self.num = (parts.integer * fraction.den) + fraction.num
 		self.den = fraction.den
+		self.doubleValue = Double(value)
 	}
 	
 	public mutating func reduce()
@@ -70,32 +74,12 @@ public struct Fraction
 	
 	public func roundedTo(den: Int) -> Fraction
 	{
-		guard self.type != .Infinite && self.type != .NaN else { return self }
+		guard self.isFinite else { return self }
 		
 		let parts = self.doubleValue.parts
 		let num = (parts.integer * den) + Int(round(parts.decimal * den.to()))
 		
 		return Fraction(num, den)
-	}
-	
-	
-	
-	public typealias MixedNumber = (whole: Int, fraction: Fraction)
-	
-	public func asMixedNumber() -> MixedNumber
-	{
-		var mixedNumber = MixedNumber(whole: 0, fraction: self)
-		
-		while mixedNumber.fraction.type == .Improper {
-			mixedNumber.fraction -= 1
-			mixedNumber.whole += 1
-		}
-		
-		return mixedNumber
-//		let parts = self.doubleValue.parts
-//
-//		return MixedNumber(whole: parts.integer,
-//						   fraction: Fraction(parts.decimal).roundedTo(den: self.den))
 	}
 }
 
@@ -105,44 +89,88 @@ public struct Fraction
 
 extension Fraction
 {
-	public var type: FractionType {
-		return FractionType(fraction: self)
-	}
-	
-	public var doubleValue: Double {
-		return (Double(self.num) / Double(self.den))
-	}
-	
 	public var reciprocol: Fraction {
 		return Fraction(self.den, self.num)
 	}
-}
-
-
-
-
-
-public enum FractionType
-{
-	case Zero
-	case Proper
-	case Improper
-	case Infinite
-	case NaN
 	
-	fileprivate init(fraction f: Fraction)
-	{
-		if f.den == 0 {
-			self = (f.num != 0 ) ? .Infinite : .NaN
-		} else {
-			if f.num == 0 {
-				self = .Zero
-			} else {
-				self = (f.num < f.den) ? .Proper : .Improper
-			}
-		}
+	public var isFinite: Bool {
+		return self.magnitude.isFinite
+	}
+	
+	public var isInfinite: Bool {
+		return self.magnitude.isInfinite
+	}
+	
+	public var isNaN: Bool {
+		return self.magnitude.isNaN
+	}
+	
+	public var isZero: Bool {
+		return self.doubleValue.isZero
+	}
+	
+	public var isProper: Bool {
+		guard self.isFinite else { return false }
+		return (self.den != 0 && self.num < self.den)
+	}
+	
+	public var isImproper: Bool {
+		guard self.isFinite else { return false }
+		return (self.den != 0 && self.num >= self.den)
 	}
 }
+
+
+
+
+
+public extension Fraction
+{
+	public typealias MixedNumber = (whole: Int, fraction: Fraction)
+	
+	
+	
+	
+	
+	/// Convert fraction to a whole number and proper fraction
+	public func asMixedNumber() -> MixedNumber
+	{
+		var mixedNumber = MixedNumber(whole: 0, fraction: self)
+		
+		while mixedNumber.fraction.isImproper {
+			mixedNumber.whole += 1
+			mixedNumber.fraction -= 1
+		}
+		
+		return mixedNumber
+		//		let parts = self.doubleValue.parts
+		//
+		//		return MixedNumber(whole: parts.integer,
+		//						   fraction: Fraction(parts.decimal).roundedTo(den: self.den))
+	}
+}
+
+//public enum FractionType
+//{
+//	case Zero
+//	case Proper
+//	case Improper
+//	case Infinite
+//	case NaN
+//
+//	fileprivate init(fraction f: Fraction)
+//	{
+//		if f.den == 0 {
+//			self = (f.num != 0 ) ? .Infinite : .NaN
+//		} else {
+//			if f.num == 0 {
+//				self = .Zero
+//			} else {
+//				self = (f.num < f.den) ? .Proper : .Improper
+//			}
+//		}
+//	}
+//}
 
 
 
@@ -156,6 +184,10 @@ extension Fraction
 	
 	public static var NaN: Fraction {
 		return Fraction(0, 0)
+	}
+	
+	public static var zero: Fraction {
+		return Fraction(0, 1)
 	}
 }
 
@@ -241,17 +273,17 @@ extension Fraction: ExpressibleByFloatLiteral
 extension Fraction: SignedNumeric
 {
 	public var magnitude: Double {
-		return self.doubleValue
+		return fabs(self.doubleValue)
 	}
 	
 	
 	
 	
 	
-	public init?<T>(exactly source: T) where T : BinaryInteger
+	public init?<T>(exactly source: T)
+		where T: BinaryInteger
 	{
-		self.num = Int(source)
-		self.den = 1
+		self.init(Int(source), 1)
 	}
 	
 	prefix public static func -(operand: Fraction) -> Fraction
@@ -331,54 +363,6 @@ extension Fraction: Dividable
 	public static func /=(lhs: inout Fraction, rhs: Fraction)
 	{
 		lhs = lhs / rhs
-	}
-}
-
-
-
-
-
-public protocol Addable
-{
-	static func +(lhs: Self, rhs: Self) -> Self
-	static func +=(lhs: inout Self, rhs: Self)
-}
-
-public protocol Subtractable
-{
-	static func -(lhs: Self, rhs: Self) -> Self
-	static func -=(lhs: inout Self, rhs: Self)
-}
-
-public protocol Multipliable
-{
-	static func *(lhs: Self, rhs: Self) -> Self
-	static func *=(lhs: inout Self, rhs: Self)
-}
-
-public protocol Dividable
-{
-	static func /(lhs: Self, rhs: Self) -> Self
-	static func /=(lhs: inout Self, rhs: Self)
-}
-
-public protocol Modable
-{
-	static func %(lhs: Self, rhs: Self) -> Self
-	static func %=(lhs: inout Self, rhs: Self)
-}
-
-
-
-
-
-public extension FloatingPointType
-{
-	public typealias Parts = (integer: Int, decimal: Self)
-	
-	public var parts: Parts {
-		return Parts(integer: Int(floor(self)),
-					 decimal: self.truncatingRemainder(dividingBy: 1.0))
 	}
 }
 
@@ -545,31 +529,6 @@ extension Fraction: CustomStringConvertible
 {
 	public var description: String {
 		return "\(self.num)/\(self.den)"
-	}
-}
-
-
-
-
-
-public final class Math
-{
-	private init()
-	{
-	}
-	
-	
-	
-	public class func gcd<T>(_ x: T, _ y: T) -> T
-		where T: Sluthware.FloatingPointType
-	{
-		return (y == 0.0) ? x : Math.gcd(y, x.truncatingRemainder(dividingBy: y))
-	}
-	
-	public class func gcd<T>(_ x: T, _ y: T) -> T
-		where T: FixedWidthInteger
-	{
-		return (y == 0) ? x : Math.gcd(y, x % y)
 	}
 }
 

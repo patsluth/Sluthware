@@ -92,3 +92,17 @@ public extension FloatingPointType
 
 
 
+
+public extension FloatingPointType
+{
+	public typealias Parts = (integer: Int, decimal: Self)
+	
+	public var parts: Parts {
+		return Parts(integer: Int(floor(self)),
+					 decimal: self.truncatingRemainder(dividingBy: 1.0))
+	}
+}
+
+
+
+

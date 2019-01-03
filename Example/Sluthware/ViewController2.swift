@@ -108,21 +108,6 @@ class ViewController2: UIViewController
 				$0 += Char.NewLine
 			})
 		}
-		
-		
-		
-		
-		
-		//		print(formatter.attributedString(for: Fraction(10, 4)))
-		
-		//		textView.attributedText =
-		//			NSAttributedString("5", {
-		//				$0[NSAttributedString.Key.font] = font.forFraction()
-		//			}) +
-		//			Char.NewLine +
-		//			NSAttributedString(Fraction(10, 2).description, {
-		//				$0[NSAttributedString.Key.font] = font.forFraction()
-		//			})
 	}
 	
 	override func viewDidLayoutSubviews()

@@ -50,7 +50,7 @@ public enum AnyJSON
 		
 		public func encode(to encoder: Encoder) throws
 		{
-			var container = try encoder.singleValueContainer()
+			var container = encoder.singleValueContainer()
 			
 			switch self {
 			case .string(let value):
