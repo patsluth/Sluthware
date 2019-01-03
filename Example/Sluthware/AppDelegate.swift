@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
+		let a = Fraction(2, 1)
+		let b = Fraction(14, 29)
+		print((a - b).asMixedNumber())
 //		print(5.0 < Double.nan)
 //		print(5.0 < Double.infinity)
 		
