@@ -29,16 +29,16 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'iOS' do |ss|
-		ss.ios.frameworks = 'Foundation',
+		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'CoreGraphics',
 		'CoreLocation',
 		'UIKit',
 		'SystemConfiguration'
 		
-		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
+		ss.resource = 'Sluthware/Resources/UIKit/**/*'
 		
-		ss.ios.source_files = 'Sluthware/Classes/Shared/**/*',
+		ss.source_files = 'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
@@ -51,13 +51,13 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'OSX' do |ss|
-		ss.osx.frameworks = 'Foundation',
+		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'CoreGraphics',
 		'CoreLocation',
 		'SystemConfiguration'
 		
-		ss.osx.source_files = 'Sluthware/Classes/Shared/**/*',
+		ss.source_files = 'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
