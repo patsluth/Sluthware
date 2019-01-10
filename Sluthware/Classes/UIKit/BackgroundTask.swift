@@ -14,26 +14,34 @@ import Foundation
 
 public final class BackgroundTask
 {
-	let name: String
-	fileprivate var taskIdentifier = UIBackgroundTaskIdentifier.invalid
+	public typealias Handler = (() -> Void) -> Void
+	
+	
+	
+	
+	
+	public let name: String
+	private var taskIdentifier = UIBackgroundTaskIdentifier.invalid
 	
 	
 	
 	
 	
 	@discardableResult
-	public init(name: String, _ start: (_ stop: @escaping () -> Void) -> Void) throws
+	public init(name: String = "\(#file.fileName).\(#function)",
+		_ handler: @escaping BackgroundTask.Handler)// throws
 	{
 		self.name = name
+		
 		self.taskIdentifier = UIApplication.shared
 			.beginBackgroundTask(withName: self.name, expirationHandler: { [weak self] in
 				guard let `self` = self else { return }
 				self.stop()
 			})
 		
-		guard self.taskIdentifier != UIBackgroundTaskIdentifier.invalid else {
-			throw Errors.Message("Failed to start \(#file.fileName) named \(self.name)")
-		}
+		//		guard self.taskIdentifier != UIBackgroundTaskIdentifier.invalid else {
+		//			throw Errors.Message("Failed to start \(#file.fileName) named \(self.name)")
+		//		}
 		
 		ProcessInfo.processInfo.performExpiringActivity(withReason: name, using: { [weak self] expired in
 			if (!expired) {
@@ -46,10 +54,10 @@ public final class BackgroundTask
 			// once block returns the task assertion is released
 		})
 		
-		print("Starting \(#file.fileName) named \(self.name)")
+		print("Starting \(type(of: self)) named \(self.name)")
 		
-		start({
-			self.stop()
+		handler({ [weak self] in
+			self?.stop()
 		})
 	}
 	
@@ -62,7 +70,7 @@ public final class BackgroundTask
 	{
 		guard self.taskIdentifier != UIBackgroundTaskIdentifier.invalid else { return }
 		
-		print("Stopping \(#file.fileName) named \(self.name)")
+		print("Stopping \(type(of: self)) named \(self.name)")
 		
 		UIApplication.shared.endBackgroundTask(self.taskIdentifier)
 		self.taskIdentifier = UIBackgroundTaskIdentifier.invalid
