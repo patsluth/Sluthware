@@ -28,41 +28,37 @@ Pod::Spec.new do |s|
 	
 	
 	
-	s.subspec 'iOS' do |ss|
-		ss.frameworks = 'Foundation',
-		'CoreFoundation',
-		'CoreGraphics',
-		'CoreLocation',
-		'UIKit',
-		'SystemConfiguration'
-		
-		ss.resource = 'Sluthware/Resources/UIKit/**/*'
-		
-		ss.source_files = 'Sluthware/Classes/Shared/**/*',
-		'Sluthware/Classes/Foundation/**/*',
-		'Sluthware/Classes/CoreGraphics/**/*',
-		'Sluthware/Classes/CoreLocation/**/*',
-		'Sluthware/Classes/UIKit/**/*',
-		'Sluthware/Classes/Reachability/**/*'
-	end
+	s.ios.frameworks = 'Foundation',
+	'CoreFoundation',
+	'CoreGraphics',
+	'CoreLocation',
+	'UIKit',
+	'SystemConfiguration'
+	
+	s.ios.resource = 'Sluthware/Resources/UIKit/**/*'
+	
+	s.ios.source_files = 'Sluthware/Classes/Shared/**/*',
+	'Sluthware/Classes/Foundation/**/*',
+	'Sluthware/Classes/CoreGraphics/**/*',
+	'Sluthware/Classes/CoreLocation/**/*',
+	'Sluthware/Classes/UIKit/**/*',
+	'Sluthware/Classes/Reachability/**/*'
 	
 	
 	
 	
 	
-	s.subspec 'OSX' do |ss|
-		ss.frameworks = 'Foundation',
-		'CoreFoundation',
-		'CoreGraphics',
-		'CoreLocation',
-		'SystemConfiguration'
-		
-		ss.source_files = 'Sluthware/Classes/Shared/**/*',
-		'Sluthware/Classes/Foundation/**/*',
-		'Sluthware/Classes/CoreGraphics/**/*',
-		'Sluthware/Classes/CoreLocation/**/*',
-		'Sluthware/Classes/Reachability/**/*'
-	end
+	s.osx.frameworks = 'Foundation',
+	'CoreFoundation',
+	'CoreGraphics',
+	'CoreLocation',
+	'SystemConfiguration'
+	
+	s.osx.source_files = 'Sluthware/Classes/Shared/**/*',
+	'Sluthware/Classes/Foundation/**/*',
+	'Sluthware/Classes/CoreGraphics/**/*',
+	'Sluthware/Classes/CoreLocation/**/*',
+	'Sluthware/Classes/Reachability/**/*'
 	
 	
 	

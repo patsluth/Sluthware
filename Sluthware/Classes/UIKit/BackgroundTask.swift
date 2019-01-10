@@ -14,25 +14,17 @@ import Foundation
 
 public final class BackgroundTask
 {
-	public typealias Handler = (() -> Void) -> Void
-	
-	
-	
-	
-	
-	public let name: String
-	private var taskIdentifier = UIBackgroundTaskIdentifier.invalid
+	let name: String
+	fileprivate var taskIdentifier = UIBackgroundTaskIdentifier.invalid
 	
 	
 	
 	
 	
 	@discardableResult
-	public init(name: String = "\(#file.fileName).\(#function)",
-		_ handler: @escaping BackgroundTask.Handler)// throws
+	public init(name: String, _ start: (_ stop: @escaping () -> Void) -> Void)// throws
 	{
 		self.name = name
-		
 		self.taskIdentifier = UIApplication.shared
 			.beginBackgroundTask(withName: self.name, expirationHandler: { [weak self] in
 				guard let `self` = self else { return }
@@ -54,10 +46,10 @@ public final class BackgroundTask
 			// once block returns the task assertion is released
 		})
 		
-		print("Starting \(type(of: self)) named \(self.name)")
+		print("Starting \(#file.fileName) named \(self.name)")
 		
-		handler({ [weak self] in
-			self?.stop()
+		start({
+			self.stop()
 		})
 	}
 	
@@ -70,7 +62,7 @@ public final class BackgroundTask
 	{
 		guard self.taskIdentifier != UIBackgroundTaskIdentifier.invalid else { return }
 		
-		print("Stopping \(type(of: self)) named \(self.name)")
+		print("Stopping \(#file.fileName) named \(self.name)")
 		
 		UIApplication.shared.endBackgroundTask(self.taskIdentifier)
 		self.taskIdentifier = UIBackgroundTaskIdentifier.invalid
