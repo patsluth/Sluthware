@@ -6,6 +6,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 
+# pod spec lint --sources='https://github.com/CocoaPods/Specs.git,https://github.com/ABTSoftware/PodSpecs.git'
 Pod::Spec.new do |s|
     s.name             = 'Sluthware'
     s.version          = '1.0.31'
@@ -24,40 +25,38 @@ Pod::Spec.new do |s|
 	
 	s.static_framework = true
 	
+	s.default_subspecs = 'Default'
 	
 	
 	
 	
-	s.subspec 'iOS' do |ss|
-		ss.frameworks = 'Foundation',
+	
+	s.subspec 'Default' do |ss|
+		ss.ios.frameworks = 'Foundation',
 		'CoreFoundation',
 		'CoreGraphics',
 		'CoreLocation',
 		'UIKit',
 		'SystemConfiguration'
 		
-		ss.resource = 'Sluthware/Resources/UIKit/**/*'
+		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
 		
-		ss.source_files = 'Sluthware/Classes/Shared/**/*',
+		ss.ios.source_files = 'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
 		'Sluthware/Classes/UIKit/**/*',
 		'Sluthware/Classes/Reachability/**/*'
-	end
-	
-	
-	
-	
-	
-	s.subspec 'OSX' do |ss|
-		ss.frameworks = 'Foundation',
+		
+		
+		
+		ss.osx.frameworks = 'Foundation',
 		'CoreFoundation',
 		'CoreGraphics',
 		'CoreLocation',
 		'SystemConfiguration'
 		
-		ss.source_files = 'Sluthware/Classes/Shared/**/*',
+		ss.osx.source_files = 'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
