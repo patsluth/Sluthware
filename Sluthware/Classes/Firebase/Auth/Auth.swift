@@ -24,7 +24,6 @@ public extension Reactive
 	public func currentUser(_ refreshToken: Bool = false) -> Observable<User?>
 	{
 		return Observable.create({ observable in
-			
 			let listener = self.base.addStateDidChangeListener({ auth, user in
 				if let user = user {
 					observable.onNext(user)

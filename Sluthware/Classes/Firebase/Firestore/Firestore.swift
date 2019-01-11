@@ -30,12 +30,12 @@ public extension Query
 {
 	public func snapshotPromise() -> Promise<QuerySnapshot>
 	{
-		return Promise { promise in
+		return Promise { resolver in
 			self.getDocuments(completion: { snapshot, error in
 				if let snapshot = snapshot {
-					promise.fulfill(snapshot)
+					resolver.fulfill(snapshot)
 				} else if let error = error {
-					promise.reject(error)
+					resolver.reject(error)
 				}
 			})
 		}
@@ -66,16 +66,16 @@ public extension Query
 public extension CollectionReference
 {
 	public func documentOf<T>(_ type: T.Type,
-							  _ named: String = "\(T.self)".lowercased()) -> FSDocument<T>
+							  _ named: String = "\(T.self)".lowercased()) -> FirestoreDocument<T>
 		where T: Codable
 	{
-		return FSDocument<T>(self.document(named))
+		return FirestoreDocument<T>(self.document(named))
 	}
 	
-	public func asCollectionOf<T>(_ type: T.Type) -> FSCollection<T>
+	public func asCollectionOf<T>(_ type: T.Type) -> FirestoreCollection<T>
 		where T: Codable
 	{
-		return FSCollection<T>(self)
+		return FirestoreCollection<T>(self)
 	}
 }
 
@@ -85,35 +85,35 @@ public extension CollectionReference
 
 public extension DocumentReference
 {
-	public func asDocumentOf<T>(_ type: T.Type) -> FSDocument<T>
+	public func asDocumentOf<T>(_ type: T.Type) -> FirestoreDocument<T>
 		where T: Codable
 	{
-		return FSDocument<T>(self)
+		return FirestoreDocument<T>(self)
 	}
 	
 	public func collectionOf<T>(_ type: T.Type,
-								_ named: String = "\(T.self)s".lowercased()) -> FSCollection<T>
+								_ named: String = "\(T.self)s".lowercased()) -> FirestoreCollection<T>
 		where T: Codable
 	{
-		return FSCollection<T>(self, named)
+		return FirestoreCollection<T>(self, named)
 	}
 	
 	public func fieldOf<T>(_ type: T.Type,
-						   _ named: String = "\(T.self)".lowercased()) -> FSField<T>
+						   _ named: String = "\(T.self)".lowercased()) -> FirestoreField<T>
 		where T: Codable
 	{
-		return FSField<T>(self, named)
+		return FirestoreField<T>(self, named)
 	}
 	
 	public func snapshotPromise() -> Promise<DocumentSnapshot>
 	{
-		return Promise { promise in
+		return Promise { resolver in
 			
 			self.getDocument(completion: { snapshot, error in
 				if let snapshot = snapshot {
-					promise.fulfill(snapshot)
+					resolver.fulfill(snapshot)
 				} else if let error = error {
-					promise.reject(error)
+					resolver.reject(error)
 				}
 			})
 		}
@@ -144,10 +144,10 @@ public extension DocumentReference
 
 public extension QuerySnapshot
 {
-	public typealias FSValueType<T> = [DocumentChange.FSValueType<T>]
+	public typealias Value<T> = [DocumentChange.Value<T>]
 		where T: Codable
 	
-	func decodeValues<T>() -> FSValueType<T>
+	func decodeValues<T>() -> Value<T>
 		where T: Codable
 	{
 		return self.documentChanges.map({
@@ -162,10 +162,10 @@ public extension QuerySnapshot
 
 public extension DocumentChange
 {
-	public typealias FSValueType<T> = (change: DocumentChange, snapshot: DocumentSnapshot.FSValueType<T>)
+	public typealias Value<T> = (change: DocumentChange, snapshot: DocumentSnapshot.Value<T>)
 		where T: Codable
 	
-	public func decodeValue<T>() -> FSValueType<T>
+	public func decodeValue<T>() -> Value<T>
 		where T: Codable
 	{
 		return (change: self, snapshot: self.document.decodeValue())
@@ -178,13 +178,13 @@ public extension DocumentChange
 
 public extension DocumentSnapshot
 {
-	public typealias FSValueType<T> = (document: FSDocument<T>, result: ValueResult<T>)
+	public typealias Value<T> = (document: FirestoreDocument<T>, result: ValueResult<T>)
 		where T: Codable
 	
-	public func decodeValue<T>() -> FSValueType<T>
+	public func decodeValue<T>() -> Value<T>
 		where T: Codable
 	{
-		let document = FSDocument<T>(self.reference)
+		let document = FirestoreDocument<T>(self.reference)
 		let result = ValueResult<T>(self.data())
 		return (document: document, result: result)
 	}
@@ -199,12 +199,12 @@ public extension WriteBatch
 	@discardableResult
 	public func commitPromise() -> Promise<Void>
 	{
-		return Promise { promise in
+		return Promise { resolver in
 			self.commit(completion: { error in
 				if let error = error {
-					promise.reject(error)
+					resolver.reject(error)
 				} else {
-					promise.fulfill()
+					resolver.fulfill()
 				}
 			})
 		}

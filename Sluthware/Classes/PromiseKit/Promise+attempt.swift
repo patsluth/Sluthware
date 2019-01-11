@@ -14,7 +14,7 @@ import PromiseKit
 
 
 
-public func attempt<T>(times: Int,
+public func attempt<T>(times: UInt,
 					   retryIn: DispatchTimeInterval,
 					   _ closure: @escaping () -> Promise<T>) -> Promise<T>
 {
@@ -38,7 +38,7 @@ public func attempt<T>(times: Int,
 
 
 
-public func attempt<T, V>(times: Int,
+public func attempt<T, V>(times: UInt,
 						  retryWhen: Guarantee<V>,
 						  _ closure: @escaping () -> Promise<T>) -> Promise<T>
 {

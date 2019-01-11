@@ -68,6 +68,8 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'CoreLocation' do |ss|
+		ss.dependency 'Sluthware/Default'
+		
 		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'CoreLocation'
@@ -80,6 +82,8 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'simd' do |ss|
+		ss.dependency 'Sluthware/Default'
+		
 		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'simd'
@@ -92,11 +96,12 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'SceneKit' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Sluthware/simd'
+		
 		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'SceneKit'
-		
-		ss.dependency 'Sluthware/simd'
 		
 		ss.source_files = 'Sluthware/Classes/SceneKit/**/*'
 	end
@@ -106,11 +111,12 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'ARKit' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Sluthware/simd'
+		
 		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'ARKit'
-		
-		ss.dependency 'Sluthware/simd'
 		
 		ss.source_files = 'Sluthware/Classes/ARKit/**/*'
 	end
@@ -120,6 +126,7 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'RxSwift' do |ss|
+		ss.dependency 'Sluthware/Default'
 		ss.dependency 'RxSwift'
 		ss.dependency 'RxCocoa'
 		ss.dependency 'RxSwiftExt'
@@ -132,6 +139,7 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'PromiseKit' do |ss|
+		ss.dependency 'Sluthware/Default'
 		ss.dependency 'PromiseKit'
 		
 		ss.source_files = 'Sluthware/Classes/PromiseKit/**/*'
@@ -142,6 +150,7 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'Firebase' do |ss|
+		ss.dependency 'Sluthware/Default'
 		ss.dependency 'Firebase'
 		ss.dependency 'Firebase/Core'
 		ss.dependency 'Firebase/Auth'

@@ -22,43 +22,45 @@
     "osx": "10.11"
   },
   "static_framework": true,
+  "default_subspecs": "Default",
   "subspecs": [
     {
-      "name": "iOS",
-      "frameworks": [
-        "Foundation",
-        "CoreFoundation",
-        "CoreGraphics",
-        "CoreLocation",
-        "UIKit",
-        "SystemConfiguration"
-      ],
-      "resources": "Sluthware/Resources/UIKit/**/*",
-      "source_files": [
-        "Sluthware/Classes/Shared/**/*",
-        "Sluthware/Classes/Foundation/**/*",
-        "Sluthware/Classes/CoreGraphics/**/*",
-        "Sluthware/Classes/CoreLocation/**/*",
-        "Sluthware/Classes/UIKit/**/*",
-        "Sluthware/Classes/Reachability/**/*"
-      ]
-    },
-    {
-      "name": "OSX",
-      "frameworks": [
-        "Foundation",
-        "CoreFoundation",
-        "CoreGraphics",
-        "CoreLocation",
-        "SystemConfiguration"
-      ],
-      "source_files": [
-        "Sluthware/Classes/Shared/**/*",
-        "Sluthware/Classes/Foundation/**/*",
-        "Sluthware/Classes/CoreGraphics/**/*",
-        "Sluthware/Classes/CoreLocation/**/*",
-        "Sluthware/Classes/Reachability/**/*"
-      ]
+      "name": "Default",
+      "ios": {
+        "frameworks": [
+          "Foundation",
+          "CoreFoundation",
+          "CoreGraphics",
+          "CoreLocation",
+          "UIKit",
+          "SystemConfiguration"
+        ],
+        "resources": "Sluthware/Resources/UIKit/**/*",
+        "source_files": [
+          "Sluthware/Classes/Shared/**/*",
+          "Sluthware/Classes/Foundation/**/*",
+          "Sluthware/Classes/CoreGraphics/**/*",
+          "Sluthware/Classes/CoreLocation/**/*",
+          "Sluthware/Classes/UIKit/**/*",
+          "Sluthware/Classes/Reachability/**/*"
+        ]
+      },
+      "osx": {
+        "frameworks": [
+          "Foundation",
+          "CoreFoundation",
+          "CoreGraphics",
+          "CoreLocation",
+          "SystemConfiguration"
+        ],
+        "source_files": [
+          "Sluthware/Classes/Shared/**/*",
+          "Sluthware/Classes/Foundation/**/*",
+          "Sluthware/Classes/CoreGraphics/**/*",
+          "Sluthware/Classes/CoreLocation/**/*",
+          "Sluthware/Classes/Reachability/**/*"
+        ]
+      }
     },
     {
       "name": "CoreLocation",

@@ -1,5 +1,5 @@
 //
-//  FSDocument.swift
+//  FirestoreDocument.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2018-10-25.
@@ -17,17 +17,17 @@ import PromiseKit
 
 
 
-public final class FSDocument<T>: Codable
+public final class FirestoreDocument<T>: Codable
 	where T: Codable
 {
-	public typealias FSValueType = DocumentSnapshot.FSValueType<T>
+	public typealias Value = DocumentSnapshot.Value<T>
 	
 	
 	
 	
 	
 	public let path: String
-	public var reference: DocumentReference {
+	public var document: DocumentReference {
 		return Firestore.firestore().document(self.path)
 	}
 	
@@ -35,60 +35,60 @@ public final class FSDocument<T>: Codable
 	
 	
 	
-	internal init(_ reference: DocumentReference)
+	internal init(_ document: DocumentReference)
 	{
-		self.path = reference.path
+		self.path = document.path
 	}
 	
 	@discardableResult
-	public func setValue(_ value: T, _ batch: WriteBatch? = nil) -> Promise<T>
+	public func setValue(_ value: T, _ batch: WriteBatch? = nil) -> Promise<FirestoreDocument<T>>
 	{
-		return Promise { promise in
+		return Promise { resolver in
 			do {
 				let data = try value.encode(Firestore.DataType.self)
 				
 				if let batch = batch {
-					batch.setData(data, forDocument: self.reference)
-					promise.fulfill(value)
+					batch.setData(data, forDocument: self.document)
+					resolver.fulfill(self)
 				} else {
-					self.reference.setData(data) { error in
+					self.document.setData(data) { error in
 						if let error = error {
-							promise.reject(error)
+							resolver.reject(error)
 						} else {
-							promise.fulfill(value)
+							resolver.fulfill(self)
 						}
 					}
 				}
 			} catch {
-				promise.reject(error)
+				resolver.reject(error)
 			}
 		}
 	}
 	
 	@discardableResult
-	public func delete(_ batch: WriteBatch? = nil) -> Promise<Void>
+	public func delete(_ batch: WriteBatch? = nil) -> Promise<FirestoreDocument<T>>
 	{
-		return Promise { promise in
+		return Promise { resolver in
 			if let batch = batch {
-				batch.deleteDocument(self.reference)
-				promise.fulfill()
+				batch.deleteDocument(self.document)
+				resolver.fulfill(self)
 			} else {
-				self.reference.delete(completion: { error in
+				self.document.delete(completion: { error in
 					if let error = error {
-						promise.reject(error)
+						resolver.reject(error)
 					} else {
-						promise.fulfill()
+						resolver.fulfill(self)
 					}
 				})
 			}
 		}
 	}
 	
-	public func valueObservable() -> Observable<FSValueType>
+	public func observable() -> Observable<Value>
 	{
 		return Observable.create { observable in
 			
-			let disposable = self.reference
+			let disposable = self.document
 				.snapshotObservable()
 				.subscribe(onNext: { snapshot in
 					do {
