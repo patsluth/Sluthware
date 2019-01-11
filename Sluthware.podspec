@@ -167,6 +167,7 @@ Pod::Spec.new do |s|
 	# Add the following line to the Podfile
 	# source 'https://github.com/ABTSoftware/PodSpecs.git'
 	s.subspec 'SciChart' do |ss|
+		ss.dependency 'Sluthware/Default'
 		ss.dependency 'SciChart'
 		
 		ss.source_files = 'Sluthware/Classes/SciChart/**/*'
@@ -177,6 +178,7 @@ Pod::Spec.new do |s|
 	
 	
 	s.subspec 'API' do |ss|
+		ss.dependency 'Sluthware/Default'
 		ss.dependency 'Alamofire'
 		ss.dependency 'PromiseKit'
 		
