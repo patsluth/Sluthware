@@ -12,7 +12,7 @@ import Foundation
 
 
 
-public final class FractionAttributedFormatter: AttributedFormatterProtocol
+public final class FractionFormatter: AttributedFormatterProtocol
 {
 	public typealias Value = Fraction
 	
@@ -22,7 +22,6 @@ public final class FractionAttributedFormatter: AttributedFormatterProtocol
 	
 	public var font = Font.systemFont(ofSize: Font.systemFontSize)
 	public var useProperFractions = true
-//	public var useProperFractions = true
 	
 	
 	
