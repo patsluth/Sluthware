@@ -30,16 +30,16 @@ public extension UIApplication
 		    </LicenseContract>
 		    """
 		let trialLicenceKey = """
-    		<LicenseContract>
-    		<Customer>patrick.sluth@ucalgary.ca</Customer>
-    		<OrderId>Trial</OrderId>
-    		<LicenseCount>1</LicenseCount>
-    		<IsTrialLicense>true</IsTrialLicense>
-    		<SupportExpires>11/20/2018 00:00:00</SupportExpires>
-    		<ProductCode>SC-IOS-2D-ENTERPRISE-SRC</ProductCode>
-    		<KeyCode>af9535e4b2b68813af5f426810e8e78bb2a933d0221dd950f6869305770600d93751e26fcbddc45b47759ac2d03e3f4c459ede80682ae0ee2c76f473de75071b0a891fc24d2ff6cff83c839868d317bfee21138072359504326246bed74fd4bd1ca57969e414b29941a3ef836bf1996fda48b986cd444c7ef78808a7d0b70a8b76f77d0c313cc26698c145683acc6f3fae88ef9400402915e2125f33f2de56803a6b76c7bae91e797a93cae476d19c</KeyCode>
-    		</LicenseContract>
-    		"""
+		    <LicenseContract>
+		    <Customer>pat.sluth@gmail.com</Customer>
+		    <OrderId>Trial</OrderId>
+		    <LicenseCount>1</LicenseCount>
+		    <IsTrialLicense>true</IsTrialLicense>
+		    <SupportExpires>02/11/2019 00:00:00</SupportExpires>
+		    <ProductCode>SC-IOS-2D-ENTERPRISE-SRC</ProductCode>
+		    <KeyCode>78dd1cce12ac22bee97134b771f0f5e1f51fccde1e36f5250f5c12fb0364653f96bb0e7719f6785c505ddbb2b9e0b87baf68ca3c9627b889d477c867cefa64f9a44b7a695538413bbc31a3ea03b1bdb0da30951a85b2e39a1b5d52a1be15fadb8a4757727c53c895547e1c85600844a03a7084e65daf6923f52a1573aea40fa0273083868cc5a6526dc3f7025e33597b9f0567d1bbacbe34c77ab3fa97b78782cbafddb966df37ea04</KeyCode>
+		    </LicenseContract>
+		    """
 		
 		SCIChartSurface.setRuntimeLicenseKey(trialLicenceKey)
 		SCIChartSurface.setDisplayLinkRunLoopMode(.common)

@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 	s.swift_version = '4.2'
 
 	s.ios.deployment_target = '9.0'
-	#s.osx.deployment_target = '10.11'
+	s.osx.deployment_target = '10.11'
 
 	s.static_framework = true
 
@@ -67,60 +67,60 @@ Pod::Spec.new do |s|
 
 
 
-	# s.subspec 'CoreLocation' do |ss|
-	# 	ss.dependency 'Sluthware/Default'
-	#
-	# 	ss.frameworks = 'Foundation',
-	# 	'CoreFoundation',
-	# 	'CoreLocation'
-	#
-	# 	ss.ios.source_files = 'Sluthware/Classes/CoreLocation/**/*'
-	# end
-	#
-	#
-	#
-	#
-	#
-	# s.subspec 'simd' do |ss|
-	# 	ss.dependency 'Sluthware/Default'
-	#
-	# 	ss.frameworks = 'Foundation',
-	# 	'CoreFoundation',
-	# 	'simd'
-	#
-	# 	ss.ios.source_files = 'Sluthware/Classes/simd/**/*'
-	# end
-	#
-	#
-	#
-	#
-	#
-	# s.subspec 'SceneKit' do |ss|
-	# 	ss.dependency 'Sluthware/Default'
-	# 	ss.dependency 'Sluthware/simd'
-	#
-	# 	ss.frameworks = 'Foundation',
-	# 	'CoreFoundation',
-	# 	'SceneKit'
-	#
-	# 	ss.ios.source_files = 'Sluthware/Classes/SceneKit/**/*'
-	# end
-	#
-	#
-	#
-	#
-	#
-	# s.subspec 'ARKit' do |ss|
-	# 	ss.dependency 'Sluthware/Default'
-	# 	ss.dependency 'Sluthware/SceneKit'
-	# 	ss.dependency 'Sluthware/simd'
-	#
-	# 	ss.frameworks = 'Foundation',
-	# 	'CoreFoundation',
-	# 	'ARKit'
-	#
-	# 	ss.ios.source_files = 'Sluthware/Classes/ARKit/**/*'
-	# end
+	s.subspec 'CoreLocation' do |ss|
+		ss.dependency 'Sluthware/Default'
+
+		ss.frameworks = 'Foundation',
+		'CoreFoundation',
+		'CoreLocation'
+
+		ss.ios.source_files = 'Sluthware/Classes/CoreLocation/**/*'
+	end
+
+
+
+
+
+	s.subspec 'simd' do |ss|
+		ss.dependency 'Sluthware/Default'
+
+		ss.frameworks = 'Foundation',
+		'CoreFoundation',
+		'simd'
+
+		ss.ios.source_files = 'Sluthware/Classes/simd/**/*'
+	end
+
+
+
+
+
+	s.subspec 'SceneKit' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Sluthware/simd'
+
+		ss.frameworks = 'Foundation',
+		'CoreFoundation',
+		'SceneKit'
+
+		ss.ios.source_files = 'Sluthware/Classes/SceneKit/**/*'
+	end
+
+
+
+
+
+	s.subspec 'ARKit' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Sluthware/SceneKit'
+		ss.dependency 'Sluthware/simd'
+
+		ss.frameworks = 'Foundation',
+		'CoreFoundation',
+		'ARKit'
+
+		ss.ios.source_files = 'Sluthware/Classes/ARKit/**/*'
+	end
 
 
 
@@ -174,24 +174,24 @@ Pod::Spec.new do |s|
 
 	# Add the following line to the Podfile
 	# source 'https://github.com/ABTSoftware/PodSpecs.git'
-	# s.subspec 'SciChart' do |ss|
-	# 	ss.dependency 'Sluthware/Default'
-	# 	ss.ios.dependency 'SciChart'
-	#
-	# 	ss.ios.source_files = 'Sluthware/Classes/SciChart/**/*'
-	# end
-	#
-	#
-	#
-	#
-	#
-	# s.subspec 'API' do |ss|
-	# 	ss.dependency 'Sluthware/Default'
-	# 	ss.dependency 'Alamofire'
-	# 	ss.dependency 'PromiseKit'
-	#
-	# 	ss.source_files = 'Sluthware/Classes/API/**/*'
-	# end
+	s.subspec 'SciChart' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.ios.dependency 'SciChart'
+
+		ss.ios.source_files = 'Sluthware/Classes/SciChart/**/*'
+	end
+
+
+
+
+
+	s.subspec 'API' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Alamofire'
+		ss.dependency 'PromiseKit'
+
+		ss.source_files = 'Sluthware/Classes/API/**/*'
+	end
 
 
 
