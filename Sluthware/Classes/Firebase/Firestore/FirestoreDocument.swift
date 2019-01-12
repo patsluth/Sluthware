@@ -91,11 +91,7 @@ public final class FirestoreDocument<T>: Codable
 			let disposable = self.document
 				.snapshotObservable()
 				.subscribe(onNext: { snapshot in
-					do {
-						observable.onNext(try snapshot.decodeValue())
-					} catch {
-						observable.onError(error)
-					}
+					observable.onNext(snapshot.decodeValue())
 				})
 			
 			return Disposables.create {
