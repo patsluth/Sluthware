@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.8.0)
   - PromiseKit (6.7.1):
     - PromiseKit/CorePromise (= 6.7.1)
     - PromiseKit/Foundation (= 6.7.1)
@@ -24,26 +23,23 @@ PODS:
     - RxSwiftExt/Core
   - Sluthware (1.0.31):
     - Sluthware/Default (= 1.0.31)
-  - Sluthware/API (1.0.31):
-    - Alamofire
-    - PromiseKit
   - Sluthware/Default (1.0.31)
   - Sluthware/PromiseKit (1.0.31):
     - PromiseKit
+    - Sluthware/Default
   - Sluthware/RxSwift (1.0.31):
     - RxCocoa
     - RxSwift
     - RxSwiftExt
+    - Sluthware/Default
 
 DEPENDENCIES:
   - Sluthware (from `../`)
-  - Sluthware/API (from `../`)
   - Sluthware/PromiseKit (from `../`)
   - Sluthware/RxSwift (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
     - PromiseKit
     - RxAtomic
     - RxCocoa
@@ -55,14 +51,13 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   PromiseKit: ef376fb8b4e92edfeb66bd403b983eaa07fbde0c
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
-  Sluthware: 40d4a2d7859cd385a4067ae15735ff6654ab946d
+  Sluthware: e6bb2ed3380169c50367e924b694d66e00164a11
 
-PODFILE CHECKSUM: 220f01051b80fd46eb0c15683f95ffbea872eee8
+PODFILE CHECKSUM: 49818cb0e9e681914351896f9f5560f608e23300
 
 COCOAPODS: 1.6.0.beta.2

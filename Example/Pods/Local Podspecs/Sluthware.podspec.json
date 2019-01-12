@@ -12,7 +12,7 @@
     "patsluth": "pat.sluth@gmail.com"
   },
   "source": {
-    "git": "https://github.com/patsluth/Sluthware",
+    "git": "https://github.com/patsluth/Sluthware.git",
     "tag": "1.0.31"
   },
   "social_media_url": "https://twitter.com/patsluth",
@@ -63,54 +63,11 @@
       }
     },
     {
-      "name": "CoreLocation",
-      "frameworks": [
-        "Foundation",
-        "CoreFoundation",
-        "CoreLocation"
-      ],
-      "source_files": "Sluthware/Classes/CoreLocation/**/*"
-    },
-    {
-      "name": "simd",
-      "frameworks": [
-        "Foundation",
-        "CoreFoundation",
-        "simd"
-      ],
-      "source_files": "Sluthware/Classes/simd/**/*"
-    },
-    {
-      "name": "SceneKit",
-      "frameworks": [
-        "Foundation",
-        "CoreFoundation",
-        "SceneKit"
-      ],
-      "dependencies": {
-        "Sluthware/simd": [
-
-        ]
-      },
-      "source_files": "Sluthware/Classes/SceneKit/**/*"
-    },
-    {
-      "name": "ARKit",
-      "frameworks": [
-        "Foundation",
-        "CoreFoundation",
-        "ARKit"
-      ],
-      "dependencies": {
-        "Sluthware/simd": [
-
-        ]
-      },
-      "source_files": "Sluthware/Classes/ARKit/**/*"
-    },
-    {
       "name": "RxSwift",
       "dependencies": {
+        "Sluthware/Default": [
+
+        ],
         "RxSwift": [
 
         ],
@@ -121,11 +78,21 @@
 
         ]
       },
-      "source_files": "Sluthware/Classes/RxSwift/**/*"
+      "ios": {
+        "frameworks": "UIKit",
+        "source_files": "Sluthware/Classes/RxSwift+iOS/**/*"
+      },
+      "source_files": "Sluthware/Classes/RxSwift/**/*",
+      "osx": {
+        "source_files": "Sluthware/Classes/RxSwift+macOS/**/*"
+      }
     },
     {
       "name": "PromiseKit",
       "dependencies": {
+        "Sluthware/Default": [
+
+        ],
         "PromiseKit": [
 
         ]
@@ -135,6 +102,15 @@
     {
       "name": "Firebase",
       "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Sluthware/RxSwift": [
+
+        ],
+        "Sluthware/PromiseKit": [
+
+        ],
         "Firebase": [
 
         ],
@@ -146,33 +122,15 @@
         ],
         "Firebase/Firestore": [
 
-        ],
-        "Sluthware/RxSwift": [
-
         ]
       },
-      "source_files": "Sluthware/Classes/Firebase/**/*"
-    },
-    {
-      "name": "SciChart",
-      "dependencies": {
-        "SciChart": [
-
-        ]
+      "source_files": "Sluthware/Classes/Firebase/**/*",
+      "ios": {
+        "source_files": "Sluthware/Classes/Firebase+iOS/**/*"
       },
-      "source_files": "Sluthware/Classes/SciChart/**/*"
-    },
-    {
-      "name": "API",
-      "dependencies": {
-        "Alamofire": [
-
-        ],
-        "PromiseKit": [
-
-        ]
-      },
-      "source_files": "Sluthware/Classes/API/**/*"
+      "osx": {
+        "source_files": "Sluthware/Classes/Firebase+macOS/**/*"
+      }
     }
   ]
 }

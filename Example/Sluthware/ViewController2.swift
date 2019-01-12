@@ -98,7 +98,7 @@ class ViewController2: UIViewController
 										  0 / 4,
 										  Fraction.NaN]
 			
-			let attributedFormatter = FractionAttributedFormatter() {
+			let attributedFormatter = FractionFormatter() {
 				$0.font = UIFont.systemFont(ofSize: 25.0)
 				$0.useProperFractions = true
 			}

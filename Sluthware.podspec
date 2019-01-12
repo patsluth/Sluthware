@@ -6,7 +6,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 
-# pod spec lint --sources='https://github.com/CocoaPods/Specs.git,https://github.com/ABTSoftware/PodSpecs.git'
+# pod lib lint --sources='https://github.com/CocoaPods/Specs.git,https://github.com/ABTSoftware/PodSpecs.git' --verbose --fail-fast
 Pod::Spec.new do |s|
     s.name             = 'Sluthware'
     s.version          = '1.0.31'
@@ -15,22 +15,22 @@ Pod::Spec.new do |s|
     s.homepage         = 'https://sluthware.com'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
     s.author           = { 'patsluth' => 'pat.sluth@gmail.com' }
-    s.source           = { :git => 'https://github.com/patsluth/Sluthware', :tag => s.version.to_s }
+    s.source           = { :git => 'https://github.com/patsluth/Sluthware.git', :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/patsluth'
 
 	s.swift_version = '4.2'
-	
+
 	s.ios.deployment_target = '9.0'
 	s.osx.deployment_target = '10.11'
-	
+
 	s.static_framework = true
-	
+
 	s.default_subspecs = 'Default'
-	
-	
-	
-	
-	
+
+
+
+
+
 	s.subspec 'Default' do |ss|
 		ss.ios.frameworks = 'Foundation',
 		'CoreFoundation',
@@ -38,155 +38,163 @@ Pod::Spec.new do |s|
 		'CoreLocation',
 		'UIKit',
 		'SystemConfiguration'
-		
+
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
-		
+
 		ss.ios.source_files = 'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
 		'Sluthware/Classes/UIKit/**/*',
 		'Sluthware/Classes/Reachability/**/*'
-		
-		
-		
+
+
+
 		ss.osx.frameworks = 'Foundation',
 		'CoreFoundation',
 		'CoreGraphics',
 		'CoreLocation',
 		'SystemConfiguration'
-		
+
 		ss.osx.source_files = 'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
 		'Sluthware/Classes/Reachability/**/*'
 	end
-	
-	
-	
-	
-	
-	s.subspec 'CoreLocation' do |ss|
-		ss.dependency 'Sluthware/Default'
-		
-		ss.frameworks = 'Foundation',
-		'CoreFoundation',
-		'CoreLocation'
-		
-		ss.source_files = 'Sluthware/Classes/CoreLocation/**/*'
-	end
-	
-	
-	
-	
-	
-	s.subspec 'simd' do |ss|
-		ss.dependency 'Sluthware/Default'
-		
-		ss.frameworks = 'Foundation',
-		'CoreFoundation',
-		'simd'
-		
-		ss.source_files = 'Sluthware/Classes/simd/**/*'
-	end
-	
-	
-	
-	
-	
-	s.subspec 'SceneKit' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'Sluthware/simd'
-		
-		ss.frameworks = 'Foundation',
-		'CoreFoundation',
-		'SceneKit'
-		
-		ss.source_files = 'Sluthware/Classes/SceneKit/**/*'
-	end
-	
-	
-	
-	
-	
-	s.subspec 'ARKit' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'Sluthware/simd'
-		
-		ss.frameworks = 'Foundation',
-		'CoreFoundation',
-		'ARKit'
-		
-		ss.source_files = 'Sluthware/Classes/ARKit/**/*'
-	end
-	
-	
-	
-	
-	
+
+
+
+
+
+	# s.subspec 'CoreLocation' do |ss|
+	# 	ss.dependency 'Sluthware/Default'
+	#
+	# 	ss.frameworks = 'Foundation',
+	# 	'CoreFoundation',
+	# 	'CoreLocation'
+	#
+	# 	ss.ios.source_files = 'Sluthware/Classes/CoreLocation/**/*'
+	# end
+	#
+	#
+	#
+	#
+	#
+	# s.subspec 'simd' do |ss|
+	# 	ss.dependency 'Sluthware/Default'
+	#
+	# 	ss.frameworks = 'Foundation',
+	# 	'CoreFoundation',
+	# 	'simd'
+	#
+	# 	ss.ios.source_files = 'Sluthware/Classes/simd/**/*'
+	# end
+	#
+	#
+	#
+	#
+	#
+	# s.subspec 'SceneKit' do |ss|
+	# 	ss.dependency 'Sluthware/Default'
+	# 	ss.dependency 'Sluthware/simd'
+	#
+	# 	ss.frameworks = 'Foundation',
+	# 	'CoreFoundation',
+	# 	'SceneKit'
+	#
+	# 	ss.ios.source_files = 'Sluthware/Classes/SceneKit/**/*'
+	# end
+	#
+	#
+	#
+	#
+	#
+	# s.subspec 'ARKit' do |ss|
+	# 	ss.dependency 'Sluthware/Default'
+	# 	ss.dependency 'Sluthware/SceneKit'
+	# 	ss.dependency 'Sluthware/simd'
+	#
+	# 	ss.frameworks = 'Foundation',
+	# 	'CoreFoundation',
+	# 	'ARKit'
+	#
+	# 	ss.ios.source_files = 'Sluthware/Classes/ARKit/**/*'
+	# end
+
+
+
+
+
 	s.subspec 'RxSwift' do |ss|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'RxSwift'
 		ss.dependency 'RxCocoa'
 		ss.dependency 'RxSwiftExt'
-		
+
+		ss.ios.frameworks = 'UIKit'
+
 		ss.source_files = 'Sluthware/Classes/RxSwift/**/*'
+		ss.ios.source_files = 'Sluthware/Classes/RxSwift+iOS/**/*'
+		ss.osx.source_files = 'Sluthware/Classes/RxSwift+macOS/**/*'
 	end
-	
-	
-	
-	
-	
+
+
+
+
+
 	s.subspec 'PromiseKit' do |ss|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'PromiseKit'
-		
+
 		ss.source_files = 'Sluthware/Classes/PromiseKit/**/*'
 	end
-	
-	
-	
-	
-	
+
+
+
+
+
 	s.subspec 'Firebase' do |ss|
 		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Sluthware/RxSwift'
+		ss.dependency 'Sluthware/PromiseKit'
 		ss.dependency 'Firebase'
 		ss.dependency 'Firebase/Core'
 		ss.dependency 'Firebase/Auth'
 		ss.dependency 'Firebase/Firestore'
-		ss.dependency 'Sluthware/RxSwift'
-		
+
 		ss.source_files = 'Sluthware/Classes/Firebase/**/*'
-	end
-	
-	
-	
-	
-	
-	# Add the following line to the Podfile
-	# source 'https://github.com/ABTSoftware/PodSpecs.git'
-	s.subspec 'SciChart' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'SciChart'
-		
-		ss.source_files = 'Sluthware/Classes/SciChart/**/*'
-	end
-	
-	
-	
-	
-	
-	s.subspec 'API' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'Alamofire'
-		ss.dependency 'PromiseKit'
-		
-		ss.source_files = 'Sluthware/Classes/API/**/*'
+		ss.ios.source_files = 'Sluthware/Classes/Firebase+iOS/**/*'
+		ss.osx.source_files = 'Sluthware/Classes/Firebase+macOS/**/*'
 	end
 
-	
-	
-	
-	
+
+
+
+
+	# Add the following line to the Podfile
+	# source 'https://github.com/ABTSoftware/PodSpecs.git'
+	# s.subspec 'SciChart' do |ss|
+	# 	ss.dependency 'Sluthware/Default'
+	# 	ss.ios.dependency 'SciChart'
+	#
+	# 	ss.ios.source_files = 'Sluthware/Classes/SciChart/**/*'
+	# end
+	#
+	#
+	#
+	#
+	#
+	# s.subspec 'API' do |ss|
+	# 	ss.dependency 'Sluthware/Default'
+	# 	ss.dependency 'Alamofire'
+	# 	ss.dependency 'PromiseKit'
+	#
+	# 	ss.source_files = 'Sluthware/Classes/API/**/*'
+	# end
+
+
+
+
+
 end

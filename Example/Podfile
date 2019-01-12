@@ -10,11 +10,12 @@ target 'Sluthware_Example' do
 #    inhibit_all_warnings!
 
     pod 'Sluthware', :path => '../'
-		pod 'Sluthware/API', :path => '../'
+#		pod 'Sluthware/API', :path => '../'
 		pod 'Sluthware/RxSwift', :path => '../'
 		pod 'Sluthware/PromiseKit', :path => '../'
-#		pod 'Sluthware/SciChart', :path => '../'
-#		pod 'Sluthware/Firebase', :path => '../'
+#		pod 'Sluthware/CoreLocation', :path => '../'
+#		pod 'Sluthware/SceneKit', :path => '../'
+#		pod 'Sluthware/simd', :path => '../'
 #		pod 'Sluthware/ARKit', :path => '../'
 
     target 'Sluthware_Tests' do
