@@ -21,7 +21,7 @@
     "ios": "9.0",
     "osx": "10.11"
   },
-  "static_framework": true,
+  "static_framework": false,
   "default_subspecs": "Default",
   "subspecs": [
     {
@@ -60,6 +60,79 @@
           "Sluthware/Classes/CoreLocation/**/*",
           "Sluthware/Classes/Reachability/**/*"
         ]
+      }
+    },
+    {
+      "name": "CoreLocation",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ]
+      },
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "CoreLocation"
+      ],
+      "ios": {
+        "source_files": "Sluthware/Classes/CoreLocation/**/*"
+      }
+    },
+    {
+      "name": "simd",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ]
+      },
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "simd"
+      ],
+      "ios": {
+        "source_files": "Sluthware/Classes/simd/**/*"
+      }
+    },
+    {
+      "name": "SceneKit",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Sluthware/simd": [
+
+        ]
+      },
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "SceneKit"
+      ],
+      "ios": {
+        "source_files": "Sluthware/Classes/SceneKit/**/*"
+      }
+    },
+    {
+      "name": "ARKit",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Sluthware/SceneKit": [
+
+        ],
+        "Sluthware/simd": [
+
+        ]
+      },
+      "frameworks": [
+        "Foundation",
+        "CoreFoundation",
+        "ARKit"
+      ],
+      "ios": {
+        "source_files": "Sluthware/Classes/ARKit/**/*"
       }
     },
     {
@@ -131,6 +204,37 @@
       "osx": {
         "source_files": "Sluthware/Classes/Firebase+macOS/**/*"
       }
+    },
+    {
+      "name": "SciChart",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ]
+      },
+      "ios": {
+        "dependencies": {
+          "SciChart": [
+
+          ]
+        },
+        "source_files": "Sluthware/Classes/SciChart/**/*"
+      }
+    },
+    {
+      "name": "API",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Alamofire": [
+
+        ],
+        "PromiseKit": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/API/**/*"
     }
   ]
 }

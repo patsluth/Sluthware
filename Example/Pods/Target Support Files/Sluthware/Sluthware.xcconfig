@@ -1,7 +1,8 @@
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/Sluthware
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit" "${PODS_CONFIGURATION_BUILD_DIR}/RxAtomic" "${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwiftExt"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
+OTHER_LDFLAGS = $(inherited) -framework "CoreFoundation" -framework "CoreGraphics" -framework "CoreLocation" -framework "Foundation" -framework "PromiseKit" -framework "RxAtomic" -framework "RxCocoa" -framework "RxSwift" -framework "RxSwiftExt" -framework "SystemConfiguration" -framework "UIKit"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -suppress-warnings
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}
