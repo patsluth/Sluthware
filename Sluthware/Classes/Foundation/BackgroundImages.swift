@@ -84,7 +84,7 @@ public final class BackgroundImages
 		self.imagesByImageName = imagesByImageName
 	}
 	
-	`
+	public subscript(name name: BackgroundImages.ImageName, size size: CGSize) -> FilePath?
 	{
 		#if os(iOS)
 

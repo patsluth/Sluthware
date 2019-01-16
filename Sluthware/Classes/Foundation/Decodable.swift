@@ -40,25 +40,19 @@ public extension Decodable
 	
 	
 	
-	static func decodePlist(_ fileURL: URL?) throws -> Self
+	static func decode(plistFileURL fileURL: URL) throws -> Self
 	{
-		var value: [AnyHashable: Any]
-		if let fileURL = fileURL {
-			value = [AnyHashable: Any](contentsOf: fileURL) ?? [:]
-			value["fileName"] = fileURL.fileName
-		} else {
-			value = [:]
-		}
-		
-		return try Self.decode(value)
+		return try Self.decode(try Data(contentsOf: fileURL))
+		//		var value: [AnyHashable: Any]
+		//		if let fileURL = fileURL {
+		//			value = [AnyHashable: Any](contentsOf: fileURL) ?? [:]
+		//			value["fileName"] = fileURL.fileName
+		//		} else {
+		//			value = [:]
+		//		}
+		//
+		//		return try Self.decode(value)
 	}
-	
-	#if canImport(Rswift)
-	static func decodePlist(_ fileResource: FileResource) throws -> Self
-	{
-		return try Self.decodePlist(fileURL: fileResource.url())
-	}
-	#endif
 }
 
 
