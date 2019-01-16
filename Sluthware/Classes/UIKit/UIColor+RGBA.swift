@@ -24,7 +24,7 @@ public extension UIColor
 		var b: CGFloat
 		var a: CGFloat
 		
-		var uiColor: UIColor {
+		public var uiColor: UIColor {
 			return UIColor(red: 	(0.0...1.0).clamp(self.r),
 						   green: 	(0.0...1.0).clamp(self.g),
 						   blue: 	(0.0...1.0).clamp(self.b),
@@ -47,6 +47,7 @@ public extension UIColor
 		return rgba
 	}
 }
+
 
 
 

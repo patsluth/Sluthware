@@ -24,10 +24,10 @@ public extension UIColor
 		var b: CGFloat
 		var a: CGFloat
 		
-		var uiColor: UIColor {
+		public var uiColor: UIColor {
 			return UIColor(hue: 		self.h,
 						   saturation:	self.s,
-						   brightness: 	self.b,
+						   brightness:	self.b,
 						   alpha: 		self.a)
 		}
 	}
@@ -46,6 +46,7 @@ public extension UIColor
 		return hsba
 	}
 }
+
 
 
 

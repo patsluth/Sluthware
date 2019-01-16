@@ -136,6 +136,31 @@ public extension DocumentReference
 			}
 		}
 	}
+	
+	public func fieldObservable<V>(fieldName: String, _ type: V.Type) -> Observable<V?>
+	{
+		return Observable.create { observable in
+			
+			let disposable = self
+				.snapshotObservable()
+				.subscribe(onNext: { snapshot in
+					let field = snapshot.get(fieldName) as? V
+					observable.onNext(field)
+				})
+			
+			return Disposables.create {
+				disposable.dispose()
+			}
+		}
+	}
+	
+	public func fieldObservable<V>(fieldName: String, defaultValue: V) -> Observable<V>
+	{
+		return self.fieldObservable(fieldName: fieldName, V.self)
+			.map({ value in
+				return value ?? defaultValue
+			})
+	}
 }
 
 

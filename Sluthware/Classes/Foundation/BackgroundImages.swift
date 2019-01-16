@@ -12,6 +12,7 @@ import Foundation
 
 
 
+/// 
 public final class BackgroundImages
 {
 	public typealias FilePath = String
