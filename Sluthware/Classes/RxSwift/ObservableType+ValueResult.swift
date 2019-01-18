@@ -30,9 +30,13 @@ public extension ObservableType
 			})
 	}
 	
-	public func asValue<T>() -> Observable<T>
+	public func asValue<T>(fallback: T? = nil) -> Observable<T>
 		where E == ValueResult<T>
 	{
+		if let fallback = fallback {
+			return self.map({ $0.value ?? fallback })
+		}
+		
 		return self
 			.materialize()
 			.flatMap({ event -> Observable<T> in

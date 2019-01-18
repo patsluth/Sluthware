@@ -19,7 +19,7 @@ import PromiseKit
 
 
 public final class FirestoreField<T>
-	where T: Codable
+	where T: Firestore.ModelType
 {
 	public let document: DocumentReference
 	public let name: String
@@ -39,7 +39,7 @@ public final class FirestoreField<T>
 	{
 		return Promise { resolver in
 			do {
-				let data = [self.name: try value.encode(Firestore.DataType.self)]
+				let data = try [self.name: value].encode(Firestore.DataType.self)
 				
 				if let batch = batch {
 					batch.setData(data, forDocument: self.document)
@@ -63,6 +63,7 @@ public final class FirestoreField<T>
 	public func delete(_ batch: WriteBatch? = nil) -> Promise<FirestoreField<T>>
 	{
 		return Promise { resolver in
+			
 			let data = [self.name: FieldValue.delete()]
 			
 			if let batch = batch {
@@ -82,19 +83,19 @@ public final class FirestoreField<T>
 	
 	public func observable() -> Observable<ValueResult<T>>
 	{
-		return Observable.create { [fieldName = self.name] observable in
+		return Observable.create({ observable in
 			
 			let disposable = self.document
 				.snapshotObservable()
 				.subscribe(onNext: { snapshot in
-					let field = snapshot.get(fieldName)
+					let field = snapshot.get(self.name)
 					observable.onNext(ValueResult(field))
 				})
 			
 			return Disposables.create {
 				disposable.dispose()
 			}
-		}
+		}).distinctUntilChanged()
 	}
 }
 

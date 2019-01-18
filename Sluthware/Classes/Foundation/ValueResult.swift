@@ -1,5 +1,5 @@
 //
-//  Value.swift
+//  ValueResult.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2018-06-20.
@@ -12,22 +12,16 @@ import Foundation
 
 
 
-public enum ValueResult<V>
+public enum ValueResult<T>
 {
-	public typealias ValueType = V
-	
-	
-	
-	
-	
-	case Success(V)
+	case Success(T)
 	case Failure(Error)
 	
 	
 	
 	
 	
-	public var value: ValueType? {
+	public var value: T? {
 		guard case let .Success(value) = self else { return nil }
 		return value
 	}
@@ -42,13 +36,26 @@ public enum ValueResult<V>
 
 
 
-extension ValueResult
-	where V: Decodable
+extension ValueResult: Equatable
+	where T: Equatable
 {
-	public init<T>(_ value: T)
+	public static func == (lhs: ValueResult<T>, rhs: ValueResult<T>) -> Bool
+	{
+		return lhs.value == rhs.value
+	}
+}
+
+
+
+
+
+extension ValueResult
+	where T: Decodable
+{
+	public init(_ value: Any)
 	{
 		do {
-			self = .Success(try V.decode(value))
+			self = .Success(try T.decode(value))
 		} catch {
 			self = .Failure(error)
 		}

@@ -21,22 +21,41 @@ import PromiseKit
 public extension Reactive
 	where Base: Auth
 {
-	public func currentUser(_ refreshToken: Bool = false) -> Observable<User?>
+//	public func currentUser(refreshToken: Bool = false) -> Observable<User?>
+//	{
+//		return Observable.create({ observable in
+//
+//			let listener = self.base.addStateDidChangeListener({ auth, user in
+//				guard let user = user else {
+//					observable.onNext(nil)
+//					return
+//				}
+//				guard refreshToken else {
+//					observable.onNext(user)
+//					return
+//				}
+//
+//				user.authToken(forceRefresh: refreshToken)
+//					.done({ _ in
+//						observable.onNext(user)
+//					})
+//					.catch({ _ in
+//						observable.onNext(nil)
+//					})
+//			})
+//
+//			return Disposables.create {
+//				self.base.removeStateDidChangeListener(listener)
+//			}
+//		}).distinctUntilChanged()
+//	}
+	
+	public func currentUser() -> Observable<User?>
 	{
 		return Observable.create({ observable in
+			
 			let listener = self.base.addStateDidChangeListener({ auth, user in
-				if let user = user {
-					observable.onNext(user)
-					//					user.getIDTokenForcingRefresh(true, completion: { token, error in
-					//						if let error = error {
-					//							print(#file.fileName, #function, error.localizedDescription)
-					//						} else {
-					//							observable.onNext(user)
-					//						}
-					//					})
-				} else {
-					observable.onNext(nil)
-				}
+				observable.onNext(user)
 			})
 			
 			return Disposables.create {
@@ -52,8 +71,7 @@ public extension Reactive
 			self.base.signIn(withEmail: email, password: password, completion: { result, error in
 				if let result = result {
 					resolver.fulfill(result)
-				} else  {
-					let error = error ?? Errors.Message("Login Failed")
+				} else if let error = error {
 					resolver.reject(error)
 				}
 			})
@@ -67,14 +85,13 @@ public extension Reactive
 			self.base.createUser(withEmail: email, password: password, completion: { result, error in
 				if let result = result {
 					resolver.fulfill(result)
-				} else {
-					let error = error ?? Errors.Message("Register Failed")
+				} else if let error = error {
 					if AuthErrorCode(rawValue: error._code) == AuthErrorCode.emailAlreadyInUse {
 						self.login(email, password)
-							.done({ result in
-								resolver.fulfill(result)
-							}).catch({ error in
-								resolver.reject(error)
+							.done({
+								resolver.fulfill($0)
+							}).catch({
+								resolver.reject($0)
 							})
 					} else {
 						resolver.reject(error)

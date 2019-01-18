@@ -18,7 +18,7 @@ import PromiseKit
 
 
 public final class FirestoreDocument<T>: Codable
-	where T: Codable
+	where T: Firestore.ModelType
 {
 	public typealias Value = DocumentSnapshot.Value<T>
 	

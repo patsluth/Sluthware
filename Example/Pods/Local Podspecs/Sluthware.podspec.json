@@ -21,7 +21,7 @@
     "ios": "9.0",
     "osx": "10.11"
   },
-  "static_framework": false,
+  "static_framework": true,
   "default_subspecs": "Default",
   "subspecs": [
     {

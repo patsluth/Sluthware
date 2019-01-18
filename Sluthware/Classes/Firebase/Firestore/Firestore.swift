@@ -17,9 +17,10 @@ import PromiseKit
 
 
 
-internal extension Firestore
+public extension Firestore
 {
-	typealias DataType = [String: Any]
+	public typealias DataType = [String: Any]
+	public typealias ModelType = Codable & Equatable
 }
 
 
@@ -67,13 +68,13 @@ public extension CollectionReference
 {
 	public func documentOf<T>(_ type: T.Type,
 							  _ named: String = "\(T.self)".lowercased()) -> FirestoreDocument<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
 		return FirestoreDocument<T>(self.document(named))
 	}
 	
 	public func asCollectionOf<T>(_ type: T.Type) -> FirestoreCollection<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
 		return FirestoreCollection<T>(self)
 	}
@@ -86,30 +87,30 @@ public extension CollectionReference
 public extension DocumentReference
 {
 	public func asDocumentOf<T>(_ type: T.Type) -> FirestoreDocument<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
 		return FirestoreDocument<T>(self)
 	}
 	
 	public func collectionOf<T>(_ type: T.Type,
 								_ named: String = "\(T.self)s".lowercased()) -> FirestoreCollection<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
 		return FirestoreCollection<T>(self, named)
 	}
 	
 	public func fieldOf<T>(_ type: T.Type,
 						   _ named: String = "\(T.self)".lowercased()) -> FirestoreField<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
 		return FirestoreField<T>(self, named)
 	}
 	
-	public func snapshotPromise() -> Promise<DocumentSnapshot>
+	public func snapshotPromise(source: FirestoreSource = .default) -> Promise<DocumentSnapshot>
 	{
 		return Promise { resolver in
 			
-			self.getDocument(completion: { snapshot, error in
+			self.getDocument(source: source, completion: { snapshot, error in
 				if let snapshot = snapshot {
 					resolver.fulfill(snapshot)
 				} else if let error = error {
@@ -137,30 +138,30 @@ public extension DocumentReference
 		}
 	}
 	
-	public func fieldObservable<V>(fieldName: String, _ type: V.Type) -> Observable<V?>
-	{
-		return Observable.create { observable in
-			
-			let disposable = self
-				.snapshotObservable()
-				.subscribe(onNext: { snapshot in
-					let field = snapshot.get(fieldName) as? V
-					observable.onNext(field)
-				})
-			
-			return Disposables.create {
-				disposable.dispose()
-			}
-		}
-	}
+//	public func fieldObservable<V>(fieldName: String, _ type: V.Type) -> Observable<V?>
+//	{
+//		return Observable.create { observable in
+//
+//			let disposable = self
+//				.snapshotObservable()
+//				.subscribe(onNext: { snapshot in
+//					let field = snapshot.get(fieldName) as? V
+//					observable.onNext(field)
+//				})
+//
+//			return Disposables.create {
+//				disposable.dispose()
+//			}
+//		}
+//	}
 	
-	public func fieldObservable<V>(fieldName: String, defaultValue: V) -> Observable<V>
-	{
-		return self.fieldObservable(fieldName: fieldName, V.self)
-			.map({ value in
-				return value ?? defaultValue
-			})
-	}
+//	public func fieldObservable<V>(fieldName: String, defaultValue: V) -> Observable<V>
+//	{
+//		return self.fieldObservable(fieldName: fieldName, V.self)
+//			.map({ value in
+//				return value ?? defaultValue
+//			})
+//	}
 }
 
 
@@ -170,10 +171,10 @@ public extension DocumentReference
 public extension QuerySnapshot
 {
 	public typealias Value<T> = [DocumentChange.Value<T>]
-		where T: Codable
+		where T: Firestore.ModelType
 	
 	func decodeValues<T>() -> Value<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
 		return self.documentChanges.map({
 			$0.decodeValue()
@@ -188,12 +189,13 @@ public extension QuerySnapshot
 public extension DocumentChange
 {
 	public typealias Value<T> = (change: DocumentChange, snapshot: DocumentSnapshot.Value<T>)
-		where T: Codable
+		where T: Firestore.ModelType
 	
 	public func decodeValue<T>() -> Value<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
-		return (change: self, snapshot: self.document.decodeValue())
+		return (change: self,
+				snapshot: self.document.decodeValue())
 	}
 }
 
@@ -204,14 +206,13 @@ public extension DocumentChange
 public extension DocumentSnapshot
 {
 	public typealias Value<T> = (document: FirestoreDocument<T>, result: ValueResult<T>)
-		where T: Codable
+		where T: Firestore.ModelType
 	
 	public func decodeValue<T>() -> Value<T>
-		where T: Codable
+		where T: Firestore.ModelType
 	{
-		let document = FirestoreDocument<T>(self.reference)
-		let result = ValueResult<T>(self.data())
-		return (document: document, result: result)
+		return (document: FirestoreDocument<T>(self.reference),
+				result: ValueResult<T>(self.data()))
 	}
 }
 
@@ -225,6 +226,7 @@ public extension WriteBatch
 	public func commitPromise() -> Promise<Void>
 	{
 		return Promise { resolver in
+			
 			self.commit(completion: { error in
 				if let error = error {
 					resolver.reject(error)

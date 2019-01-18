@@ -20,17 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	var window: UIWindow?
 	
 	
-	
+	struct TestD: Codable {
+		let a: String
+		let b: Int
+	}
 	
 	
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
-		let a = Fraction(2, 1)
-		let b = Fraction(14, 29)
-		print((a - b).asMixedNumber())
-//		print(5.0 < Double.nan)
-//		print(5.0 < Double.infinity)
+		let a = "PAT"// as Any
+		do {
+			print(try ["test": a].encode([String: Any].self))
+			print(try ["test2": TestD.init(a: "P", b: 7)].encode([String: Any].self))
+		} catch {
+			print(error)
+		}
 		
 		return true
 	}
