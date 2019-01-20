@@ -33,21 +33,7 @@ public extension Decodable
 			}
 		}
 		
-		throw Errors.Message("\(String(describing: Self.self)) \(#function) failed")
-	}
-	
-	static func decode(plistFileURL fileURL: URL) throws -> Self
-	{
-		return try Self.decode(try Data(contentsOf: fileURL))
-		//		var value: [AnyHashable: Any]
-		//		if let fileURL = fileURL {
-		//			value = [AnyHashable: Any](contentsOf: fileURL) ?? [:]
-		//			value["fileName"] = fileURL.fileName
-		//		} else {
-		//			value = [:]
-		//		}
-		//
-		//		return try Self.decode(value)
+		throw Errors.Decoding(T.self, [])
 	}
 }
 

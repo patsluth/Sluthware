@@ -149,11 +149,11 @@ Pod::Spec.new do |s|
 
 		ss.source_files = 'Sluthware/Classes/PromiseKit/**/*'
 	end
-
-
-
-
-
+	
+	
+	
+	
+	
 	s.subspec 'Firebase' do |ss|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'Sluthware/RxSwift'
@@ -161,11 +161,36 @@ Pod::Spec.new do |s|
 		ss.dependency 'Firebase'
 		ss.dependency 'Firebase/Core'
 		ss.dependency 'Firebase/Auth'
+		
+		ss.source_files = 'Sluthware/Classes/Firebase/Auth/**/*'
+	end
+	
+	
+	
+	
+	
+	s.subspec 'FirebaseFirestore' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Sluthware/RxSwift'
+		ss.dependency 'Sluthware/PromiseKit'
+		ss.dependency 'Sluthware/Firebase'
 		ss.dependency 'Firebase/Firestore'
-
-		ss.source_files = 'Sluthware/Classes/Firebase/**/*'
-		ss.ios.source_files = 'Sluthware/Classes/Firebase+iOS/**/*'
-		ss.osx.source_files = 'Sluthware/Classes/Firebase+macOS/**/*'
+		
+		ss.source_files = 'Sluthware/Classes/Firebase/Firestore/**/*'
+	end
+	
+	
+	
+	
+	
+	s.subspec 'FirebaseFunctions' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Sluthware/PromiseKit'
+		ss.dependency 'Firebase'
+		ss.dependency 'Firebase/Core'
+		ss.dependency 'Firebase/Functions'
+		
+		ss.source_files = 'Sluthware/Classes/Firebase/Functions/**/*'
 	end
 
 

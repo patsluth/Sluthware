@@ -18,7 +18,7 @@ public extension Error
 					function: String = #function,
 					line: Int = #line)
 	{
-		print(file, function, line, self)
+		print(file.fileNameFull, function, line, self)
 	}
 }
 

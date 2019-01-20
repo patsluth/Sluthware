@@ -33,7 +33,7 @@ public extension Encodable
 			}
 		}
 		
-		throw Errors.Message("\(String(describing: Self.self)) \(#function) failed")
+		throw Errors.Encoding(type, [])
 	}
 }
 

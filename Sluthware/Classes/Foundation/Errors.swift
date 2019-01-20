@@ -17,38 +17,28 @@ public enum Errors: Error
 	case Init
 	case Message(String)
 	case Decoding(Any.Type, [CodingKey])
+	case Encoding(Any.Type, [CodingKey])
 }
 
 
 
 
 
-//extension Errors: CustomStringConvertible
-//{
-//	public var description: String {
-//		var description = String(describing: Errors.self) + "."
-//		switch self {
-//		case Errors.Init:
-//			description += "Init"
-//			break
-//		case Errors.Message(let message):
-//			description += "Message(" + message + ")"
-//			break
-//		}
-//		return description
-//	}
-//}
-//
-//
-//
-//
-//
-//extension Errors: CustomDebugStringConvertible
-//{
-//	public var debugDescription: String {
-//		return self.description
-//	}
-//}
+extension Errors: CustomStringConvertible
+{
+	public var description: String {
+		switch self {
+		case Errors.Init:
+			return "Error.Init"
+		case Errors.Message(let message):
+			return "Error.Message(\(message))"
+		case Errors.Decoding(let type, let codingPath):
+			return "Error.Decoding(\(type) \(String(codingPath, ",")))"
+		case Errors.Encoding(let type, let codingPath):
+			return "Error.Encoding(\(type) \(String(codingPath, ",")))"
+		}
+	}
+}
 
 
 

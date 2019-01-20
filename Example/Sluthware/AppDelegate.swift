@@ -11,6 +11,31 @@ import UIKit
 @_exported import Sluthware
 
 
+open class TEST
+{
+	typealias X = Int
+	
+	init(a: String){
+		print(X.self)
+	}
+}
+
+class TEST2: TEST
+{
+	typealias X = UIView
+	
+	private override init(a: String)
+	{
+		print(X.self)
+		super.init(a: a)
+	}
+	
+	convenience init()
+	{
+		self.init(a: "A")
+	}
+}
+
 
 
 
@@ -29,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
+		TEST.init(a: "YYYr")
+		TEST2.init()
 		let a = "PAT"// as Any
 		do {
 			print(try ["test": a].encode([String: Any].self))
