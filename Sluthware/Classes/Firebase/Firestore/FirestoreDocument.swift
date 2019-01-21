@@ -84,12 +84,21 @@ public final class FirestoreDocument<T>: Codable
 		}
 	}
 	
-	public func observable() -> Observable<Value>
+	public func valuePromise(source: FirestoreSource = .default) -> Promise<Value>
+	{
+		return self.document
+			.snapshotPromise(source: source)
+			.map({ snapshot in
+				snapshot.decodeValue()
+			})
+	}
+	
+	public func valueObservable(includeMetadataChanges changes: Bool = false) -> Observable<Value>
 	{
 		return Observable.create { observable in
 			
 			let disposable = self.document
-				.snapshotObservable()
+				.snapshotObservable(includeMetadataChanges: changes)
 				.subscribe(onNext: { snapshot in
 					observable.onNext(snapshot.decodeValue())
 				})

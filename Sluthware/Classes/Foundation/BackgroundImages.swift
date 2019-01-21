@@ -38,7 +38,9 @@ public final class BackgroundImages
 		
 		
 		
-		guard let directoryPath = directoryURL?.resolvingSymlinksInPath().path else { throw Errors.Init }
+		guard let directoryPath = directoryURL?.resolvingSymlinksInPath().path else {
+			throw Errors.Init(type(of: self))
+		}
 		let subDirectoryPaths = try fm.contentsOfDirectory(atPath: directoryPath)
 		
 		for subDirectoryPath in subDirectoryPaths {

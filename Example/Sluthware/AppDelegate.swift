@@ -11,30 +11,7 @@ import UIKit
 @_exported import Sluthware
 
 
-open class TEST
-{
-	typealias X = Int
-	
-	init(a: String){
-		print(X.self)
-	}
-}
 
-class TEST2: TEST
-{
-	typealias X = UIView
-	
-	private override init(a: String)
-	{
-		print(X.self)
-		super.init(a: a)
-	}
-	
-	convenience init()
-	{
-		self.init(a: "A")
-	}
-}
 
 
 
@@ -50,16 +27,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 		let b: Int
 	}
 	
+	struct ETYPE: Codable
+	{
+	}
+	
 	
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
-		TEST.init(a: "YYYr")
-		TEST2.init()
-		let a = "PAT"// as Any
+		let eee = ETYPE.self as Any.Type
+		if let bbb = eee as? Decodable.Type {
+			bbb.decode(<#T##value: T##T#>)
+//			bbb
+		}
+		
 		do {
-			print(try ["test": a].encode([String: Any].self))
-			print(try ["test2": TestD.init(a: "P", b: 7)].encode([String: Any].self))
+//			print(try ETYPE?.decode([:]))
+			print(try ETYPE.decode([]))
+//			print(try ETYPE().encode([String: Any]?.self))
+//			print(try ["test": a].encode([String: Any].self))
+//			print(try ["test2": TestD.init(a: "P", b: 7)].encode([String: Any].self))
 		} catch {
 			print(error)
 		}

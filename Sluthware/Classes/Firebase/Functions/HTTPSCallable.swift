@@ -1,5 +1,5 @@
 //
-//  HTTPSCallable+promise.swift
+//  HTTPSCallable.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2018-10-25.
@@ -8,7 +8,6 @@
 
 import Foundation
 
-import Firebase
 import FirebaseFunctions
 import PromiseKit
 

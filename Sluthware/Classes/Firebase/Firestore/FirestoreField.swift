@@ -81,21 +81,29 @@ public final class FirestoreField<T>
 		}
 	}
 	
-	public func observable() -> Observable<ValueResult<T>>
+	public func valuePromise(source: FirestoreSource = .default) -> Promise<ValueResult<T>>
 	{
-		return Observable.create({ observable in
-			
-			let disposable = self.document
-				.snapshotObservable()
-				.subscribe(onNext: { snapshot in
-					let field = snapshot.get(self.name)
-					observable.onNext(ValueResult(field))
-				})
-			
-			return Disposables.create {
-				disposable.dispose()
-			}
-		}).distinctUntilChanged()
+		return self.document
+			.snapshotPromise(source: source)
+			.map({ snapshot in
+				snapshot.get(self.name)
+			})
+			.map({ field in
+				ValueResult(field)
+			})
+	}
+	
+	public func valueObservable(includeMetadataChanges changes: Bool = false) -> Observable<ValueResult<T>>
+	{
+		return self.document
+			.snapshotObservable(includeMetadataChanges: changes)
+			.map({ snapshot in
+				snapshot.get(self.name)
+			})
+			.map({ field in
+				ValueResult(field)
+			})
+			.distinctUntilChanged()
 	}
 }
 

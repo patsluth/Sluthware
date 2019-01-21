@@ -12,6 +12,15 @@ import Foundation
 
 
 
+public enum ValueResultError: Error
+{
+	case InvalidInitParamaters
+}
+
+
+
+
+
 public enum ValueResult<T>
 {
 	case Success(T)
@@ -29,6 +38,17 @@ public enum ValueResult<T>
 	public var error: Error? {
 		guard case let .Failure(error) = self else { return nil }
 		return error
+	}
+	
+	public init?(_ value: T?, _ error: Error?)
+	{
+		if let value = value, error == nil {
+			self = .Success(value)
+		} else if let error = error, value == nil {
+			self = .Failure(error)
+		} else {
+			return nil
+		}
 	}
 }
 

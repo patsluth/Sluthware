@@ -192,18 +192,51 @@
         ],
         "Firebase/Auth": [
 
+        ]
+      },
+      "source_files": "Sluthware/Classes/Firebase/Auth/**/*"
+    },
+    {
+      "name": "FirebaseFirestore",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Sluthware/RxSwift": [
+
+        ],
+        "Sluthware/PromiseKit": [
+
+        ],
+        "Sluthware/Firebase": [
+
         ],
         "Firebase/Firestore": [
 
         ]
       },
-      "source_files": "Sluthware/Classes/Firebase/**/*",
-      "ios": {
-        "source_files": "Sluthware/Classes/Firebase+iOS/**/*"
+      "source_files": "Sluthware/Classes/Firebase/Firestore/**/*"
+    },
+    {
+      "name": "FirebaseFunctions",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Sluthware/PromiseKit": [
+
+        ],
+        "Firebase": [
+
+        ],
+        "Firebase/Core": [
+
+        ],
+        "Firebase/Functions": [
+
+        ]
       },
-      "osx": {
-        "source_files": "Sluthware/Classes/Firebase+macOS/**/*"
-      }
+      "source_files": "Sluthware/Classes/Firebase/Functions/**/*"
     },
     {
       "name": "SciChart",

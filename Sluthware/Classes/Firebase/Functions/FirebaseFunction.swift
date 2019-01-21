@@ -8,7 +8,6 @@
 
 import Foundation
 
-import Firebase
 import FirebaseFunctions
 import PromiseKit
 
@@ -16,20 +15,30 @@ import PromiseKit
 
 
 
-public protocol APIErrorCodeProtocol: RawRepresentable & Decodable
-	where Self.RawValue: Decodable
-{
-	
-}
 
-public protocol AnyAPIError: Error & Decodable
-{
-}
 
-public protocol APIErrorProtocol: AnyAPIError
-{
-	associatedtype CodeType: APIErrorCodeProtocol
-}
+// TODO: Move to Default
+//public protocol DecodableError: Error & Decodable
+//{
+//}
+public typealias DecodableError = (Error & Decodable)
+
+// TODO: Move to Default
+//public protocol APIErrorCodeProtocol: RawRepresentable & Decodable
+//	where Self.RawValue: Decodable
+//{
+//
+//}
+
+//public protocol APIErrorProtocol: Error
+//{
+//	associatedtype CodeType: RawRepresentable
+//
+//	var code: Code { get }
+//	var message: String { get }
+//	public let message: String
+//	associatedtype CodeType: APIErrorCodeProtocol
+//}
 
 
 
@@ -69,28 +78,27 @@ public class APIValueResponse<Value>: APIResponse
 
 
 
-public struct APIError<_CodeType>: APIErrorProtocol, ReflectedStringConvertible
-	where _CodeType: APIErrorCodeProtocol
+// TODO: Moove to Default
+public extension Error
 {
-	public typealias CodeType = _CodeType
-	
-	private enum CodingKeys: String, CodingKey
-	{
-		case code
-		case message = "error"
+	var ns: NSError {
+		return self as NSError
 	}
 	
-	public let code: Code
-	public let message: String
+	func raw<CodeType>(_ type: CodeType.Type) -> RawError<CodeType>
+		where CodeType: RawRepresentable, CodeType.RawValue == Int
+	{
+		if let rawError = self as? RawError<CodeType> {
+			return rawError
+		}
+		return RawError<CodeType>(self._code, self.localizedDescription)
+	}
 }
 
-
-
-
-
-public extension APIError
+public struct RawError<CodeType>: Error, ReflectedStringConvertible
+	where CodeType: RawRepresentable
 {
-	public enum Code: Decodable, ReflectedStringConvertible
+	public enum Code: ReflectedStringConvertible
 	{
 		case Type(CodeType)
 		case Undefined(CodeType.RawValue)
@@ -111,13 +119,81 @@ public extension APIError
 				self = .Undefined(rawValue)
 			}
 		}
-		
-		public init(from decoder: Decoder) throws
-		{
-			let container = try decoder.singleValueContainer()
+	}
+	
+	
+	
+	
+	
+	public let code: Code
+	public let message: String
+	
+	
+	
+	
+	
+	public init(_ code: Code, _ message: String)
+	{
+		self.code = code
+		self.message = message
+	}
+	
+	public init(_ rawValue: CodeType.RawValue, _ message: String)
+	{
+		self.init(Code(rawValue: rawValue), message)
+	}
+}
 
-			self = Code(rawValue: try container.decode(CodeType.RawValue.self))
-		}
+
+
+
+
+//public extension APIError
+//{
+//	public init(rawValue: CodeType.RawValue, meessage: String)
+//	{
+//		self.init(code: Code(rawValue: rawValue), message: message)
+//	}
+//}
+
+
+
+
+
+extension RawError: Decodable
+	where CodeType.RawValue: Decodable
+{
+	private enum CodingKeys: String, CodingKey
+	{
+		case code
+		case message = "error"
+	}
+	
+	
+	
+	
+	
+	public init(from decoder: Decoder) throws
+	{
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		self.init(try container.decode(Code.self, forKey: .code),
+				  try container.decode(String.self, forKey: .message))
+	}
+}
+
+
+
+
+
+extension RawError.Code: Decodable
+	where CodeType.RawValue: Decodable
+{
+	public init(from decoder: Decoder) throws
+	{
+		let container = try decoder.singleValueContainer()
+		
+		self = RawError.Code(rawValue: try container.decode(CodeType.RawValue.self))
 	}
 }
 
@@ -128,14 +204,13 @@ public extension APIError
 open class FirebaseFunction<Input, Output>
 {
 	public let endpoint: String
-	fileprivate let errorType: AnyAPIError.Type
+	fileprivate let errorType: DecodableError.Type
 	
 	
 	
 	
 	
-	public init<T>(_ endpoint: String, errorType: T.Type)
-		where T: APIErrorProtocol
+	public init(_ endpoint: String, errorType: DecodableError.Type)
 	{
 		self.endpoint = endpoint
 		self.errorType = errorType

@@ -1,6 +1,6 @@
 //
 //  Firestore.swift
-//  Sluthware
+//  Sluthwarec
 //
 //  Created by Pat Sluth on 2018-10-25.
 //  Copyright © 2018 Pat Sluth. All rights reserved.
@@ -8,6 +8,7 @@
 
 import Foundation
 
+import FirebaseAuth
 import FirebaseFirestore
 import RxSwift
 import RxCocoa
@@ -29,13 +30,14 @@ public extension Firestore
 
 public extension Query
 {
-	public func snapshotPromise() -> Promise<QuerySnapshot>
+	public func snapshotPromise(source: FirestoreSource = .default) -> Promise<QuerySnapshot>
 	{
 		return Promise { resolver in
-			self.getDocuments(completion: { snapshot, error in
-				if let snapshot = snapshot {
-					resolver.fulfill(snapshot)
-				} else if let error = error {
+			self.getDocuments(source: source, completion: { snapshot, error in
+				switch ValueResult(snapshot, error)! {
+				case .Success(let value):
+					resolver.fulfill(value)
+				case .Failure(let error):
 					resolver.reject(error)
 				}
 			})
@@ -46,9 +48,10 @@ public extension Query
 	{
 		return Observable.create { observable in
 			let listener = self.addSnapshotListener({ snapshot, error in
-				if let snapshot = snapshot {
-					observable.onNext(snapshot)
-				} else if let error = error {
+				switch ValueResult(snapshot, error)! {
+				case .Success(let value):
+					observable.onNext(value)
+				case .Failure(let error):
 					observable.onError(error)
 				}
 			})
@@ -109,26 +112,26 @@ public extension DocumentReference
 	public func snapshotPromise(source: FirestoreSource = .default) -> Promise<DocumentSnapshot>
 	{
 		return Promise { resolver in
-			
 			self.getDocument(source: source, completion: { snapshot, error in
-				if let snapshot = snapshot {
-					resolver.fulfill(snapshot)
-				} else if let error = error {
+				switch ValueResult(snapshot, error)! {
+				case .Success(let value):
+					resolver.fulfill(value)
+				case .Failure(let error):
 					resolver.reject(error)
 				}
 			})
 		}
 	}
 	
-	public func snapshotObservable() -> Observable<DocumentSnapshot>
+	public func snapshotObservable(includeMetadataChanges changes: Bool = false) -> Observable<DocumentSnapshot>
 	{
 		return Observable.create { observable in
-			
-			let listener = self.addSnapshotListener({ snapshot, error in
-				if let error = error {
+			let listener = self.addSnapshotListener(includeMetadataChanges: changes, listener: { snapshot, error in
+				switch ValueResult(snapshot, error)! {
+				case .Success(let value):
+					observable.onNext(value)
+				case .Failure(let error):
 					observable.onError(error)
-				} else if let snapshot = snapshot {
-					observable.onNext(snapshot)
 				}
 			})
 			
@@ -137,31 +140,6 @@ public extension DocumentReference
 			}
 		}
 	}
-	
-//	public func fieldObservable<V>(fieldName: String, _ type: V.Type) -> Observable<V?>
-//	{
-//		return Observable.create { observable in
-//
-//			let disposable = self
-//				.snapshotObservable()
-//				.subscribe(onNext: { snapshot in
-//					let field = snapshot.get(fieldName) as? V
-//					observable.onNext(field)
-//				})
-//
-//			return Disposables.create {
-//				disposable.dispose()
-//			}
-//		}
-//	}
-	
-//	public func fieldObservable<V>(fieldName: String, defaultValue: V) -> Observable<V>
-//	{
-//		return self.fieldObservable(fieldName: fieldName, V.self)
-//			.map({ value in
-//				return value ?? defaultValue
-//			})
-//	}
 }
 
 
@@ -226,7 +204,6 @@ public extension WriteBatch
 	public func commitPromise() -> Promise<Void>
 	{
 		return Promise { resolver in
-			
 			self.commit(completion: { error in
 				if let error = error {
 					resolver.reject(error)

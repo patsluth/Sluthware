@@ -21,34 +21,34 @@ import PromiseKit
 public extension Reactive
 	where Base: Auth
 {
-//	public func currentUser(refreshToken: Bool = false) -> Observable<User?>
-//	{
-//		return Observable.create({ observable in
-//
-//			let listener = self.base.addStateDidChangeListener({ auth, user in
-//				guard let user = user else {
-//					observable.onNext(nil)
-//					return
-//				}
-//				guard refreshToken else {
-//					observable.onNext(user)
-//					return
-//				}
-//
-//				user.authToken(forceRefresh: refreshToken)
-//					.done({ _ in
-//						observable.onNext(user)
-//					})
-//					.catch({ _ in
-//						observable.onNext(nil)
-//					})
-//			})
-//
-//			return Disposables.create {
-//				self.base.removeStateDidChangeListener(listener)
-//			}
-//		}).distinctUntilChanged()
-//	}
+	//	public func currentUser(refreshToken: Bool = false) -> Observable<User?>
+	//	{
+	//		return Observable.create({ observable in
+	//
+	//			let listener = self.base.addStateDidChangeListener({ auth, user in
+	//				guard let user = user else {
+	//					observable.onNext(nil)
+	//					return
+	//				}
+	//				guard refreshToken else {
+	//					observable.onNext(user)
+	//					return
+	//				}
+	//
+	//				user.authToken(forceRefresh: refreshToken)
+	//					.done({ _ in
+	//						observable.onNext(user)
+	//					})
+	//					.catch({ _ in
+	//						observable.onNext(nil)
+	//					})
+	//			})
+	//
+	//			return Disposables.create {
+	//				self.base.removeStateDidChangeListener(listener)
+	//			}
+	//		}).distinctUntilChanged()
+	//	}
 	
 	public func currentUser() -> Observable<User?>
 	{
@@ -69,13 +69,17 @@ public extension Reactive
 	{
 		return Promise { resolver in
 			self.base.signIn(withEmail: email, password: password, completion: { result, error in
-				if let result = result {
-					resolver.fulfill(result)
-				} else if let error = error {
-					resolver.reject(error)
-				}
+				resolver.resolve(result, error)
 			})
-		}
+			}.recover({ error -> Promise<AuthDataResult> in
+				if let errorCode = ErrorCode<AuthErrorCode>(error) {
+					print(#file.fileName, #function, errorCode)
+				}
+				throw error
+				//				return try RawError<AuthErrorCode>.recover(error, { rawError in
+				//					throw rawError
+				//				})
+			})
 	}
 	
 	@discardableResult
@@ -83,22 +87,34 @@ public extension Reactive
 	{
 		return Promise { resolver in
 			self.base.createUser(withEmail: email, password: password, completion: { result, error in
-				if let result = result {
-					resolver.fulfill(result)
-				} else if let error = error {
-					if AuthErrorCode(rawValue: error._code) == AuthErrorCode.emailAlreadyInUse {
-						self.login(email, password)
-							.done({
-								resolver.fulfill($0)
-							}).catch({
-								resolver.reject($0)
-							})
-					} else {
-						resolver.reject(error)
-					}
+				resolver.resolve(result, error)
+				//				switch ValueResult(result, error) {
+				//				case .Success(let value):
+				//					resolver.fulfill(value)
+				//				case .Failure(let error):
+				//					RawError<AuthErrorCode>.map(error, { rawError in
+				//						switch rawError.code {
+				//						case .Type(AuthErrorCode.emailAlreadyInUse):
+				//							self.login(email, password)
+				//								.done({
+				//									resolver.fulfill($0)
+				//								}).catch({
+				//									resolver.reject($0)
+				//								})
+				//						default:
+				//							resolver.reject(rawError)
+				//						}
+				//					})
+				//				}
+			})
+			}.recover({ error -> Promise<AuthDataResult> in
+				switch ErrorCode<AuthErrorCode>(error)?.code {
+				case AuthErrorCode.emailAlreadyInUse?:
+					return self.login(email, password)
+				default:
+					throw error
 				}
 			})
-		}
 	}
 }
 
@@ -134,6 +150,7 @@ public extension User
 		}
 	}
 }
+
 
 
 

@@ -14,6 +14,14 @@ import Foundation
 
 public extension Error
 {
+	public var ns: NSError {
+		return self as NSError
+	}
+	
+	
+	
+	
+	
 	public func log(file: String = #file,
 					function: String = #function,
 					line: Int = #line)
@@ -22,6 +30,24 @@ public extension Error
 	}
 }
 
+
+
+
+
+public struct ErrorCode<CodeType>: ReflectedStringConvertible
+	where CodeType: RawRepresentable, CodeType.RawValue == Int
+{
+	let code: CodeType
+	
+	public init?(error: Error)
+	{
+		if let code = CodeType(rawValue: error._code) {
+			self.code = code
+		} else {
+			return nil
+		}
+	}
+}
 
 
 
