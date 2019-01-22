@@ -19,10 +19,10 @@ public extension DispatchQueue
 	public class func once(file: String = #file,
 						   function: String = #function,
 						   line: Int = #line,
-						   block: () -> Void)
+						   _ block: () -> Void)
 	{
 		let token = "\(file):\(function):\(line)"
-		DispatchQueue.once(token: token, block: block)
+		DispatchQueue.once(token: token, block)
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public extension DispatchQueue
 	- parameter block: Block to execute once
 	*/
 	public class func once(token: String,
-						   block: () -> Void)
+						   _ block: () -> Void)
 	{
 		objc_sync_enter(self)
 		defer { objc_sync_exit(self) }
