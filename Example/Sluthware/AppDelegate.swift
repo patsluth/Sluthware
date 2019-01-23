@@ -22,34 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	var window: UIWindow?
 	
 	
-	struct TestD: Codable {
-		let a: String
-		let b: Int
-	}
 	
-	struct ETYPE: Codable
-	{
-	}
 	
 	
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
-		let eee = ETYPE.self as Any.Type
-		if let bbb = eee as? Decodable.Type {
-			bbb.decode(<#T##value: T##T#>)
-//			bbb
-		}
 		
-		do {
-//			print(try ETYPE?.decode([:]))
-			print(try ETYPE.decode([]))
-//			print(try ETYPE().encode([String: Any]?.self))
-//			print(try ["test": a].encode([String: Any].self))
-//			print(try ["test2": TestD.init(a: "P", b: 7)].encode([String: Any].self))
-		} catch {
-			print(error)
-		}
 		
 		return true
 	}

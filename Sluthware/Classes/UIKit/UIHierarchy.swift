@@ -29,9 +29,10 @@ public extension UIView
 		return nil
 	}
 	
-	public func recurseAncestors(_ block: (UIView) -> Bool)
+	public func recurseAncestors(_ block: (UIView, inout Bool) -> Void)
 	{
-		let stop = block(self)
+		var stop = false
+		block(self, &stop)
 		
 		guard !stop else { return }
 		
@@ -40,9 +41,10 @@ public extension UIView
 		}
 	}
 	
-	public func recurseDecendents(_ block: (UIView) -> Bool)
+	public func recurseDecendents(_ block: (UIView, inout Bool) -> Void)
 	{
-		let stop = block(self)
+		var stop = false
+		block(self, &stop)
 		
 		guard !stop else { return }
 		
@@ -58,9 +60,10 @@ public extension UIView
 
 public extension UIViewController
 {
-	public func recurseAncestors(_ block: (UIViewController) -> Bool)
+	public func recurseAncestors(_ block: (UIViewController, inout Bool) -> Void)
 	{
-		let stop = block(self)
+		var stop = false
+		block(self, &stop)
 		
 		guard !stop else { return }
 		
@@ -69,9 +72,10 @@ public extension UIViewController
 		}
 	}
 	
-	public func recurseDecendents(_ block: (UIViewController) -> Bool)
+	public func recurseDecendents(_ block: (UIViewController, inout Bool) -> Void)
 	{
-		let stop = block(self)
+		var stop = false
+		block(self, &stop)
 		
 		guard !stop else { return }
 		
