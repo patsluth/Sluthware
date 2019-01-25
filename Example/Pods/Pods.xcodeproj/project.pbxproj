@@ -194,7 +194,7 @@
 		5881C4F510486AF17480E179D4A2FDBF /* JSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CB1B13702C2A663038BE1B8001D15 /* JSONEncoder.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		594A330CB5E01590B725705C0E7D165F /* RxCocoaObjCRuntimeError+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA88298B0CACB79A17183E827D646E3 /* RxCocoaObjCRuntimeError+Extensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		59B9194A99A43D14FEF00958E5D9CDED /* Pods-Sluthware_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E6AC80EB9176A1676D4530AD47171C9 /* Pods-Sluthware_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		59D73F558A15983E8D40714C23AB1E97 /* StringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FA0C4B75190B91B9CD6466DFBD2F7 /* StringBuilder.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		59D73F558A15983E8D40714C23AB1E97 /* String+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FA0C4B75190B91B9CD6466DFBD2F7 /* String+Builder.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5ACF0A573E0289ADFAAC1751CC644302 /* pausableBuffered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5CE8DC25B60BA2AD070E2C6A09F685 /* pausableBuffered.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5D7AB318B05A472E41F94315E307D9E3 /* UIButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1AA182214A6A94BFF320A38E8D0CB3 /* UIButton+Rx.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5DE86D977C230B0C15E8F6CBBA3A4097 /* Repeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE2021A695405CD74D02DC5D32DBBAD /* Repeat.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -636,7 +636,7 @@
 		069332943BE7E5A0584953F9596CE558 /* SharedSequence+Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SharedSequence+Operators.swift"; path = "RxCocoa/Traits/SharedSequence/SharedSequence+Operators.swift"; sourceTree = "<group>"; };
 		074A380E62E661793A6DC39DB22C163A /* Buffer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Buffer.swift; path = RxSwift/Observables/Buffer.swift; sourceTree = "<group>"; };
 		08415072FAF059C14F8F90B473D2CAE9 /* Promise+attempt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+attempt.swift"; path = "Sluthware/Classes/PromiseKit/Promise+attempt.swift"; sourceTree = "<group>"; };
-		092FA0C4B75190B91B9CD6466DFBD2F7 /* StringBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringBuilder.swift; sourceTree = "<group>"; };
+		092FA0C4B75190B91B9CD6466DFBD2F7 /* String+Builder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "String+Builder.swift"; sourceTree = "<group>"; };
 		0A69A8C20914EEE07B4BFC14D8123B35 /* SchedulerServices+Emulation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SchedulerServices+Emulation.swift"; path = "RxSwift/Schedulers/SchedulerServices+Emulation.swift"; sourceTree = "<group>"; };
 		0A72C68BACCED709B5AC6A9EE07F7724 /* after.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = after.m; path = Sources/after.m; sourceTree = "<group>"; };
 		0CF7B5FA14031F0E9845475A8310880C /* unwrap+SharedSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "unwrap+SharedSequence.swift"; path = "Source/RxCocoa/unwrap+SharedSequence.swift"; sourceTree = "<group>"; };
@@ -1471,7 +1471,7 @@
 				F4D07C491FE4D3ADECF87F26E0484231 /* String+Comparator.swift */,
 				DC65B82319EF1B56E474D13FCBDBF607 /* String+IsEmpty.swift */,
 				DC71747D96E1A8C45B5CB4626EC518B5 /* String+Trim.swift */,
-				092FA0C4B75190B91B9CD6466DFBD2F7 /* StringBuilder.swift */,
+				092FA0C4B75190B91B9CD6466DFBD2F7 /* String+Builder.swift */,
 				7DC1BC5B4CA12A6035093CF87396D450 /* SwiftClass.swift */,
 				C2F8E9F79D02D2512C3FD7307772C5EF /* TimeInterval.swift */,
 				E27CB3A90E26227C77AD8A20039DDD4F /* TypeContainer.swift */,
@@ -2881,7 +2881,7 @@
 				4F8AF424036AEBDE4E06E2455EC78BD3 /* String+IsEmpty.swift in Sources */,
 				2FB55E40E87ED7A28AE64A2CC4F024FA /* String+Trim.swift in Sources */,
 				B156770CA7D057A36ABB51A43ABB8E32 /* String.swift in Sources */,
-				59D73F558A15983E8D40714C23AB1E97 /* StringBuilder.swift in Sources */,
+				59D73F558A15983E8D40714C23AB1E97 /* String+Builder.swift in Sources */,
 				FA989EE4D0DC2EAF6600A24EDB530424 /* SwiftClass.swift in Sources */,
 				D73657BC2845ADD4376D3343D198F0E0 /* TimeInterval.swift in Sources */,
 				6F9C0C9B8443B08294AB4FD5DEA45ABC /* TypeContainer.swift in Sources */,

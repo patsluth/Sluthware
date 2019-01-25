@@ -504,9 +504,9 @@ class ViewController: UIViewController
 		
 		
 		let builder = StringBuilder()
-			.append(string: "PAT")
+			.append("PAT")
 			.append(line: "PAT0")
-			.append(string: "YULIA0",
+			.append("YULIA0",
 					(NSAttributedString.Key.foregroundColor, UIColor.red))
 			.append(line: "PAT1",
 					(NSAttributedString.Key.foregroundColor, UIColor.blue))
