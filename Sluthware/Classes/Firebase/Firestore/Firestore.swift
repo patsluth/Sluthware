@@ -44,10 +44,10 @@ public extension Query
 		}
 	}
 	
-	public func snapshotObservable() -> Observable<QuerySnapshot>
+	public func snapshotObservable(includeMetadataChanges changes: Bool = false) -> Observable<QuerySnapshot>
 	{
 		return Observable.create { observable in
-			let listener = self.addSnapshotListener({ snapshot, error in
+			let listener = self.addSnapshotListener(includeMetadataChanges: changes, listener: { snapshot, error in
 				switch ValueResult(snapshot, error)! {
 				case .Success(let value):
 					observable.onNext(value)

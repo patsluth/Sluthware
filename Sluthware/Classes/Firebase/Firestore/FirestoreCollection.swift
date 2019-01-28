@@ -104,7 +104,8 @@ public final class FirestoreCollection<T>
 		return Observable.create { observable in
 			
 			let disposable = queryBuilder(self.ref)
-				.snapshotObservable()
+				// TODO: Add to input params
+				.snapshotObservable(includeMetadataChanges: true)
 				.subscribe(onNext: { snapshot in
 					observable.onNext(snapshot.decodeValues())
 				})
