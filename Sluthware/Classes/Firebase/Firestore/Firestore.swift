@@ -208,7 +208,7 @@ public extension WriteBatch
 				if let error = error {
 					resolver.reject(error)
 				} else {
-					resolver.fulfill()
+					resolver.fulfill(())
 				}
 			})
 		}
