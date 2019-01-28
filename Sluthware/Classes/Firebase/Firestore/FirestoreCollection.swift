@@ -26,7 +26,7 @@ public final class FirestoreCollection<T>
 	
 	
 	
-	public let collection: CollectionReference
+	public let ref: CollectionReference
 	
 	
 	
@@ -34,12 +34,12 @@ public final class FirestoreCollection<T>
 	
 	internal init(_ collection: CollectionReference)
 	{
-		self.collection = collection
+		self.ref = collection
 	}
 	
 	internal init(_ document: DocumentReference, _ named: String)
 	{
-		self.collection = document.collection(named)
+		self.ref = document.collection(named)
 	}
 	
 	@discardableResult
@@ -48,13 +48,33 @@ public final class FirestoreCollection<T>
 		return Promise { resolver in
 			do {
 				let data = try value.encode(Firestore.DataType.self)
-				let document = self.collection.addDocument(data: data)
+				let document = self.ref.addDocument(data: data)
 				resolver.fulfill(document.asDocumentOf(T.self))
 			} catch {
 				resolver.reject(error)
 			}
 		}
 	}
+	
+//	@discardableResult
+//	public func addDocument(with value: T, named: String) -> Promise<FirestoreDocument<T>>
+//	{
+//		return Promise { resolver in
+//			do {
+//				let data = try value.encode(Firestore.DataType.self)
+//				let document = self.collection.documentOf(T.self, named)
+//				document.setValue(value)
+//				.done({ document in
+//					resolver.fulfill(document)
+//				})
+//				.catch({ error in
+//					resolver.reject(error)
+//				})
+//			} catch {
+//				resolver.reject(error)
+//			}
+//		}
+//	}
 	
 //	@discardableResult
 //	public func addDocument(with value: T) -> Promise<FirestoreDocument<T>>
@@ -83,7 +103,7 @@ public final class FirestoreCollection<T>
 	{
 		return Observable.create { observable in
 			
-			let disposable = queryBuilder(self.collection)
+			let disposable = queryBuilder(self.ref)
 				.snapshotObservable()
 				.subscribe(onNext: { snapshot in
 					observable.onNext(snapshot.decodeValues())

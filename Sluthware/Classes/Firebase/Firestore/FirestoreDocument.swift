@@ -27,7 +27,7 @@ public final class FirestoreDocument<T>: Codable
 	
 	
 	public let path: String
-	public var document: DocumentReference {
+	public var ref: DocumentReference {
 		return Firestore.firestore().document(self.path)
 	}
 	
@@ -48,10 +48,10 @@ public final class FirestoreDocument<T>: Codable
 				let data = try value.encode(Firestore.DataType.self)
 				
 				if let batch = batch {
-					batch.setData(data, forDocument: self.document)
+					batch.setData(data, forDocument: self.ref)
 					resolver.fulfill(self)
 				} else {
-					self.document.setData(data) { error in
+					self.ref.setData(data) { error in
 						if let error = error {
 							resolver.reject(error)
 						} else {
@@ -70,10 +70,10 @@ public final class FirestoreDocument<T>: Codable
 	{
 		return Promise { resolver in
 			if let batch = batch {
-				batch.deleteDocument(self.document)
+				batch.deleteDocument(self.ref)
 				resolver.fulfill(self)
 			} else {
-				self.document.delete(completion: { error in
+				self.ref.delete(completion: { error in
 					if let error = error {
 						resolver.reject(error)
 					} else {
@@ -86,7 +86,7 @@ public final class FirestoreDocument<T>: Codable
 	
 	public func valuePromise(source: FirestoreSource = .default) -> Promise<Value>
 	{
-		return self.document
+		return self.ref
 			.snapshotPromise(source: source)
 			.map({ snapshot in
 				snapshot.decodeValue()
@@ -97,7 +97,7 @@ public final class FirestoreDocument<T>: Codable
 	{
 		return Observable.create { observable in
 			
-			let disposable = self.document
+			let disposable = self.ref
 				.snapshotObservable(includeMetadataChanges: changes)
 				.subscribe(onNext: { snapshot in
 					observable.onNext(snapshot.decodeValue())

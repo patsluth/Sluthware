@@ -21,7 +21,7 @@ import PromiseKit
 public final class FirestoreField<T>
 	where T: Firestore.ModelType
 {
-	public let document: DocumentReference
+	public let ref: DocumentReference
 	public let name: String
 	
 	
@@ -30,7 +30,7 @@ public final class FirestoreField<T>
 	
 	internal init(_ document: DocumentReference, _ named: String)
 	{
-		self.document = document
+		self.ref = document
 		self.name = named
 	}
 	
@@ -42,10 +42,10 @@ public final class FirestoreField<T>
 				let data = try [self.name: value].encode(Firestore.DataType.self)
 				
 				if let batch = batch {
-					batch.setData(data, forDocument: self.document)
+					batch.setData(data, forDocument: self.ref)
 					resolver.fulfill(self)
 				} else {
-					self.document.setData(data) { error in
+					self.ref.setData(data) { error in
 						if let error = error {
 							resolver.reject(error)
 						} else {
@@ -67,10 +67,10 @@ public final class FirestoreField<T>
 			let data = [self.name: FieldValue.delete()]
 			
 			if let batch = batch {
-				batch.updateData(data, forDocument: self.document)
+				batch.updateData(data, forDocument: self.ref)
 				resolver.fulfill(self)
 			} else {
-				self.document.updateData(data) { error in
+				self.ref.updateData(data) { error in
 					if let error = error {
 						resolver.reject(error)
 					} else {
@@ -83,7 +83,7 @@ public final class FirestoreField<T>
 	
 	public func valuePromise(source: FirestoreSource = .default) -> Promise<ValueResult<T>>
 	{
-		return self.document
+		return self.ref
 			.snapshotPromise(source: source)
 			.map({ snapshot in
 				snapshot.get(self.name)
@@ -95,7 +95,7 @@ public final class FirestoreField<T>
 	
 	public func valueObservable(includeMetadataChanges changes: Bool = false) -> Observable<ValueResult<T>>
 	{
-		return self.document
+		return self.ref
 			.snapshotObservable(includeMetadataChanges: changes)
 			.map({ snapshot in
 				snapshot.get(self.name)
