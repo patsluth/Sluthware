@@ -9,18 +9,38 @@ import Foundation
 
 
 
-//public protocol NSAttributedStringConvertible
-//{
-//	var attributed: NSAttributedString { get }
-//}
+public protocol NSAttributedStringConvertible
+{
+	var attributed: NSAttributedString { get }
+}
 
 
 
 
-public extension String
+extension NSAttributedString: NSAttributedStringConvertible
+{
+	public var attributed: NSAttributedString {
+		return self
+	}
+}
+
+
+
+
+extension String: NSAttributedStringConvertible
 {
 	public var attributed: NSAttributedString {
 		return NSAttributedString(string: self)
+	}
+	
+	public func attributed(_ attributes: NSAttributedString.Attributes) -> NSAttributedString
+	{
+		return NSAttributedString(string: self, attributes: attributes)
+	}
+	
+	public func attributed(_ attributesProvider: NSAttributedString.AttributesProvider) -> NSAttributedString
+	{
+		return NSAttributedString(self, attributesProvider)
 	}
 }
 
@@ -31,13 +51,14 @@ public extension String
 public extension NSAttributedString
 {
 	public typealias Attributes = [NSAttributedString.Key: Any]
+	public typealias AttributesProvider = (inout Attributes) -> Void
 	
 	
 	
 	
 	
 	public convenience init(_ string: String,
-							_ attributesProvider: (inout Attributes) -> Void = { _ in })
+							_ attributesProvider: AttributesProvider = { _ in })
 	{
 		var attributes = Attributes()
 		attributesProvider(&attributes)
@@ -79,6 +100,21 @@ public extension NSAttributedString
 	{
 		lhs = lhs + rhs
 	}
+	
+	
+	
+	//	public static func +(lhs: NSAttributedString, rhs: Attributes) -> String
+	//	{
+	//		let attributedString = NSMutableAttributedString()
+	//		attributedString.append(lhs)
+	//		attributedString.append(rhs)
+	//		return attributedString as NSAttributedString
+	//	}
+	//
+	//	public static func +=(lhs: inout String, rhs: NSAttributedString)
+	//	{
+	//		lhs = lhs + rhs
+	//	}
 }
 
 

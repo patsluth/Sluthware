@@ -29,17 +29,21 @@ public extension UIView
 		return nil
 	}
 	
-	public func recurseAncestors(_ block: (UIView) -> Void)
+	public func recurseAncestors(includingSelf: Bool = true,
+								 _ block: (UIView) -> Void)
 	{
-		self.recurseAncestors { view, stop in
+		self.recurseAncestors(includingSelf: includingSelf, { view, stop in
 			block(view)
-		}
+		})
 	}
 	
-	public func recurseAncestors(_ block: (UIView, inout Bool) -> Void)
+	public func recurseAncestors(includingSelf: Bool = true,
+								 _ block: (UIView, inout Bool) -> Void)
 	{
 		var stop = false
-		block(self, &stop)
+		if includingSelf {
+			block(self, &stop)
+		}
 		
 		guard !stop else { return }
 		
@@ -48,22 +52,26 @@ public extension UIView
 		}
 	}
 	
-	public func recurseDecendents(_ block: (UIView) -> Void)
+	public func recurseDecendents(includingSelf: Bool = true,
+								  _ block: (UIView) -> Void)
 	{
-		self.recurseDecendents { view, stop in
+		self.recurseDecendents(includingSelf: includingSelf, { view, stop in
 			block(view)
-		}
+		})
 	}
 	
-	public func recurseDecendents(_ block: (UIView, inout Bool) -> Void)
+	public func recurseDecendents(includingSelf: Bool = true,
+								  _ block: (UIView, inout Bool) -> Void)
 	{
 		var stop = false
-		block(self, &stop)
+		if includingSelf {
+			block(self, &stop)
+		}
 		
 		guard !stop else { return }
 		
 		for subview in self.subviews {
-			subview.recurseAncestors(block)
+			subview.recurseDecendents(block)
 		}
 	}
 }
@@ -74,38 +82,56 @@ public extension UIView
 
 public extension UIViewController
 {
-	public func recurseAncestors(_ block: (UIViewController) -> Void)
+	public func recurseAncestors(includingSelf: Bool = true,
+								 _ block: (UIViewController) -> Void)
 	{
-		self.recurseAncestors { viewController, stop in
+		self.recurseAncestors(includingSelf: includingSelf, { viewController, stop in
 			block(viewController)
-		}
+		})
 	}
 	
-	public func recurseAncestors(_ block: (UIViewController, inout Bool) -> Void)
+	public func recurseAncestors(includingSelf: Bool = true,
+								 _ block: (UIViewController, inout Bool) -> Void)
 	{
 		var stop = false
-		block(self, &stop)
+		if includingSelf {
+			block(self, &stop)
+		}
 		
 		guard !stop else { return }
 		
-		if let viewController = self.parent ?? self.presentingViewController {
+		if let viewController = self.parent {
+			viewController.recurseAncestors(block)
+		}
+		
+		if let viewController = self.presentingViewController {
 			viewController.recurseAncestors(block)
 		}
 	}
 	
-	public func recurseDecendents(_ block: (UIViewController) -> Void)
+	public func recurseDecendents(includingSelf: Bool = true,
+								  _ block: (UIViewController) -> Void)
 	{
-		self.recurseDecendents { viewController, stop in
+		self.recurseDecendents(includingSelf: includingSelf, { viewController, stop in
 			block(viewController)
-		}
+		})
 	}
 	
-	public func recurseDecendents(_ block: (UIViewController, inout Bool) -> Void)
+	public func recurseDecendents(includingSelf: Bool = true,
+								  _ block: (UIViewController, inout Bool) -> Void)
 	{
 		var stop = false
-		block(self, &stop)
+		if includingSelf {
+			block(self, &stop)
+		}
 		
 		guard !stop else { return }
+		
+		if #available(iOS 11.0, *) {
+			if let searchController = self.navigationItem.searchController {
+				block(searchController, &stop)
+			}
+		}
 		
 		if let viewController = self.presentedViewController {
 			viewController.recurseDecendents(block)
