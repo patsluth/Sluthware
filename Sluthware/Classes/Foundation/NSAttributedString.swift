@@ -9,10 +9,13 @@ import Foundation
 
 
 
+
+
 public protocol NSAttributedStringConvertible
 {
 	var attributed: NSAttributedString { get }
 }
+
 
 
 
@@ -23,6 +26,7 @@ extension NSAttributedString: NSAttributedStringConvertible
 		return self
 	}
 }
+
 
 
 

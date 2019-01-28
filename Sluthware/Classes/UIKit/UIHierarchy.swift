@@ -127,12 +127,6 @@ public extension UIViewController
 		
 		guard !stop else { return }
 		
-		if #available(iOS 11.0, *) {
-			if let searchController = self.navigationItem.searchController {
-				block(searchController, &stop)
-			}
-		}
-		
 		if let viewController = self.presentedViewController {
 			viewController.recurseDecendents(block)
 		}
