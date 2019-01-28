@@ -133,7 +133,7 @@ public extension Fraction
 	
 	
 	/// Convert fraction to a whole number and proper fraction
-	public func asMixedNumber() -> MixedNumber
+	public func asMixedNumber(reduced: Bool = true) -> MixedNumber
 	{
 		var mixedNumber = MixedNumber(whole: 0, fraction: self)
 		
@@ -142,11 +142,11 @@ public extension Fraction
 			mixedNumber.fraction -= 1
 		}
 		
+		if reduced {
+			mixedNumber.fraction.reduce()
+		}
+		
 		return mixedNumber
-		//		let parts = self.doubleValue.parts
-		//
-		//		return MixedNumber(whole: parts.integer,
-		//						   fraction: Fraction(parts.decimal).roundedTo(den: self.den))
 	}
 }
 

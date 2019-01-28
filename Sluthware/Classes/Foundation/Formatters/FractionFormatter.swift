@@ -1,5 +1,5 @@
 //
-//  FractionAttributedFormatter.swift
+//  FractionFormatter.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-08-08.
@@ -31,10 +31,10 @@ public final class FractionFormatter: AttributedFormatterProtocol
 	{
 	}
 	
-	public func format(_ value: Fraction) -> NSAttributedString
+	public func format(_ value: Value) -> NSAttributedString
 	{
 		var attributedString = NSAttributedString()
-
+		
 		switch (value.doubleValue, self.useProperFractions) {
 		case (let x, _) where x.isNaN:
 			attributedString = NSAttributedString("NaN", {
@@ -60,7 +60,7 @@ public final class FractionFormatter: AttributedFormatterProtocol
 			})
 		// Improper Fraction
 		case (_, true):
-			let mixedNumber = value.asMixedNumber()
+			let mixedNumber = value.asMixedNumber(reduced: true)
 			
 			if mixedNumber.fraction.num != 0 {
 				attributedString = self.format(mixedNumber.fraction)
@@ -69,11 +69,10 @@ public final class FractionFormatter: AttributedFormatterProtocol
 			if mixedNumber.whole != 0 {
 				attributedString = NSAttributedString("\(mixedNumber.whole)", {
 					$0[NSAttributedString.Key.font] = self.font
-				}) +
-				attributedString
+				}) + attributedString
 			}
 		}
-
+		
 		return attributedString
 	}
 }

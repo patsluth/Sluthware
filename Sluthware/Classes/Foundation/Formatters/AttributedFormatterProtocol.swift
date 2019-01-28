@@ -12,7 +12,7 @@ import Foundation
 
 
 
-public protocol AttributedFormatterProtocol: class
+public protocol AttributedFormatterProtocol
 {
 	associatedtype Value
 
