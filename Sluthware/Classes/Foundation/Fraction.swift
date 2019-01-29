@@ -81,6 +81,11 @@ public struct Fraction
 		
 		return Fraction(num, den)
 	}
+	
+	public func absolute() -> Fraction
+	{
+		return Fraction(abs(self.num), abs(self.den))
+	}
 }
 
 
@@ -91,6 +96,10 @@ extension Fraction
 {
 	public var reciprocol: Fraction {
 		return Fraction(self.den, self.num)
+	}
+	
+	public var sign: FloatingPointSign {
+		return self.doubleValue.sign
 	}
 	
 	public var isFinite: Bool {
@@ -111,12 +120,14 @@ extension Fraction
 	
 	public var isProper: Bool {
 		guard self.isFinite else { return false }
-		return (self.den != 0 && self.num < self.den)
+		return (self.den != 0 && fabs(self.doubleValue) < 1.0)
+//		return (self.den != 0 && abs(self.num) < abs(self.den))
 	}
 	
 	public var isImproper: Bool {
 		guard self.isFinite else { return false }
-		return (self.den != 0 && self.num >= self.den)
+		return (self.den != 0 && fabs(self.doubleValue) >= 1.0)
+//		return (self.den != 0 && abs(self.num) >= abs(self.den))
 	}
 }
 
@@ -139,8 +150,24 @@ public extension Fraction
 		
 		while mixedNumber.fraction.isImproper {
 			mixedNumber.whole += 1
-			mixedNumber.fraction -= 1
+			
+			switch mixedNumber.fraction.sign {
+			case .plus: 	mixedNumber.fraction -= 1
+			case .minus: 	mixedNumber.fraction += 1
+			}
 		}
+		
+		
+		
+		switch mixedNumber.fraction.sign {
+		case .plus:
+			break
+		case .minus:
+			mixedNumber.whole *= -1
+			mixedNumber.fraction = mixedNumber.fraction.absolute()
+		}
+		
+		
 		
 		if reduced {
 			mixedNumber.fraction.reduce()
@@ -206,6 +233,58 @@ extension Fraction: Comparable
 	{
 		return (lhs.doubleValue > rhs.doubleValue)
 	}
+	
+	
+	
+	public static func <<T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.FloatingPointType
+	{
+		return (lhs.doubleValue < Double(rhs))
+	}
+	
+	public static func <=<T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.FloatingPointType
+	{
+		return (lhs.doubleValue <= Double(rhs))
+	}
+	
+	public static func ><T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.FloatingPointType
+	{
+		return (lhs.doubleValue > Double(rhs))
+	}
+	
+	public static func >=<T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.FloatingPointType
+	{
+		return (lhs.doubleValue > Double(rhs))
+	}
+	
+	
+	
+	public static func <<T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.IntegerType
+	{
+		return (lhs.doubleValue < Double(rhs))
+	}
+	
+	public static func <=<T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.IntegerType
+	{
+		return (lhs.doubleValue <= Double(rhs))
+	}
+	
+	public static func ><T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.IntegerType
+	{
+		return (lhs.doubleValue > Double(rhs))
+	}
+	
+	public static func >=<T>(lhs: Fraction, rhs: T) -> Bool
+		where T: Sluthware.IntegerType
+	{
+		return (lhs.doubleValue > Double(rhs))
+	}
 }
 
 
@@ -251,7 +330,7 @@ extension Fraction: ExpressibleByFloatLiteral
 extension Fraction: SignedNumeric
 {
 	public var magnitude: Double {
-		return fabs(self.doubleValue)
+		return self.doubleValue.magnitude
 	}
 	
 	

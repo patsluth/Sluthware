@@ -60,10 +60,21 @@ public final class Math
 		return (y == 0.0) ? x : Math.gcd(y, x.truncatingRemainder(dividingBy: y))
 	}
 	
-	public class func gcd<T>(_ x: T, _ y: T) -> T
-		where T: FixedWidthInteger
+//	public class func gcd<T>(_ x: T, _ y: T) -> T
+//		where T: FixedWidthInteger
+//	{
+//		let x = x.magnitude
+//		let y = y.magnitude
+//		print(x, y)
+//		
+//		return (y == 0) ? x : Math.gcd(y, x % y)
+////		return self.gcd(UInt(x), UInt(y))
+//	}
+	
+	public class func gcd(_ x: Int, _ y: Int) -> Int
 	{
-		return (y == 0) ? x : Math.gcd(y, x % y)
+		let remainder = abs(x) % abs(y)
+		return (remainder == 0) ? abs(y) : Math.gcd(abs(y), remainder)
 	}
 }
 

@@ -28,7 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
-		
+		let f = Fraction(-100, 7)
+		print(f.asMixedNumber(reduced: true))
+		let ff = FractionFormatter()
+		let mf = MixedNumberFormatter()
+		print(ff.format(f))
+		print(mf.format(f.asMixedNumber(reduced: true)))
 		
 		return true
 	}
