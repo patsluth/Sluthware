@@ -93,7 +93,7 @@ public final class FirestoreField<T>
 			})
 	}
 	
-	public func valueObservable(includeMetadataChanges changes: Bool = false) -> Observable<ValueResult<T>>
+	public func valueObservable(includeMetadataChanges changes: Bool = true) -> Observable<ValueResult<T>>
 	{
 		return self.ref
 			.snapshotObservable(includeMetadataChanges: changes)

@@ -21,6 +21,7 @@ public final class FirestoreCollection<T>
 	where T: Firestore.ModelType
 {
 	public typealias Value = QuerySnapshot.Value<T>
+	public typealias QueryProvider = (CollectionReference) -> Query
 	
 	
 	
@@ -94,18 +95,21 @@ public final class FirestoreCollection<T>
 //		}
 //	}
 	
-	public func observable() -> Observable<Value>
+	public func observable(includeMetadataChanges changes: Bool = true) -> Observable<Value>
 	{
-		return self.observable(queryBuilder: { $0 })
+		return self.observable(includeMetadataChanges: changes, queryProvider: {
+			$0
+		})
 	}
 	
-	public func observable(queryBuilder: @escaping (CollectionReference) -> Query) -> Observable<Value>
+	public func observable(includeMetadataChanges changes: Bool = true,
+						   queryProvider: @escaping QueryProvider) -> Observable<Value>
 	{
 		return Observable.create { observable in
 			
-			let disposable = queryBuilder(self.ref)
+			let disposable = queryProvider(self.ref)
 				// TODO: Add to input params
-				.snapshotObservable(includeMetadataChanges: true)
+				.snapshotObservable(includeMetadataChanges: changes)
 				.subscribe(onNext: { snapshot in
 					observable.onNext(snapshot.decodeValues())
 				})

@@ -93,7 +93,7 @@ public final class FirestoreDocument<T>: Codable
 			})
 	}
 	
-	public func valueObservable(includeMetadataChanges changes: Bool = false) -> Observable<Value>
+	public func valueObservable(includeMetadataChanges changes: Bool = true) -> Observable<Value>
 	{
 		return Observable.create { observable in
 			
