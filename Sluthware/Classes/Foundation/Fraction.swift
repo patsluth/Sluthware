@@ -121,13 +121,13 @@ extension Fraction
 	public var isProper: Bool {
 		guard self.isFinite else { return false }
 		return (self.den != 0 && fabs(self.doubleValue) < 1.0)
-//		return (self.den != 0 && abs(self.num) < abs(self.den))
+		//		return (self.den != 0 && abs(self.num) < abs(self.den))
 	}
 	
 	public var isImproper: Bool {
 		guard self.isFinite else { return false }
 		return (self.den != 0 && fabs(self.doubleValue) >= 1.0)
-//		return (self.den != 0 && abs(self.num) >= abs(self.den))
+		//		return (self.den != 0 && abs(self.num) >= abs(self.den))
 	}
 }
 
@@ -146,25 +146,19 @@ public extension Fraction
 	/// Convert fraction to a whole number and proper fraction
 	public func asMixedNumber(reduced: Bool = true) -> MixedNumber
 	{
-		var mixedNumber = MixedNumber(whole: 0, fraction: self)
+		let sign = self.sign
+		var mixedNumber = MixedNumber(whole: 0, fraction: self.absolute())
 		
 		while mixedNumber.fraction.isImproper {
 			mixedNumber.whole += 1
-			
-			switch mixedNumber.fraction.sign {
-			case .plus: 	mixedNumber.fraction -= 1
-			case .minus: 	mixedNumber.fraction += 1
-			}
+			mixedNumber.fraction -= 1
 		}
 		
 		
 		
-		switch mixedNumber.fraction.sign {
-		case .plus:
-			break
-		case .minus:
+		// move sign to whole part
+		if case .minus = sign {
 			mixedNumber.whole *= -1
-			mixedNumber.fraction = mixedNumber.fraction.absolute()
 		}
 		
 		
