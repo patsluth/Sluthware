@@ -121,13 +121,11 @@ extension Fraction
 	public var isProper: Bool {
 		guard self.isFinite else { return false }
 		return (self.den != 0 && fabs(self.doubleValue) < 1.0)
-		//		return (self.den != 0 && abs(self.num) < abs(self.den))
 	}
 	
 	public var isImproper: Bool {
 		guard self.isFinite else { return false }
 		return (self.den != 0 && fabs(self.doubleValue) >= 1.0)
-		//		return (self.den != 0 && abs(self.num) >= abs(self.den))
 	}
 }
 
