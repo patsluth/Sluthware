@@ -41,7 +41,7 @@ public extension URL
 		if self.hasDirectoryPath {
 			return self.lastPathComponent.removingPercentEncodingSafe
 		}
-		return self.deletingPathExtension().lastPathComponent.removingPercentEncodingSafe
+		return self.lastPathComponent.removingPercentEncodingSafe
 	}
 	
 	var isFile: Bool {
