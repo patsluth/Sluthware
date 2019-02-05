@@ -72,7 +72,7 @@ public extension Reactive
 				resolver.resolve(result, error)
 			})
 			}.recover({ error -> Promise<AuthDataResult> in
-				if let errorCode = ErrorCode<AuthErrorCode>(error) {
+				if let errorCode = ErrorCode<AuthErrorCode>(error).code {
 					print(#file.fileName, #function, errorCode)
 				}
 				throw error
@@ -108,7 +108,7 @@ public extension Reactive
 				//				}
 			})
 			}.recover({ error -> Promise<AuthDataResult> in
-				switch ErrorCode<AuthErrorCode>(error)?.code {
+				switch ErrorCode<AuthErrorCode>(error).code {
 				case AuthErrorCode.emailAlreadyInUse?:
 					return self.login(email, password)
 				default:

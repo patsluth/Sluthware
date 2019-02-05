@@ -45,13 +45,13 @@ public final class FirestoreField<T>
 					batch.setData(data, forDocument: self.ref)
 					resolver.fulfill(self)
 				} else {
-					self.ref.setData(data) { error in
+					self.ref.setData(data, merge: true, completion: { error in
 						if let error = error {
 							resolver.reject(error)
 						} else {
 							resolver.fulfill(self)
 						}
-					}
+					})
 				}
 			} catch {
 				resolver.reject(error)
@@ -81,7 +81,7 @@ public final class FirestoreField<T>
 		}
 	}
 	
-	public func valuePromise(source: FirestoreSource = .default) -> Promise<ValueResult<T>>
+	public func valuePromise(source: FirestoreSource = .default) -> Promise<T>
 	{
 		return self.ref
 			.snapshotPromise(source: source)
@@ -89,7 +89,8 @@ public final class FirestoreField<T>
 				snapshot.get(self.name)
 			})
 			.map({ field in
-				ValueResult(field)
+				try T.decode(field)
+				//ValueResult(field)
 			})
 	}
 	
@@ -103,7 +104,6 @@ public final class FirestoreField<T>
 			.map({ field in
 				ValueResult(field)
 			})
-			.distinctUntilChanged()
 	}
 }
 

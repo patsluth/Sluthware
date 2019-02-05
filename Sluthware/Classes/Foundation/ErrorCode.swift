@@ -15,15 +15,13 @@ import Foundation
 public struct ErrorCode<CodeType>: ReflectedStringConvertible
 	where CodeType: RawRepresentable, CodeType.RawValue == Int
 {
-	let code: CodeType
+	let code: CodeType?
+	let error: Error
 	
-	public init?(_ error: Error)
+	public init(_ error: Error)
 	{
-		if let code = CodeType(rawValue: error._code) {
-			self.code = code
-		} else {
-			return nil
-		}
+		self.code = CodeType(rawValue: error._code)
+		self.error = error
 	}
 }
 

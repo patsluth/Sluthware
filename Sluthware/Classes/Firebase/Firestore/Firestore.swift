@@ -21,7 +21,10 @@ import PromiseKit
 public extension Firestore
 {
 	public typealias DataType = [String: Any]
-	public typealias ModelType = Codable & Equatable
+	public typealias ModelType = Codable// & Equatable
+	public typealias ErrorType = ErrorCode<FirestoreErrorCode>
+	public typealias ValueType<T> = ExclusivePair<T, Firestore.ErrorType>
+		where T: ModelType
 }
 
 

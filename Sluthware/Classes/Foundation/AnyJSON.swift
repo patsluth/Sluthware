@@ -44,7 +44,7 @@ public enum AnyJSON
 			} else if let value = try? container.decode(AnyJSON.Collection.self) {
 				self = .collection(value)
 			} else {
-				throw Errors.Decoding(AnyJSON.Collection.self, container.codingPath)
+				throw Errors.Decoding(AnyJSON.Collection.self, codingPath: container.codingPath)
 			}
 		}
 		
@@ -91,7 +91,7 @@ public enum AnyJSON
 			} else if let value = try? container.decode([AnyJSON.Value].self) {
 				self = .array(value)
 			} else {
-				throw Errors.Decoding(AnyJSON.Collection.self, container.codingPath)
+				throw Errors.Decoding(AnyJSON.Collection.self, codingPath: container.codingPath)
 			}
 		}
 		
