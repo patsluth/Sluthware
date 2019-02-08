@@ -33,7 +33,7 @@ public extension Encodable
 			}
 		}
 		
-		throw Errors.Encoding(type, [])
+		throw Errors.Encoding(self, codingPath: [])
 	}
 }
 
