@@ -31,7 +31,7 @@ public extension AssociatedObjectIdentifiable
 	}
 
 	var associatedObjectIdentifer: Identifer {
-		return Self.associatedObjectID
+		return Self.associatedObjectIdentifer
 	}
 }
 
@@ -53,7 +53,7 @@ public extension NSObjectProtocol
 	public func getAssociatedObject<T>(_ type: T.Type) -> T?
 		where T: AssociatedObjectIdentifiable
 	{
-		return objc_getAssociatedObject(self, type.associatedObjectID) as? T
+		return objc_getAssociatedObject(self, type.associatedObjectIdentifer) as? T
 	}
 	
 	public func setAssociatedObject<T>(_ object: T?,
@@ -61,7 +61,7 @@ public extension NSObjectProtocol
 		where T: AssociatedObjectIdentifiable
 	{
 		objc_setAssociatedObject(self,
-								 T.associatedObjectID,
+								 T.associatedObjectIdentifer,
 								 nil,
 								 policy)
 	}

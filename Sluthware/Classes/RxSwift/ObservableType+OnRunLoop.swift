@@ -17,6 +17,7 @@ import RxCocoa
 
 extension ObservableType
 {
+	@available(iOS 10.0, *)
 	public func onceThenOnRunLoop<T>(inModes modes: [RunLoop.Mode]) -> Observable<T>
 		where E == T
 	{
@@ -50,6 +51,7 @@ extension ObservableType
 
 
 
+@available(iOS 10.0, *)
 func onRunPoopCompletable(inModes modes: [RunLoop.Mode]) -> Completable
 {
 	return Completable.create { completable in
