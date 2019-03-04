@@ -15,7 +15,8 @@ import ObjectiveC
 
 fileprivate var _keyValueObservations = Selector(("_keyValueObservations"))
 
-public extension NSObjectProtocol where Self: NSObject
+public extension NSObjectProtocol
+	where Self: NSObject
 {
 	var keyValueObservations: Set<NSKeyValueObservation> {
 		get

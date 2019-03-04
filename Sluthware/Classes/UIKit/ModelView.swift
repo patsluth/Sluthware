@@ -29,7 +29,7 @@ public protocol ModelView
 
 public extension UITableView
 {
-	public typealias ModelCell = UITableViewCell & ModelViewProtocol
+	public typealias ModelCell = UITableViewCell & ModelView
 //	public typealias SelectableModelCell = UITableView.ModelCell & SelectableModelViewProtocol
 }
 
@@ -39,7 +39,7 @@ public extension UITableView
 
 public extension UICollectionView
 {
-	public typealias ModelCell = UICollectionViewCell & ModelViewProtocol
+	public typealias ModelCell = UICollectionViewCell & ModelView
 //	public typealias SelectableModelCell = UICollectionView.ModelCell & SelectableModelViewProtocol
 }
 
