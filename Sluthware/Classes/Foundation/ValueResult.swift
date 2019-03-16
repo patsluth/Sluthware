@@ -21,12 +21,12 @@ public enum ValueResultError: Error
 
 
 
-@available(*, deprecated, renamed: "use Swift.Result<T> instead")
-
-extension Result
-{
-	
-}
+//@available(*, deprecated, renamed: "use Swift.Result<T> instead")
+//
+//extension Result
+//{
+//
+//}
 
 public enum ValueResult<T>
 {
