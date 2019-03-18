@@ -25,8 +25,8 @@ public extension UIView
 		NSLayoutConstraint.activate([
 			self.topAnchor.constraint(equalTo: view.topAnchor, constant: edgeInsets.top),
 			self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: edgeInsets.left),
-			self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: edgeInsets.bottom),
-			self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: edgeInsets.right),
+			view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: edgeInsets.bottom),
+			view.rightAnchor.constraint(equalTo: self.rightAnchor, constant: edgeInsets.right),
 			])
 	}
 }

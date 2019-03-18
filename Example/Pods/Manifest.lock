@@ -56,8 +56,8 @@ SPEC CHECKSUMS:
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
-  Sluthware: b24bfc82468ad4c5f0e6492b0748a283c00a8f3b
+  Sluthware: 366e025dec0867e9d88d87443dc7de4da620e0d1
 
 PODFILE CHECKSUM: a6afaf9fcadfd70527e5385debaafe0e984e6015
 
-COCOAPODS: 1.6.0.rc.1
+COCOAPODS: 1.7.0.beta.2
