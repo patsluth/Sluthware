@@ -16,16 +16,23 @@ import ObjectiveC
 public extension UITableView
 {
 	@available(iOS 5.0, *)
-	func register<T>(_ nib: UINib?,
-					 of type: T.Type,
-					 reuseIdentifier: String = "\(T.self)")
+	func registerCell<T>(_ type: T.Type,
+						 nib: UINib?,
+						 reuseIdentifier: String = "\(T.self)")
 		where T: UITableViewCell
 	{
 		self.register(nib, forCellReuseIdentifier: reuseIdentifier)
 	}
 	
+	func registerCell<T>(_ type: T.Type,
+						 reuseIdentifier: String = "\(T.self)")
+		where T: UITableViewCell & UINib.Provider
+	{
+		self.registerCell(type, nib: T.nib)
+	}
+	
 	@available(iOS 6.0, *)
-	func registerCell<T>(of type: T.Type,
+	func registerCell<T>(_  type: T.Type,
 						 reuseIdentifier: String = "\(T.self)")
 		where T: UITableViewCell
 	{
@@ -33,16 +40,23 @@ public extension UITableView
 	}
 	
 	@available(iOS 6.0, *)
-	func registerHeaderFooterView<T>(_ nib: UINib?,
-									 of type: T.Type,
+	func registerHeaderFooterView<T>(_ type: T.Type,
+									 nib: UINib?,
 									 reuseIdentifier: String = "\(T.self)")
 		where T: UITableViewHeaderFooterView
 	{
 		self.register(nib, forHeaderFooterViewReuseIdentifier: reuseIdentifier)
 	}
 	
+	func registerHeaderFooterView<T>(_ type: T.Type,
+									 reuseIdentifier: String = "\(T.self)")
+		where T: UITableViewHeaderFooterView & UINib.Provider
+	{
+		self.registerHeaderFooterView(type, nib: T.nib)
+	}
+	
 	@available(iOS 6.0, *)
-	func registerHeaderFooterView<T>(of type: T.Type,
+	func registerHeaderFooterView<T>(_ type: T.Type,
 									 reuseIdentifier: String = "\(T.self)")
 		where T: UITableViewHeaderFooterView
 	{
@@ -51,7 +65,7 @@ public extension UITableView
 	
 	
 	
-	func dequeueReusableCell<T>(of type: T.Type,
+	func dequeueReusableCell<T>(_ type: T.Type,
 								reuseIdentifier: String = "\(T.self)") -> T?
 		where T: UITableViewCell
 	{
@@ -59,7 +73,7 @@ public extension UITableView
 	}
 	
 	@available(iOS 6.0, *)
-	func dequeueReusableCell<T>(of type: T.Type,
+	func dequeueReusableCell<T>(_ type: T.Type,
 								for indexPath: IndexPath,
 								reuseIdentifier: String = "\(T.self)") -> T
 		where T: UITableViewCell
@@ -68,7 +82,7 @@ public extension UITableView
 	}
 	
 	@available(iOS 6.0, *)
-	func dequeueReusableHeaderFooterView<T>(of type: T.Type,
+	func dequeueReusableHeaderFooterView<T>(_ type: T.Type,
 											reuseIdentifier: String = "\(T.self)") -> T?
 		where T: UITableViewHeaderFooterView
 	{
@@ -125,7 +139,7 @@ public extension UITableView
 	
 	
 	
-	func prototypeCell<T>(of type: T.Type,
+	func prototypeCell<T>(_ type: T.Type,
 						  reuseIdentifier: String = "\(T.self)") -> T?
 		where T: UITableViewCell
 	{

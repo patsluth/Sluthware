@@ -1,5 +1,5 @@
 //
-//  ModelView.swift
+//  NibProvider.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-09-30.
@@ -22,10 +22,25 @@ public protocol NibProvider
 
 
 
-extension NibProvider
+public extension UINib
+{
+	public typealias Provider = NibProvider
+}
+
+
+
+
+
+public extension UINib.Provider
 	where Self: UIView
 {
+	@available(*, deprecated, renamed: "installNib")
 	public func installNibView()
+	{
+		self.installNib()
+	}
+	
+	public func installNib()
 	{
 		//		DispatchQueue.once
 		
@@ -40,27 +55,31 @@ extension NibProvider
 		//		print(AssociatedObject.identifer(Self.self).hashValue)
 		
 		guard self.get(associatedObject: "nibProviderView", UIView.self) == nil else { return }
-		
+		guard let nibView = Self.nib.instantiate(withOwner: self, options: nil)
+			.first as? UIView else { return }
 		//		guard self.subviews.count == 0 else { return }
 		//		self.translatesAutoresizingMaskIntoConstraints = false
 		
 		self.setNeedsLayout()
 		//		self.layoutIfNeeded()
 		
-		if let view = Self.nib.instantiate(withOwner: self, options: nil).first as? UIView {
-			self.set(associatedObject: "nibProviderView", object: view)
-			//			view.tag = AssociatedObject.identifer(Self.self).hashValue
-			view.translatesAutoresizingMaskIntoConstraints = false
-			self.addSubview(view)
-			view.constrainTo(view: self)
-			
-			//			self.setNeedsLayout()
-			view.setNeedsLayout()
-			//			self.layoutIfNeeded()
-			//			view.layoutIfNeeded()
-			//			view.setNeedsLayout()
-			//			view.layoutIfNeeded()
-		}
+		self.set(associatedObject: "nibProviderView", object: nibView)
+		nibView.translatesAutoresizingMaskIntoConstraints = false
+		self.addSubview(nibView)
+		
+		NSLayoutConstraint.activate([
+			nibView.topAnchor.constraint(equalTo: self.topAnchor),
+			nibView.leftAnchor.constraint(equalTo: self.leftAnchor),
+			nibView.rightAnchor.constraint(equalTo: self.rightAnchor),
+			nibView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+			])
+		
+		//			self.setNeedsLayout()
+		nibView.setNeedsLayout()
+		//			self.layoutIfNeeded()
+		//			view.layoutIfNeeded()
+		//			view.setNeedsLayout()
+		//			view.layoutIfNeeded()
 		
 		//		self.setNeedsLayout()
 		//		self.layoutIfNeeded()
