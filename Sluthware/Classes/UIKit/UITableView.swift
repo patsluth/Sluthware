@@ -91,7 +91,7 @@ public extension UITableView
 	
 	
 	
-	func cellForRow<T>(of type: T.Type,
+	func cellForRow<T>(_ type: T.Type,
 					   at indexPath: IndexPath) -> T?
 		where T: UITableViewCell
 	{
