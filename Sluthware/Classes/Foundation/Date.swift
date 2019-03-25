@@ -28,6 +28,18 @@ public extension Date
 		
 		self = date
 	}
+	
+	public func adding(_ timeComponent: TimeComponent,
+					   _ ordinal: TimeInterval = 1.0) -> Date
+	{
+		return self.addingTimeInterval(timeComponent.timeInterval * ordinal)
+	}
+	
+	mutating func add(_ timeComponent: TimeComponent,
+					  _ ordinal: TimeInterval = 1.0)
+	{
+		self = self.adding(timeComponent, ordinal)
+	}
 }
 
 

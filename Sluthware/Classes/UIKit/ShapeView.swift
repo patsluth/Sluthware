@@ -11,7 +11,7 @@ import UIKit
 
 
 
-@IBDesignable
+//@IBDesignable
 public class ShapeView: UIView
 {
 	private lazy var maskLayer: CAShapeLayer = {
