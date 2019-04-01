@@ -34,6 +34,25 @@ public extension Reactive
 
 
 
+// TODO: Disable block
+public extension ControlEvent
+{
+	public func on(throttle: RxTimeInterval = 0.25,
+				   _ block: @escaping (PropertyType) -> Void) -> Disposable
+	{
+		return self
+			.asDriver()
+			.throttle(throttle)
+			.drive(onNext: {
+				block($0)
+			})
+	}
+}
+
+
+
+
+
 public extension Reactive
 	where Base: UIBarButtonItem
 {
