@@ -16,10 +16,10 @@ import UIKit
 public extension UISegmentedControl
 {
 	@available(swift, introduced: 4.2)
-	public convenience init<T>(_ caseIterableType: T.Type)
+	public convenience init<T>(_ type: T.Type)
 		where T: RawRepresentable, T: CaseIterable, T.RawValue == String
 	{
-		let items = caseIterableType.allCases.map({ $0.rawValue })
+		let items = type.allCases.map({ $0.rawValue })
 		
 		self.init(items: items)
 		
@@ -28,6 +28,18 @@ public extension UISegmentedControl
 				self.selectedSegmentIndex = 0
 			}
 		}
+	}
+	
+	public func setItems<T>(_ type: T.Type, animated: Bool = false)
+		where T: RawRepresentable, T: CaseIterable, T.RawValue == String
+	{
+		self.removeAllSegments()
+		
+		for (i, title) in type.allCases.enumerated() {
+			self.insertSegment(withTitle: title.rawValue, at: i, animated: animated)
+		}
+		
+		self.selectedSegmentIndex = 0
 	}
 }
 

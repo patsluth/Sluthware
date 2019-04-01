@@ -14,6 +14,20 @@ import CoreGraphics
 
 public extension UIImage
 {
+	public func resizedTo(width: CGFloat) -> UIImage
+	{
+		let height = (width / self.size.width) * self.size.height
+		
+		return self.resizedTo(CGSize(width: width, height: height))
+	}
+	
+	public func resizedTo(height: CGFloat) -> UIImage
+	{
+		let width = (height / self.size.height) * self.size.width
+		
+		return self.resizedTo(CGSize(width: width, height: height))
+	}
+	
 	public func resizedTo(_ newSize: CGSize) -> UIImage
 	{
 		guard self.size != newSize else { return self }
@@ -22,10 +36,9 @@ public extension UIImage
 		let newRect = CGRect(origin: CGPoint.zero, size: newSize).integral
 		
 		UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-		guard let context = UIGraphicsGetCurrentContext() else {
-			UIGraphicsEndImageContext()
-			return self
-		}
+		defer { UIGraphicsEndImageContext() }
+		
+		guard let context = UIGraphicsGetCurrentContext() else { return self }
 		
 		// Set the quality level to use when rescaling
 		context.interpolationQuality = CGInterpolationQuality.high
@@ -36,15 +49,9 @@ public extension UIImage
 		context.draw(imageRef, in: newRect)
 		
 		// Get the resized image from the context and a UIImage
-		guard let newImageRef = context.makeImage() else {
-			UIGraphicsEndImageContext()
-			return self
-		}
-		let newImage = UIImage(cgImage: newImageRef)
+		guard let newImageRef = context.makeImage() else { return self }
 		
-		UIGraphicsEndImageContext()
-		
-		return newImage
+		return UIImage(cgImage: newImageRef) ?? self
 	}
 }
 
