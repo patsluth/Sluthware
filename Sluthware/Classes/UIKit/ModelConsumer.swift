@@ -31,6 +31,17 @@ public protocol ModelViewController: ModelConsumer
 {
 	
 }
+
+public extension ModelConsumer
+	where Self: NSObject
+{
+	init(model: Model)
+	{
+		self.init()
+		
+		self.model = model
+	}
+}
 //
 //
 //

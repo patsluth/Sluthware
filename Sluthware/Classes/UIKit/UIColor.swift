@@ -14,6 +14,11 @@ import Foundation
 
 public extension UIColor
 {
+	public func with(alpha: CGFloat) -> UIColor
+	{
+		return self.withAlphaComponent(alpha)
+	}
+	
 	public func lighter(by percentage: CGFloat) -> UIColor
 	{
 		return self.adjusting(by: abs(percentage))

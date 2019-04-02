@@ -48,6 +48,10 @@ public extension String
 		return self.removingPercentEncoding ?? self
 	}
 	
+	var url: URL? {
+		return URL(string: self)
+	}
+	
 	
 	
 	
