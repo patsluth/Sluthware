@@ -119,7 +119,7 @@ class ViewController2: UIViewController
 	
 	lazy var cellColors: [String] = {
 		var colors = [String]()
-		for char in "abcdefghijklmnopasdfasdfasdfafafqrstuyzzz".characters {
+		for char in "abcdefghijklmnopasdfasdfasdfafafqrstuyzzz" {
 			colors.append(String(char))
 		}
 		return colors

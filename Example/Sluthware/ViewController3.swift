@@ -20,7 +20,7 @@ class ViewController3: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	lazy var dataSource: [String] = {
 		var colors = [String]()
-		for char in "abcdefghijklmnopasdfasdfasdfafafqrstuyzzz".characters {
+		for char in "abcdefghijklmnopasdfasdfasdfafafqrstuyzzz" {
 			colors.append(String(char))
 		}
 		return colors
