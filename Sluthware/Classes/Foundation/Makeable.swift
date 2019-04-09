@@ -12,11 +12,12 @@ import UIKit
 
 
 
-public protocol Makeable: NSObject { }
+public protocol Makeable: NSObjectProtocol { }
 
 extension NSObject: Makeable { }
 
 public extension Makeable
+	where Self: NSObject
 {
 	@discardableResult
 	static func make(_ block: ((Self) -> Void)? = nil) -> Self

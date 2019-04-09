@@ -14,6 +14,8 @@ import Foundation
 
 public protocol AnyTypeContainer
 {
+	var rootType: Any.Type { get }
+	
 	func containsMember<T>(_ type: T.Type) -> Bool
 	func containsMember<T>(_ type: Optional<T>.Type) -> Bool
 	func containsMember<T>(_ object: T) -> Bool
@@ -29,6 +31,12 @@ public protocol AnyTypeContainer
 
 public struct TypeContainer<Root>: AnyTypeContainer
 {
+	public let rootType: Any.Type = Root.self
+	
+	
+	
+	
+	
 	public init(_ type: Root.Type)
 	{
 	}
