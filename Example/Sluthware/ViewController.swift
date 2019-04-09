@@ -475,12 +475,12 @@ class ViewController: UIViewController
 		let set2 = Set<Int>(array2)
 		let set3 = Set<Double>(array3)
 		
-		print(array1.toString(separatedBy: ","))
-		print(array2.toString(separatedBy: ","))
-		print(array3.toString(separatedBy: ","))
-		print(set1.toString(separatedBy: ","))
-		print(set2.toString(separatedBy: ","))
-		print(set3.toString(separatedBy: ","))
+		print(array1.joined(separator: ","))
+		print(array2.joined(separator: ","))
+		print(array3.joined(separator: ","))
+		print(set1.joined(separator: ","))
+		print(set2.joined(separator: ","))
+		print(set3.joined(separator: ","))
 		
 		
 		let image = self.view.imageRepresentation()

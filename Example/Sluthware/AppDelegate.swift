@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
 	{
+		printSW("test", 1)
+		prints(1, 2, 3)
 		return true
 	}
 	

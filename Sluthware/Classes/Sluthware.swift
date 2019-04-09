@@ -9,3 +9,16 @@
 
 
 
+
+public func printSW(file: String = #file,
+					function: String = #function,
+					line: Int = #line,
+					_ items: Any...)
+{
+	var items = [file.fileNameFull, function, line] + items
+	print(items.joined(separator: " "))
+}
+
+
+
+

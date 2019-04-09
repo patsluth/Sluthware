@@ -37,6 +37,7 @@
         ],
         "resources": "Sluthware/Resources/UIKit/**/*",
         "source_files": [
+          "Sluthware/Classes/*.swift",
           "Sluthware/Classes/Shared/**/*",
           "Sluthware/Classes/Foundation/**/*",
           "Sluthware/Classes/CoreGraphics/**/*",
@@ -54,6 +55,7 @@
           "SystemConfiguration"
         ],
         "source_files": [
+          "Sluthware/Classes/*.swift",
           "Sluthware/Classes/Shared/**/*",
           "Sluthware/Classes/Foundation/**/*",
           "Sluthware/Classes/CoreGraphics/**/*",

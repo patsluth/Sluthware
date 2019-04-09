@@ -19,15 +19,29 @@ public extension Reactive
 	where Base: UIButton
 {
 	public func onTap(throttle: RxTimeInterval = 0.25,
-					  _ block: @escaping () -> Void) -> Disposable
+					  _ block: @escaping (Base) -> Void) -> Disposable
 	{
 		return self.tap
 			.asDriver()
 			.throttle(throttle)
-			.drive(onNext: {
-				block()
+			.debug()
+			.drive(onNext: { [unowned base = self.base] in
+				block(base)
 			})
 	}
+	
+	//	typealias Completion = (@escaping () -> Void) -> Void
+	//	public func onTapDisable(until complete: @escaping Completion) -> Disposable
+	//	{
+	//		return self.tap
+	//			.asDriver()
+	//			.drive(onNext: { [unowned button = self.base] in
+	//				button.isEnabled = false
+	//				complete({
+	//					button.isEnabled = true
+	//				})
+	//			})
+	//	}
 }
 
 
@@ -43,6 +57,7 @@ public extension ControlEvent
 		return self
 			.asDriver()
 			.throttle(throttle)
+			.debug()
 			.drive(onNext: {
 				block($0)
 			})
@@ -57,15 +72,28 @@ public extension Reactive
 	where Base: UIBarButtonItem
 {
 	public func onTap(throttle: RxTimeInterval = 0.25,
-					  _ block: @escaping () -> Void) -> Disposable
+					  _ block: @escaping (Base) -> Void) -> Disposable
 	{
 		return self.tap
 			.asDriver()
 			.throttle(throttle)
-			.drive(onNext: {
-				block()
+			.debug()
+			.drive(onNext: { [unowned base = self.base] in
+				block(base)
 			})
 	}
+	
+	//	public func onTapDisable(until complete: @escaping (@escaping () -> Void) -> Void) -> Disposable
+	//	{
+	//		return self.tap
+	//			.asDriver()
+	//			.drive(onNext: { [unowned button = self.base] in
+	//				button.isEnabled = false
+	//				complete({
+	//					button.isEnabled = true
+	//				})
+	//			})
+	//	}
 }
 
 

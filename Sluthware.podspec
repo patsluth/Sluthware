@@ -41,7 +41,8 @@ Pod::Spec.new do |s|
 
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
 
-		ss.ios.source_files = 'Sluthware/Classes/Shared/**/*',
+		ss.ios.source_files = 'Sluthware/Classes/*.swift',
+		'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
@@ -56,7 +57,8 @@ Pod::Spec.new do |s|
 		'CoreLocation',
 		'SystemConfiguration'
 
-		ss.osx.source_files = 'Sluthware/Classes/Shared/**/*',
+		ss.osx.source_files = 'Sluthware/Classes/*.swift',
+		'Sluthware/Classes/Shared/**/*',
 		'Sluthware/Classes/Foundation/**/*',
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',

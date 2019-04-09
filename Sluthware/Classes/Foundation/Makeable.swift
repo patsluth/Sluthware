@@ -28,6 +28,7 @@ public extension Makeable
 			view?.translatesAutoresizingMaskIntoConstraints = false
 			block?(object)
 			view?.setNeedsUpdateConstraints()
+			view?.setNeedsLayout()
 		}
 		
 		return object
