@@ -20,32 +20,39 @@ import PromiseKit
 
 public extension Promise
 {
-	public func asSingle() -> Single<T>
+	public typealias ObservableElement = Swift.Result<T, Error>
+	
+	public func asSingle() -> Single<ObservableElement>
 	{
-		return Single<T>.create { observable in
+		return Single.create { observable in
 			
 			self.done({
-				observable(.success($0))
+				observable(.success(.success($0)))
 			}).catch({
-				observable(.error($0))
+				observable(.success(.failure($0)))
 			})
 			
-			return Disposables.create()
+			return Disposables.create {
+				self.cauterize()
+			}
 		}
 	}
 	
-	public func asObservable() -> Observable<T>
+	public func asObservable() -> Observable<ObservableElement>
 	{
-		return Observable<T>.create { observable in
+		return Observable.create { observable in
 			
 			self.done({
-				observable.onNext($0)
-				observable.onCompleted()
+				observable.onNext(.success($0))
 			}).catch({
-				observable.onError($0)
+				observable.onNext(.failure($0))
+			}).finally({
+				observable.onCompleted()
 			})
 			
-			return Disposables.create()
+			return Disposables.create {
+				self.cauterize()
+			}
 		}
 	}
 }

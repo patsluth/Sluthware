@@ -41,11 +41,11 @@ extension UIBarButtonItem: TappableControl
 public extension TappableControl
 {
 	@discardableResult
-	func onTap(throttle: TimeInterval = 0.0,
-			   debounce: TimeInterval = 0.0,
-			   scheduler: SchedulerType = MainScheduler.instance,
-			   _ block: @escaping (Self) -> Void,
-			   disposedBy: DisposeBag? = nil) -> Self
+	func on(tap event: @escaping (Self) -> Void,
+			disposedBy disposeBag: DisposeBag? = nil,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance) -> Self
 	{
 		var observable = self.tap
 			.asObservable()
@@ -64,10 +64,10 @@ public extension TappableControl
 		#endif
 		
 		let disposable = observable.bind(onNext: { [unowned self] in
-			block(self)
+			event(self)
 		})
 		
-		if let disposeBag = disposedBy {
+		if let disposeBag = disposeBag {
 			disposable.disposed(by: disposeBag)
 		}
 		
@@ -84,15 +84,38 @@ public extension NSObjectProtocol
 {
 	@discardableResult
 	public func on(controlEvent: UIControl.Event,
+				   event: @escaping (Self) -> Void,
+				   disposedBy disposeBag: DisposeBag? = nil,
 				   throttle: TimeInterval = 0.0,
 				   debounce: TimeInterval = 0.0,
-				   scheduler: SchedulerType = MainScheduler.instance,
-				   _ block: @escaping (Self) -> Void,
-				   disposedBy: DisposeBag? = nil) -> Self
+				   scheduler: SchedulerType = MainScheduler.instance) -> Self
 	{
-		var observable = self.rx.controlEvent(controlEvent)
+		var disposable = self.rx.controlEvent(controlEvent).on(event: { _ in
+			event(self)
+		})
+		
+		if let disposeBag = disposeBag {
+			disposable.disposed(by: disposeBag)
+		}
+		
+		return self
+	}
+}
+
+
+
+
+
+public extension ControlEvent
+{
+	@discardableResult
+	public func on(event: @escaping (E) -> Void,
+				   throttle: TimeInterval = 0.0,
+				   debounce: TimeInterval = 0.0,
+				   scheduler: SchedulerType = MainScheduler.instance) -> Disposable
+	{
+		var observable = self
 			.asObservable()
-			.takeUntil(self.rx.deallocated)
 			.observeOn(scheduler)
 		
 		if throttle > 0.0 {
@@ -106,15 +129,9 @@ public extension NSObjectProtocol
 		observable = observable.debug()
 		#endif
 		
-		let disposable = observable.bind(onNext: { [unowned self] in
-			block(self)
+		return observable.bind(onNext: {
+			event($0)
 		})
-		
-		if let disposeBag = disposedBy {
-			disposable.disposed(by: disposeBag)
-		}
-		
-		return self
 	}
 }
 

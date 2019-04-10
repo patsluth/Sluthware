@@ -102,24 +102,18 @@ public extension UICollectionView
 
 
 
-fileprivate var _prototypeCells = Selector(("_prototypeCells"))
-
 public extension UICollectionView
 {
 	fileprivate var prototypeCells: [String: UICollectionViewCell] {
 		get
 		{
-			return (objc_getAssociatedObject(self, &_prototypeCells) as? [String: UICollectionViewCell]) ?? [:]
+			return self.get(associatedObject: "prototypeCells", [String: UICollectionViewCell].self) ?? [:]
 		}
 		set
 		{
-			objc_setAssociatedObject(self,
-									 &_prototypeCells,
-									 newValue,
-									 objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+			self.set(associatedObject: "prototypeCells", object: newValue)
 		}
 	}
-	
 	
 	
 	
@@ -132,11 +126,9 @@ public extension UICollectionView
 			return cell
 		}
 		
-		let cell = T()
-		cell.translatesAutoresizingMaskIntoConstraints = false
-		self.prototypeCells[reuseIdentifier] = cell
-		
-		return cell
+		return T.make({
+			self.prototypeCells[reuseIdentifier] = $0
+		})
 	}
 }
 
