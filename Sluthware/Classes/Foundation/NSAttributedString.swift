@@ -100,32 +100,23 @@ public extension NSAttributedString
 		return lhs + rhs.string
 	}
 	
+	public static func +(lhs: String, rhs: NSAttributedString) -> NSAttributedString
+	{
+		return lhs.attributed + rhs
+	}
+	
 	public static func +=(lhs: inout String, rhs: NSAttributedString)
 	{
 		lhs = lhs + rhs
 	}
-	
-	
-	
-	//	public static func +(lhs: NSAttributedString, rhs: Attributes) -> String
-	//	{
-	//		let attributedString = NSMutableAttributedString()
-	//		attributedString.append(lhs)
-	//		attributedString.append(rhs)
-	//		return attributedString as NSAttributedString
-	//	}
-	//
-	//	public static func +=(lhs: inout String, rhs: NSAttributedString)
-	//	{
-	//		lhs = lhs + rhs
-	//	}
 }
 
 
 
 
 
-public extension Collection where Element: NSAttributedString
+public extension Collection
+	where Element: NSAttributedString
 {
 	var attributed: NSAttributedString {
 		return self.reduce(into: NSMutableAttributedString()) { result, element in

@@ -49,6 +49,14 @@ public extension Font
 		return Font(descriptor: self.fontDescriptor.addingAttributes(attributes),
 					size: self.pointSize)
 	}
+	
+	func with(traits: FontDescriptor.SymbolicTraits) -> Font?
+	{
+		if let fontDescriptor = self.fontDescriptor.withSymbolicTraits(traits) {
+			return UIFont(descriptor: fontDescriptor, size: self.pointSize)
+		}
+		return nil
+	}
 }
 
 
