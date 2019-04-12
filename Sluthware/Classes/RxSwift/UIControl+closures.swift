@@ -83,12 +83,12 @@ public extension NSObjectProtocol
 	where Self: UIControl
 {
 	@discardableResult
-	public func on(controlEvent: UIControl.Event,
-				   event: @escaping (Self) -> Void,
-				   disposedBy disposeBag: DisposeBag? = nil,
-				   throttle: TimeInterval = 0.0,
-				   debounce: TimeInterval = 0.0,
-				   scheduler: SchedulerType = MainScheduler.instance) -> Self
+	func on(controlEvent: UIControl.Event,
+			event: @escaping (Self) -> Void,
+			disposedBy disposeBag: DisposeBag? = nil,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance) -> Self
 	{
 		var disposable = self.rx.controlEvent(controlEvent).on(event: { _ in
 			event(self)
@@ -109,10 +109,10 @@ public extension NSObjectProtocol
 public extension ControlEvent
 {
 	@discardableResult
-	public func on(event: @escaping (E) -> Void,
-				   throttle: TimeInterval = 0.0,
-				   debounce: TimeInterval = 0.0,
-				   scheduler: SchedulerType = MainScheduler.instance) -> Disposable
+	func on(event: @escaping (E) -> Void,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance) -> Disposable
 	{
 		var observable = self
 			.asObservable()
