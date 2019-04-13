@@ -36,9 +36,7 @@ public final class PersistantVariable<Element, RawType>: ObservableType
 	
 	
 	
-	public init(_ type: Element.Type,
-				_ rawType: RawType.Type,
-				_ key: String,
+	public init(_ key: String,
 				_ userDefaults: UserDefaults = UserDefaults.standard)
 	{
 		self.key = key
