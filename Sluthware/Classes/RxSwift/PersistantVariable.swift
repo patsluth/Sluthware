@@ -16,16 +16,14 @@ import RxCocoa
 
 
 /// A BehaviorRelay wrapper that saves and reads value from UserDefaults
-/// RawType is the value that E will be encoded/decoded to/from
-public final class PersistantVariable<Element, RawType>: ObservableType
-	where Element: Codable
+public class PersistantVariable<T>: ObservableType
 {
-	public typealias E = Element?
+	public typealias E = T?
 	
 	
 	
-	private let key: String
-	private let userDefaults: UserDefaults
+	let key: String
+	let userDefaults: UserDefaults
 	private let _relay: BehaviorRelay<E>
 	
 	public var value: E {
@@ -48,31 +46,17 @@ public final class PersistantVariable<Element, RawType>: ObservableType
 		}
 	}
 	
-	private func readValue() -> E
+	func readValue() -> E
 	{
-		var value: E = nil
-		
-		do {
-			let rawValue = self.userDefaults.value(forKey: self.key)
-			value = try E.decode(rawValue)
-		} catch {
-			error.log()
-		}
-		
+		let value = self.userDefaults.value(forKey: self.key) as? T
 		printSW("Read \(self.key): \(value as Any)")
-		
 		return value
 	}
 	
-	private func write(value: E)
+	func write(value: E)
 	{
-		do {
-			let rawValue = try value?.encode(RawType.self)
-			self.userDefaults.setValue(rawValue, forKey: self.key)
-			printSW("Write \(self.key): \(value as Any)")
-		} catch {
-			error.log()
-		}
+		self.userDefaults.setValue(value, forKey: self.key)
+		printSW("Write \(self.key): \(value as Any)")
 	}
 	
 	public func accept(_ event: E)
