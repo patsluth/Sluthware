@@ -35,6 +35,11 @@
           "UIKit",
           "SystemConfiguration"
         ],
+        "dependencies": {
+          "SnapKit": [
+
+          ]
+        },
         "resources": "Sluthware/Resources/UIKit/**/*",
         "source_files": [
           "Sluthware/Classes/*.swift",
@@ -284,16 +289,19 @@
       "source_files": "Sluthware/Classes/Alamofire/**/*"
     },
     {
-      "name": "SnapKit",
+      "name": "R.swift",
       "dependencies": {
         "Sluthware/Default": [
 
         ],
-        "SnapKit": [
+        "R.swift": [
+
+        ],
+        "SegueManager/R.swift": [
 
         ]
       },
-      "source_files": "Sluthware/Classes/SnapKit/**/*"
+      "source_files": "Sluthware/Classes/R.swift/**/*"
     }
   ]
 }

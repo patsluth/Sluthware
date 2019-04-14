@@ -66,6 +66,11 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableViewHeade
 		
 		self.embedded.prepareForInterfaceBuilder()
 	}
+	
+	deinit
+	{
+		self.prepareForReuse()
+	}
 }
 
 

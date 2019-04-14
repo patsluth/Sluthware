@@ -46,14 +46,6 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusabl
 	
 	
 	
-	public override func prepareForReuse()
-	{
-		super.prepareForReuse()
-		
-		self.preferredLayoutAttributesProvider = nil
-		self.embedded.prepareForReuse?()
-	}
-	
 	@discardableResult
 	public func preferredLayoutAttributes(provider: @escaping PreferredLayoutAttributesProvider) -> Self
 	{
@@ -72,6 +64,14 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusabl
 		self.preferredLayoutAttributesProvider?(attributes)
 		
 		return attributes
+	}
+	
+	public override func prepareForReuse()
+	{
+		super.prepareForReuse()
+		
+		self.preferredLayoutAttributesProvider = nil
+		self.embedded.prepareForReuse?()
 	}
 	
 	public override func prepareForInterfaceBuilder()
