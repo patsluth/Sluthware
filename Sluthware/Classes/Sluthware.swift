@@ -22,3 +22,15 @@ public func printSW(file: String = #file,
 
 
 
+
+public func printSW<T>(function: String = #function,
+					   sender: T,
+					   _ items: Any...)
+{
+	var items = [T.self, function] + items
+	print(items.joined(separator: " "))
+}
+
+
+
+

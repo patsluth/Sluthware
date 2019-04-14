@@ -49,14 +49,14 @@ public class PersistantVariable<T>: ObservableType
 	func readValue() -> E
 	{
 		let value = self.userDefaults.value(forKey: self.key) as? T
-		printSW("Read \(self.key): \(value as Any)")
+		printSW(sender: self, "\(self.key) = \(value)")
 		return value
 	}
 	
 	func write(value: E)
 	{
 		self.userDefaults.setValue(value, forKey: self.key)
-		printSW("Write \(self.key): \(value as Any)")
+		printSW(sender: self, "\(self.key) = \(value)")
 	}
 	
 	public func accept(_ event: E)
