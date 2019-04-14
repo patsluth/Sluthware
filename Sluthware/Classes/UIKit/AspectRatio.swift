@@ -23,13 +23,13 @@ public enum AspectRatio
 
 public extension AspectRatio
 {
-	class ImageView: UIImageView
+	open class ImageView: UIImageView
 	{
 		public var type = AspectRatio.WH {
 			didSet { self.invalidateIntrinsicContentSize() }
 		}
 		
-		public override var image: UIImage? {
+		open override var image: UIImage? {
 			didSet
 			{
 				self.contentMode = UIView.ContentMode.scaleAspectFit
@@ -37,7 +37,7 @@ public extension AspectRatio
 			}
 		}
 		
-		public override var intrinsicContentSize: CGSize {
+		open override var intrinsicContentSize: CGSize {
 			var size = self.bounds.size
 			var aspectRato: CGFloat = 0
 			
@@ -61,7 +61,7 @@ public extension AspectRatio
 		
 		
 		
-		override init(frame: CGRect)
+		public override init(frame: CGRect)
 		{
 			super.init(frame: frame)
 			
@@ -70,19 +70,19 @@ public extension AspectRatio
 			}
 		}
 		
-		required init?(coder aDecoder: NSCoder)
+		required public init?(coder aDecoder: NSCoder)
 		{
 			super.init(coder: aDecoder)
 		}
 		
-		public override func awakeFromNib()
+		open override func awakeFromNib()
 		{
 			super.awakeFromNib()
 			
 			self.image = { self.image }()
 		}
 		
-		public override func layoutSubviews()
+		open override func layoutSubviews()
 		{
 			super.layoutSubviews()
 			
