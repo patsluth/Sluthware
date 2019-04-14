@@ -38,6 +38,8 @@ Pod::Spec.new do |s|
 		'CoreLocation',
 		'UIKit',
 		'SystemConfiguration'
+		
+		ss.ios.dependency 'SnapKit'
 
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
 
@@ -229,17 +231,6 @@ Pod::Spec.new do |s|
 		ss.dependency 'Alamofire'
 		
 		ss.source_files = 'Sluthware/Classes/Alamofire/**/*'
-	end
-	
-	
-	
-	
-	
-	s.subspec 'SnapKit' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'SnapKit'
-		
-		ss.source_files = 'Sluthware/Classes/SnapKit/**/*'
 	end
 	
 	
