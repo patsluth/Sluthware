@@ -482,7 +482,6 @@ class ViewController: UIViewController
 		print(set2.joined(separator: ","))
 		print(set3.joined(separator: ","))
 		
-		
 		let image = self.view.imageRepresentation()
 		
 //		let a: A! = nil

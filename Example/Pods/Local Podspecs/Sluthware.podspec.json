@@ -270,6 +270,18 @@
         ]
       },
       "source_files": "Sluthware/Classes/API/**/*"
+    },
+    {
+      "name": "SnapKit",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "SnapKit": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/SnapKit/**/*"
     }
   ]
 }

@@ -32,11 +32,16 @@ PODS:
     - RxSwift
     - RxSwiftExt
     - Sluthware/Default
+  - Sluthware/SnapKit (1.0.31):
+    - Sluthware/Default
+    - SnapKit
+  - SnapKit (4.2.0)
 
 DEPENDENCIES:
   - Sluthware (from `../`)
   - Sluthware/PromiseKit (from `../`)
   - Sluthware/RxSwift (from `../`)
+  - Sluthware/SnapKit (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -45,6 +50,7 @@ SPEC REPOS:
     - RxCocoa
     - RxSwift
     - RxSwiftExt
+    - SnapKit
 
 EXTERNAL SOURCES:
   Sluthware:
@@ -56,8 +62,9 @@ SPEC CHECKSUMS:
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
-  Sluthware: 63872d79a9dcaf42b00de87efeb11c68bf4a041e
+  Sluthware: cf98f022f3dc6fa7f5e8b902aa5fd161ec83b750
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: a6afaf9fcadfd70527e5385debaafe0e984e6015
+PODFILE CHECKSUM: e2b9ae54eacb029e9b1593a79327de5f3c7a8ef6
 
 COCOAPODS: 1.7.0.beta.2

@@ -219,6 +219,17 @@ Pod::Spec.new do |s|
 
 		ss.source_files = 'Sluthware/Classes/API/**/*'
 	end
+	
+	
+	
+	
+	
+	s.subspec 'SnapKit' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'SnapKit'
+		
+		ss.source_files = 'Sluthware/Classes/SnapKit/**/*'
+	end
 
 
 

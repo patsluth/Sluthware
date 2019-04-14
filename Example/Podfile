@@ -13,6 +13,7 @@ target 'Sluthware_Example' do
 #		pod 'Sluthware/API', :path => '../'
 		pod 'Sluthware/RxSwift', :path => '../'
 		pod 'Sluthware/PromiseKit', :path => '../'
+		pod 'Sluthware/SnapKit', :path => '../'
 #		pod 'Sluthware/CoreLocation', :path => '../'
 #		pod 'Sluthware/SceneKit', :path => '../'
 #		pod 'Sluthware/simd', :path => '../'
