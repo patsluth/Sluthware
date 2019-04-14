@@ -16,6 +16,7 @@ public enum Errors: Error
 {
 	case Init(Any.Type)
 	case Message(String)
+	case Cancelled
 	
 	
 	
@@ -54,6 +55,8 @@ extension Errors: CustomStringConvertible
 			return "Error.Init(\(type))"
 		case Errors.Message(let message):
 			return "Error.Message(\(message))"
+		case Errors.Cancelled:
+			return "Errors.Cancelled"
 		}
 	}
 }

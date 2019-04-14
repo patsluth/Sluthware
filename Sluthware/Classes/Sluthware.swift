@@ -27,7 +27,7 @@ public func printSW<T>(function: String = #function,
 					   sender: T,
 					   _ items: Any...)
 {
-	var items = [T.self, function] + items
+	var items = [type(of: sender), function] + items
 	print(items.joined(separator: " "))
 }
 

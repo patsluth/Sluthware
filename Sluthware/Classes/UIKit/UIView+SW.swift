@@ -1,5 +1,5 @@
 //
-//  UIView.swift
+//  UIView+SW.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-12-03.
@@ -17,11 +17,17 @@ public extension NSObjectProtocol
 	where Self: UIView
 {
 	@discardableResult
-	func superview(_ superview: UIView) -> Self
+	func addTo(superview: UIView) -> Self
 	{
 		superview.addSubview(self)
 		
 		return self
+	}
+	
+	@discardableResult
+	func addTo(superview provider: () -> UIView) -> Self
+	{
+		return self.addTo(superview: provider)
 	}
 	
 	
