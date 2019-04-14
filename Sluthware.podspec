@@ -241,6 +241,18 @@ Pod::Spec.new do |s|
 		
 		ss.source_files = 'Sluthware/Classes/SnapKit/**/*'
 	end
+	
+	
+	
+	
+	
+	s.subspec 'R.swift' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'R.swift'
+		ss.dependency 'SegueManager/R.swift'
+		
+		ss.source_files = 'Sluthware/Classes/R.swift/**/*'
+	end
 
 
 
