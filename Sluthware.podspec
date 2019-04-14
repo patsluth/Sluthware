@@ -224,6 +224,17 @@ Pod::Spec.new do |s|
 	
 	
 	
+	s.subspec 'Alamofire' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Alamofire'
+		
+		ss.source_files = 'Sluthware/Classes/Alamofire/**/*'
+	end
+	
+	
+	
+	
+	
 	s.subspec 'SnapKit' do |ss|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'SnapKit'

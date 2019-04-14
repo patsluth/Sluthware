@@ -272,6 +272,18 @@
       "source_files": "Sluthware/Classes/API/**/*"
     },
     {
+      "name": "Alamofire",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Alamofire": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/Alamofire/**/*"
+    },
+    {
       "name": "SnapKit",
       "dependencies": {
         "Sluthware/Default": [
