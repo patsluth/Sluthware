@@ -26,7 +26,7 @@ public class UICollectionViewWithEmbeddedContentCell<T>: UICollectionViewCell, U
 	where T: UIEmbeddableContentView
 {
 	public typealias Embedded = T
-	public typealias PreferredLayoutAttributesProvider = (UICollectionViewLayoutAttributes) -> Void
+	public typealias PreferredLayoutAttributesProvider = (UICollectionViewWithEmbeddedContentCell<T>, UICollectionViewLayoutAttributes) -> Void
 	
 	
 	
@@ -61,7 +61,7 @@ public class UICollectionViewWithEmbeddedContentCell<T>: UICollectionViewCell, U
 		////		let size = self.contentView.systemSize(horizontal: .required, vertical: .required)
 		//		attributes.size = size
 		
-		self.preferredLayoutAttributesProvider?(attributes)
+		self.preferredLayoutAttributesProvider?(self, attributes)
 		
 		return attributes
 	}

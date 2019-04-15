@@ -363,7 +363,7 @@
 		8ED208D26164D850DED2E5BA48F141E5 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = B644780838E0B4B2FBB704F7F0CBFCDD /* CLLocationCoordinate2D.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8F116C8046F9A4E3CC3E0D33AF7911C9 /* ConstraintInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23C90252058FA0FD35426D89509F77 /* ConstraintInsets.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8F18F7A943C65C62D593D1F485684BA5 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506BE40AD3EAE0288687A848DA1BE164 /* Errors.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		8F9009F3C119B06AAD5DCD04A22E7962 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B387457504FE938DD1330D378B744 /* Promise.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8F9009F3C119B06AAD5DCD04A22E7962 /* RxSwift+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B387457504FE938DD1330D378B744 /* RxSwift+PromiseKit.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8FE168EF7A51835F2DBF47507F8E6F6F /* CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C4F999D77CFE3EAECC01E5ED3CDCA4 /* CustomStringConvertible.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		90109DB3ECEF82C01F2C6C504DDC4063 /* KVORepresentable+CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD5F77525F031A150D3DDAC8546EE08 /* KVORepresentable+CoreGraphics.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		908CDD3D43BC59A65C9DD0BFFA864413 /* Bool+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABA816F12C6B9C4B456A004B9939061 /* Bool+String.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -1001,7 +1001,7 @@
 		74DAD025155BDB301001CEB33C5C4E82 /* Guarantee.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Guarantee.swift; path = Sources/Guarantee.swift; sourceTree = "<group>"; };
 		7536E03A56530CABBD168EE4EBE3F5EC /* afterlife.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = afterlife.swift; path = Extensions/Foundation/Sources/afterlife.swift; sourceTree = "<group>"; };
 		754C31203273B3820660201521FEFCB9 /* Pods-Sluthware_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Sluthware_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		756B387457504FE938DD1330D378B744 /* Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		756B387457504FE938DD1330D378B744 /* RxSwift+PromiseKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "RxSwift+PromiseKit.swift"; sourceTree = "<group>"; };
 		75721331F1634645FACDCCEB8B7A0B2A /* PromiseKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PromiseKit.xcconfig; sourceTree = "<group>"; };
 		76133C7E364970B41B26EF28CF62F608 /* VirtualTimeScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VirtualTimeScheduler.swift; path = RxSwift/Schedulers/VirtualTimeScheduler.swift; sourceTree = "<group>"; };
 		76B06DB326F476B8BA13984C6D8B11E7 /* UserDefaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -1991,7 +1991,7 @@
 				E2CE820F6D6AD69149A68F8B3B322DFF /* ObservableType+ValueResult.swift */,
 				454AED7D76BB0A5DE7C32AABBA49C41E /* PersistantCodableVariable.swift */,
 				5D406E258F0F0480EE522AEBA0258910 /* PersistantVariable.swift */,
-				756B387457504FE938DD1330D378B744 /* Promise.swift */,
+				756B387457504FE938DD1330D378B744 /* RxSwift+PromiseKit.swift */,
 				C96EFC53E12B3F3548CD5FE42EEB8E39 /* UIControl+closures.swift */,
 			);
 			name = RxSwift;
@@ -3338,7 +3338,7 @@
 				83C15256C47632FCCF041D5328277138 /* PersistantCodableVariable.swift in Sources */,
 				1848A161E6CAE7E31745C3E253141A6F /* PersistantVariable.swift in Sources */,
 				B38D9D97FDF2D5973861D2A0F3280533 /* Promise+attempt.swift in Sources */,
-				8F9009F3C119B06AAD5DCD04A22E7962 /* Promise.swift in Sources */,
+				8F9009F3C119B06AAD5DCD04A22E7962 /* RxSwift+PromiseKit.swift in Sources */,
 				16B685E230872B01AC6437AABDDC2F59 /* RawRepresentable+CaseIterable.swift in Sources */,
 				5B187A882E1F0D8A3BEA03C53F94EFA4 /* Reachability.m in Sources */,
 				1970019F4559845896E5E0302824625F /* ReflectedStringConvertible.swift in Sources */,

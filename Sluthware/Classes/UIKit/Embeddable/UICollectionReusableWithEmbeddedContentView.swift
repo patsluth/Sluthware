@@ -1,5 +1,5 @@
 //
-//  UICollectionReusableWithEmbeddedContentView.swift
+//  UICollectionViewWithEmbeddedContentCell.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2019-03-01.
@@ -15,18 +15,18 @@ import SnapKit
 
 public extension UIEmbeddableContentView
 {
-	typealias CVReusableView = UICollectionReusableWithEmbeddedContentView<Self>
+	typealias CVCell = UICollectionViewWithEmbeddedContentCell<Self>
 }
 
 
 
 
 
-public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusableView, UIViewWithEmbeddedContent
+public class UICollectionViewWithEmbeddedContentCell<T>: UICollectionViewCell, UIViewWithEmbeddedContent
 	where T: UIEmbeddableContentView
 {
 	public typealias Embedded = T
-	public typealias PreferredLayoutAttributesProvider = (UICollectionViewLayoutAttributes) -> Void
+	public typealias PreferredLayoutAttributesProvider = (UICollectionViewWithEmbeddedContentCell<T>, UICollectionViewLayoutAttributes) -> Void
 	
 	
 	
@@ -34,9 +34,9 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusabl
 	
 	public lazy var embedded: T = {
 		T.make({
-			self.addSubview($0)
+			self.contentView.addSubview($0)
 		}).make(constraints: {
-			$0.edges.equalTo(self.snp.margins)
+			$0.edges.equalTo(self.contentView.snp.margins)
 		})
 	}()
 	
@@ -61,7 +61,7 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusabl
 		////		let size = self.contentView.systemSize(horizontal: .required, vertical: .required)
 		//		attributes.size = size
 		
-		self.preferredLayoutAttributesProvider?(attributes)
+		self.preferredLayoutAttributesProvider?(self, attributes)
 		
 		return attributes
 	}
@@ -91,7 +91,7 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusabl
 
 
 
-extension UICollectionReusableWithEmbeddedContentView: ModelConsumer
+extension UICollectionViewWithEmbeddedContentCell: ModelConsumer
 	where T: ModelConsumer
 {
 	public typealias Model = T.Model

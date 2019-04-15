@@ -39,3 +39,26 @@ public extension Makeable
 
 
 
+
+public extension Makeable
+	where Self: UIButton
+{
+	@discardableResult
+	static func make(type: UIButton.ButtonType, _ block: ((Self) -> Void)? = nil) -> Self
+	{
+		let button = Self(type: type)
+		
+		defer {
+			button.translatesAutoresizingMaskIntoConstraints = false
+			block?(button)
+			button.setNeedsUpdateConstraints()
+			button.setNeedsLayout()
+		}
+		
+		return button
+	}
+}
+
+
+
+
