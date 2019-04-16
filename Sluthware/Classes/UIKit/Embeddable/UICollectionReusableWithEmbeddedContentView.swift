@@ -1,5 +1,5 @@
 //
-//  UICollectionViewWithEmbeddedContentCell.swift
+//  UICollectionReusableWithEmbeddedContentView.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2019-03-01.
@@ -15,18 +15,18 @@ import SnapKit
 
 public extension UIEmbeddableContentView
 {
-	typealias CVCell = UICollectionViewWithEmbeddedContentCell<Self>
+	typealias CVReusableView = UICollectionReusableWithEmbeddedContentView<Self>
 }
 
 
 
 
 
-public class UICollectionViewWithEmbeddedContentCell<T>: UICollectionViewCell, UIViewWithEmbeddedContent
+public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusableView, UIViewWithEmbeddedContent
 	where T: UIEmbeddableContentView
 {
 	public typealias Embedded = T
-	public typealias PreferredLayoutAttributesProvider = (UICollectionViewWithEmbeddedContentCell<T>, UICollectionViewLayoutAttributes) -> Void
+	public typealias PreferredLayoutAttributesProvider = (UICollectionReusableWithEmbeddedContentView<T>, UICollectionViewLayoutAttributes) -> Void
 	
 	
 	
@@ -34,9 +34,9 @@ public class UICollectionViewWithEmbeddedContentCell<T>: UICollectionViewCell, U
 	
 	public lazy var embedded: T = {
 		T.make({
-			self.contentView.addSubview($0)
+			self.addSubview($0)
 		}).make(constraints: {
-			$0.edges.equalTo(self.contentView.snp.margins)
+			$0.edges.equalTo(self.snp.margins)
 		})
 	}()
 	
@@ -91,7 +91,7 @@ public class UICollectionViewWithEmbeddedContentCell<T>: UICollectionViewCell, U
 
 
 
-extension UICollectionViewWithEmbeddedContentCell: ModelConsumer
+extension UICollectionReusableWithEmbeddedContentView: ModelConsumer
 	where T: ModelConsumer
 {
 	public typealias Model = T.Model

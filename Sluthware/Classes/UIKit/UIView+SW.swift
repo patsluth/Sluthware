@@ -27,7 +27,7 @@ public extension NSObjectProtocol
 	@discardableResult
 	func addTo(superview provider: () -> UIView) -> Self
 	{
-		return self.addTo(superview: provider)
+		return self.addTo(superview: provider())
 	}
 	
 	
