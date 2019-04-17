@@ -12,11 +12,15 @@ import Foundation
 
 
 
+// TODO: Fix
+
+// Not Wrapped
 postfix operator +
 postfix operator -
 // Wrapped
 postfix operator <+>
 postfix operator <->
+// Not Wrapped
 postfix operator ++
 postfix operator --
 // Wrapped
@@ -91,7 +95,7 @@ public extension RawRepresentable
 	
 	postfix static func <-> (lhs: inout Self)
 	{
-		guard let nextCase = lhs.nextCase(wrapped: true) else { return }
+		guard let nextCase = lhs.prevCase(wrapped: true) else { return }
 		lhs = nextCase
 	}
 	
