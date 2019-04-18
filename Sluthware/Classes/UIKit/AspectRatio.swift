@@ -13,8 +13,8 @@ import UIKit
 
 public enum AspectRatio
 {
-	case WidthToHeight
-	case HeightToWidth
+	case WidthByHeight
+	case HeightByWidth
 }
 
 
@@ -25,29 +25,27 @@ public extension AspectRatio
 {
 	open class ImageView: UIImageView
 	{
-		public var type = AspectRatio.WidthToHeight {
+		public var type = AspectRatio.WidthByHeight {
 			didSet { self.invalidateIntrinsicContentSize() }
 		}
 		
 		open override var image: UIImage? {
 			didSet
 			{
-				self.contentMode = UIView.ContentMode.scaleAspectFit
 				self.invalidateIntrinsicContentSize()
 			}
 		}
 		
 		open override var intrinsicContentSize: CGSize {
 			var size = self.bounds.size
+			guard let image = self.image else { return size }
 			var aspectRato: CGFloat = 0
 			
-			guard let image = self.image else { return size }
-			
 			switch self.type {
-			case .WidthToHeight:
+			case .WidthByHeight:
 				let aspectRato = image.size.height / image.size.width
 				size.height(size.width * aspectRato)
-			case .HeightToWidth:
+			case .HeightByWidth:
 				let aspectRato = image.size.width / image.size.height
 				size.width(size.height * aspectRato)
 			}
@@ -62,6 +60,8 @@ public extension AspectRatio
 		public override init(frame: CGRect)
 		{
 			super.init(frame: frame)
+			
+			self.contentMode = .scaleAspectFit
 			
 			defer {
 				self.image = { self.image }()
