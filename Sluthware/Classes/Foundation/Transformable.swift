@@ -13,6 +13,8 @@ import Foundation
 
 public protocol Transformable: NSObjectProtocol {}
 
+extension NSObject: Transformable {}
+
 public extension Transformable
 {
 	@discardableResult

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		007D2D6220F9F6BF6785037431F6F112 /* unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B8CFF5AE5700DF83DE3C37327B3CF4 /* unwrap.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		01BBDE19817685C0713E6E1B3DEE1A4B /* Platform.Linux.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05D0E234DFADB69E70FA918F7D9171 /* Platform.Linux.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		01BC321DED68CC1DEBCC3C7F13816360 /* UIViewControllersSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C967C6C470CC95C810F1D63100480 /* UIViewControllersSettable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		020AB50BCFB38002950D4D68BD77CC24 /* ValueReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79160026914594D318BDA3484C70141D /* ValueReference.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0249B2AA24EA414125BEC69F57EC3C42 /* UIPickerView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31CC27271D751E765C2567D49CB0E0B /* UIPickerView+Rx.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		02D120ED604C2C2E0F7889201FC22B5C /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1FC6DC98DE9C63B09A2021E31D80DB /* MultipartFormData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -1264,7 +1263,6 @@
 		DC933B98A749D7A65D5AB600E2A426ED /* SharedSequence+Operators+arity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SharedSequence+Operators+arity.swift"; path = "RxCocoa/Traits/SharedSequence/SharedSequence+Operators+arity.swift"; sourceTree = "<group>"; };
 		DD1703307642F4DFA7AAF40051C32A6E /* Merge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Merge.swift; path = RxSwift/Observables/Merge.swift; sourceTree = "<group>"; };
 		DD241C05A59CDD2636AF1B19503384B8 /* HistoricalScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HistoricalScheduler.swift; path = RxSwift/Schedulers/HistoricalScheduler.swift; sourceTree = "<group>"; };
-		DD6C967C6C470CC95C810F1D63100480 /* UIViewControllersSettable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewControllersSettable.swift; sourceTree = "<group>"; };
 		DDA3D918D11C638049BDA80AF441763C /* UITabBarController+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UITabBarController+Rx.swift"; path = "RxCocoa/iOS/UITabBarController+Rx.swift"; sourceTree = "<group>"; };
 		DE00A514473D4B8D40FF47154CA744C3 /* DistinctUntilChanged.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DistinctUntilChanged.swift; path = RxSwift/Observables/DistinctUntilChanged.swift; sourceTree = "<group>"; };
 		DE18A35077E98F3D5CDE50BBA3583A4D /* Collection+Random.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Collection+Random.swift"; sourceTree = "<group>"; };
@@ -1905,7 +1903,6 @@
 				91D98D3772C89755128193FAC856F196 /* UIHierarchy.swift */,
 				F5949FA9AB053B22A232170AB0202248 /* UIImage+Resize.swift */,
 				8E0A6E1AFBAC2B4AB6F00CF2E7D8933B /* UINavigationBar+SW.swift */,
-				DD6C967C6C470CC95C810F1D63100480 /* UIViewControllersSettable.swift */,
 				863FBEAD57AD7246C4D9AB777E74ABBD /* UIScrollView.swift */,
 				B6788A6FA791EF7F7D3E3FD839CB2F2C /* UIScrollView+Paging.swift */,
 				97E3E86EF897E1C99DE9CADF21FA5E1C /* UIScrollView+PDF.swift */,
@@ -3397,7 +3394,6 @@
 				EB460C8A7B4F45CDD6FE5EB3E6E129F9 /* UIHierarchy.swift in Sources */,
 				E46A93E56FEB010D179D1235BAD8D282 /* UIImage+Resize.swift in Sources */,
 				51B43902B0B1D4533CF7A232EFF1E162 /* UINavigationBar+SW.swift in Sources */,
-				01BC321DED68CC1DEBCC3C7F13816360 /* UIViewControllersSettable.swift in Sources */,
 				995084F86E7EB84565BEB0FB30B0212D /* UIScrollView+Paging.swift in Sources */,
 				EEDDE4A97A8F8E75E7303C2584807BA4 /* UIScrollView+PDF.swift in Sources */,
 				2181FB876C825CF31369F249788FE49D /* UIScrollView.swift in Sources */,

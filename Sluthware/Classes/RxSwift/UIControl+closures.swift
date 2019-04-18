@@ -45,7 +45,8 @@ public extension TappableControl
 			disposedBy disposeBag: DisposeBag? = nil,
 			throttle: TimeInterval = 0.0,
 			debounce: TimeInterval = 0.0,
-			scheduler: SchedulerType = MainScheduler.instance) -> Self
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false) -> Self
 	{
 		var observable = self.tap
 			.asObservable()
@@ -60,7 +61,9 @@ public extension TappableControl
 		}
 		
 		#if DEBUG
-		observable = observable.debug()
+		if debug {
+			observable = observable.debug()
+		}
 		#endif
 		
 		let disposable = observable.bind(onNext: { [unowned self] in
@@ -112,7 +115,8 @@ public extension ControlEvent
 	func on(event: @escaping (E) -> Void,
 			throttle: TimeInterval = 0.0,
 			debounce: TimeInterval = 0.0,
-			scheduler: SchedulerType = MainScheduler.instance) -> Disposable
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false) -> Disposable
 	{
 		var observable = self
 			.asObservable()
@@ -126,7 +130,9 @@ public extension ControlEvent
 		}
 		
 		#if DEBUG
-		observable = observable.debug()
+		if debug {
+			observable = observable.debug()
+		}
 		#endif
 		
 		return observable.bind(onNext: {
