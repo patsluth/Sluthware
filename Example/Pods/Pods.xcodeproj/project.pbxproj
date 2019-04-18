@@ -404,7 +404,7 @@
 		9FAE24038B636045DB7118BE7F8E3242 /* ObserveOn.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA47257EA95A514FA5D7799742249EB1 /* ObserveOn.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9FBFEF5A03D10588949258C2A38829DB /* ConstraintInsetTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE511E1F56DF75552E2AAB1F8F08C2 /* ConstraintInsetTarget.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9FE16A9C0F56F23A462C2D4FF466BC77 /* Encodable+promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E98F7E1FE64055C9CFEE45EDFC77E /* Encodable+promise.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		A08021293F302BFC08D6CDDEE56D3DF2 /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D389DCC1301AF83D7FD39B47E866707 /* Configurable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A08021293F302BFC08D6CDDEE56D3DF2 /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D389DCC1301AF83D7FD39B47E866707 /* Transformable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A0AB4666D79E4131C55B322BFA6B65A5 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59D62F270BB1409B6411EDD07A33DD4 /* ConstraintPriority.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A0DEE07E16B3D616D6176F06DDF00854 /* AnyPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61401B8784860B1948393DD67EF54A /* AnyPromise.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A126C30C595957EFFB252031C0F8E33F /* RxTextStorageDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E45E161EF7780232496111CB917329 /* RxTextStorageDelegateProxy.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -981,7 +981,7 @@
 		6C43B68A50BB9E15BECA6B4BEF5F79E0 /* Do.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Do.swift; path = RxSwift/Observables/Do.swift; sourceTree = "<group>"; };
 		6C775D480D4BF29F86BFDD80CDD110CE /* CombineLatest+Collection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CombineLatest+Collection.swift"; path = "RxSwift/Observables/CombineLatest+Collection.swift"; sourceTree = "<group>"; };
 		6D071076E7550721EF05CD4814FE9D91 /* unwrap+SharedSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "unwrap+SharedSequence.swift"; path = "Source/RxCocoa/unwrap+SharedSequence.swift"; sourceTree = "<group>"; };
-		6D389DCC1301AF83D7FD39B47E866707 /* Configurable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
+		6D389DCC1301AF83D7FD39B47E866707 /* Transformable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
 		6DE04F616FC29816360B0EED885D7E33 /* RxSwiftExt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxSwiftExt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFEA93D77B6C062A941F387C646D518 /* NSControl+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSControl+Rx.swift"; path = "RxCocoa/macOS/NSControl+Rx.swift"; sourceTree = "<group>"; };
 		6E31B1E52761131215B519BEA1CF8D0A /* ObservableConvertibleType+SharedSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ObservableConvertibleType+SharedSequence.swift"; path = "RxCocoa/Traits/SharedSequence/ObservableConvertibleType+SharedSequence.swift"; sourceTree = "<group>"; };
@@ -2021,7 +2021,7 @@
 				CB9161CEF441A3D9A84EA36569E9375E /* Collection+NumericOperations.swift */,
 				DE18A35077E98F3D5CDE50BBA3583A4D /* Collection+Random.swift */,
 				64DEF8E83B07734094D2160040815281 /* Collection+SW.swift */,
-				6D389DCC1301AF83D7FD39B47E866707 /* Configurable.swift */,
+				6D389DCC1301AF83D7FD39B47E866707 /* Transformable.swift */,
 				48684D68CD0E9143306594C9780D22FB /* Date.swift */,
 				45AE7D23429E0A9A490892FF76CBC979 /* Decodable.swift */,
 				2E65047D9631E7461611A74CEFC5D704 /* Dictionary+NSDictionary.swift */,
@@ -3298,7 +3298,7 @@
 				2F7405DADA48F4EDB0C38B33D76ABB5E /* Collection+NumericOperations.swift in Sources */,
 				3B774463E755984C554C5E3C437AC747 /* Collection+Random.swift in Sources */,
 				598AF03256B30BA6C0712A0054C92DC9 /* Collection+SW.swift in Sources */,
-				A08021293F302BFC08D6CDDEE56D3DF2 /* Configurable.swift in Sources */,
+				A08021293F302BFC08D6CDDEE56D3DF2 /* Transformable.swift in Sources */,
 				BCC1A218BF18E8251EB54F89A0BE0370 /* CurrencyFormatter.swift in Sources */,
 				DD7C3D6F51CDAF520758BD48BCE9D465 /* Date.swift in Sources */,
 				6516E82ABB697415ED4000872C051CDD /* DateFormatter.swift in Sources */,

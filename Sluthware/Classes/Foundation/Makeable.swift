@@ -15,12 +15,13 @@ import UIKit
 public protocol Makeable: NSObjectProtocol
 {
 	typealias MadeClosure = (Self) -> Void
+	
+	init()
 }
 
 extension NSObject: Makeable {  }
 
 public extension Makeable
-	where Self: NSObject
 {
 	@discardableResult
 	static func make(_ block: MadeClosure? = nil) -> Self
