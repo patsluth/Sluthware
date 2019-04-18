@@ -1,5 +1,5 @@
 //
-//  UINavigationBar.swift
+//  UINavigationBar+SW.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2018-01-05.
@@ -16,7 +16,7 @@ import UIKit
 public extension UINavigationBar
 {
 	@available(iOS 11.0, *)
-	public var contentView: UIView? {
+	var contentView: UIView? {
 		for subview in self.subviews {
 			if NSClassFromString("_UINavigationBarContentView") === type(of: subview) {
 				return subview
@@ -27,7 +27,7 @@ public extension UINavigationBar
 	}
 	
 	@available(iOS 11.0, *)
-	public var largeTitleView: UIView? {
+	var largeTitleView: UIView? {
 		for subview in self.subviews {
 			if NSClassFromString("_UINavigationBarLargeTitleView") === type(of: subview) {
 				return subview
