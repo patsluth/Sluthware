@@ -21,9 +21,16 @@ public extension UIViewController
 	/// set the values other than deinit to dispose
 	struct DisposeBags
 	{
-		let `deinit` = DisposeBag()
-		var willDisappear = DisposeBag()
-		var didDisappear = DisposeBag()
+		public let `deinit`: DisposeBag
+		public var willDisappear: DisposeBag
+		public var didDisappear: DisposeBag
+		
+		public init()
+		{
+			self.deinit = DisposeBag()
+			self.willDisappear = DisposeBag()
+			self.didDisappear = DisposeBag()
+		}
 	}
 }
 
