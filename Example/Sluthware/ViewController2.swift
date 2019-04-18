@@ -134,6 +134,9 @@ extension ViewController2: UICollectionViewDataSource
 {
 	func numberOfSections(in collectionView: UICollectionView) -> Int
 	{
+		
+		var a = UISegmentedControl()
+		a.rx.value
 		return 0
 //		return Int(ceil(Double(self.cellColors.count) / 9.0)) * 3
 	}

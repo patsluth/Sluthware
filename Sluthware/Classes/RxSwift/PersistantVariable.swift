@@ -42,7 +42,7 @@ public class PersistantVariable<T>: ObservableType
 		self._relay = BehaviorRelay(value: nil)
 		
 		defer {
-			self.accept(self.readValue())
+			self._relay.accept(self.readValue())
 		}
 	}
 	

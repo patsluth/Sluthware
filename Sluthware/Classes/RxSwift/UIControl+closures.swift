@@ -15,43 +15,237 @@ import RxCocoa
 
 
 
-public protocol TappableControl: NSObject
-{
-	var tap: RxCocoa.ControlEvent<()> { get }
-}
+//public protocol TappableControl: NSObject
+//{
+//	var tap: RxCocoa.ControlEvent<()> { get }
+//}
+//
+//extension UIButton: TappableControl
+//{
+//	public var tap: ControlEvent<()> {
+//		return self.rx.tap
+//	}
+//}
+//
+//extension UIBarButtonItem: TappableControl
+//{
+//	public var tap: ControlEvent<()> {
+//		return self.rx.tap
+//	}
+//}
 
-extension UIButton: TappableControl
+
+
+
+
+// Wrapper to call disposed(by:) and map to self
+public struct DisposableReturnValue<T>
 {
-	public var tap: ControlEvent<()> {
-		return self.rx.tap
+	let value: T
+	let disposable: Disposable
+	
+	@discardableResult
+	public func dispose() -> T
+	{
+		self.disposable.dispose()
+		return self.value
+	}
+	
+	@discardableResult
+	public func disposed(by bag: DisposeBag?) -> T
+	{
+		if let bag = bag {
+			self.disposable.disposed(by: bag)
+		}
+		return self.value
 	}
 }
 
-extension UIBarButtonItem: TappableControl
-{
-	public var tap: ControlEvent<()> {
-		return self.rx.tap
-	}
-}
 
 
 
 
-
-public extension TappableControl
+public extension NSObjectProtocol
+	where Self: UIControl
 {
 	@discardableResult
-	func on(tap event: @escaping (Self) -> Void,
-			disposedBy disposeBag: DisposeBag? = nil,
+	func on(_ controlEvent: UIControl.Event,
+			_ event: @escaping (Self) -> Void,
 			throttle: TimeInterval = 0.0,
 			debounce: TimeInterval = 0.0,
 			scheduler: SchedulerType = MainScheduler.instance,
-			debug: Bool = false) -> Self
+			debug: Bool = false) -> DisposableReturnValue<Self>
 	{
-		var observable = self.tap
+		let _event = { [unowned self] in
+			event(self)
+		}
+		
+		let disposable = self.rx.controlEvent(controlEvent)
+			.on(_event,
+				takeUntil: self.rx.deallocated,
+				throttle: throttle,
+				debounce: debounce,
+				scheduler: scheduler,
+				debug: debug)
+		
+		
+		return DisposableReturnValue(value: self, disposable: disposable)
+	}
+	
+	@discardableResult
+	func on(_ controlEvent: UIControl.Event,
+			_ event: @escaping (Self) -> Void,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false,
+			disposedBy disposeBag: DisposeBag? = nil) -> Self
+	{
+		return self.on(controlEvent,
+					   event,
+					   throttle: throttle,
+					   debounce: debounce,
+					   scheduler: scheduler,
+					   debug: debug).disposed(by: disposeBag)
+	}
+	
+	
+	
+	@discardableResult
+	func on(tap event: @escaping (Self) -> Void,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false) -> DisposableReturnValue<Self>
+	{
+		return self.on(.touchUpInside,
+					   event,
+					   throttle: throttle,
+					   debounce: debounce,
+					   scheduler: scheduler,
+					   debug: debug)
+	}
+	
+	@discardableResult
+	func on(tap event: @escaping (Self) -> Void,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false,
+			disposedBy disposeBag: DisposeBag? = nil) -> Self
+	{
+		return self.on(tap: event,
+					   throttle: throttle,
+					   debounce: debounce,
+					   scheduler: scheduler,
+					   debug: debug).disposed(by: disposeBag)
+	}
+	
+	
+	
+	@discardableResult
+	func on<T>(_ controlProperty: (Reactive<Self>) -> ControlProperty<T>,
+			   _ event: @escaping (Self, T) -> Void,
+			   throttle: TimeInterval = 0.0,
+			   debounce: TimeInterval = 0.0,
+			   scheduler: SchedulerType = MainScheduler.instance,
+			   debug: Bool = false) -> DisposableReturnValue<Self>
+	{
+		let _event = { [unowned self] (t: T) in
+			event(self, t)
+		}
+		
+		let disposable = controlProperty(self.rx)
+			.on(_event,
+				takeUntil: self.rx.deallocated,
+				throttle: throttle,
+				debounce: debounce,
+				scheduler: scheduler,
+				debug: debug)
+		
+		return DisposableReturnValue(value: self, disposable: disposable)
+	}
+	
+	func on<T>(_ controlProperty: (Reactive<Self>) -> ControlProperty<T>,
+			   _ event: @escaping (Self, T) -> Void,
+			   throttle: TimeInterval = 0.0,
+			   debounce: TimeInterval = 0.0,
+			   scheduler: SchedulerType = MainScheduler.instance,
+			   debug: Bool = false,
+			   disposedBy disposeBag: DisposeBag? = nil) -> Self
+	{
+		return self.on(controlProperty,
+					   event,
+					   throttle: throttle,
+					   debounce: debounce,
+					   scheduler: scheduler,
+					   debug: debug).disposed(by: disposeBag)
+	}
+}
+
+
+
+
+
+public extension NSObjectProtocol
+	where Self: UIBarButtonItem
+{
+	@discardableResult
+	func on(tap event: @escaping (Self) -> Void,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false) -> DisposableReturnValue<Self>
+	{
+		let _event = { [unowned self] in
+			event(self)
+		}
+		
+		let disposable = self.rx.tap
+			.on(_event,
+				takeUntil: self.rx.deallocated,
+				throttle: throttle,
+				debounce: debounce,
+				scheduler: scheduler,
+				debug: debug)
+		
+		return DisposableReturnValue(value: self, disposable: disposable)
+	}
+	
+	@discardableResult
+	func on(tap event: @escaping (Self) -> Void,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false,
+			disposedBy disposeBag: DisposeBag? = nil) -> Self
+	{
+		return self.on(tap: event,
+					   throttle: throttle,
+					   debounce: debounce,
+					   scheduler: scheduler,
+					   debug: debug).disposed(by: disposeBag)
+	}
+}
+
+
+
+
+
+internal extension ControlEvent
+{
+	@discardableResult
+	func on(_ event: @escaping (E) -> Void,
+			takeUntil: Observable<Void>,
+			throttle: TimeInterval = 0.0,
+			debounce: TimeInterval = 0.0,
+			scheduler: SchedulerType = MainScheduler.instance,
+			debug: Bool = false) -> Disposable
+	{
+		var observable = self
 			.asObservable()
-			.takeUntil(self.rx.deallocated)
-			.observeOn(MainScheduler.instance)
+			.takeUntil(takeUntil)
+			.observeOn(scheduler)
 		
 		if throttle > 0.0 {
 			observable = observable.throttle(throttle, scheduler: scheduler)
@@ -66,15 +260,9 @@ public extension TappableControl
 		}
 		#endif
 		
-		let disposable = observable.bind(onNext: { [unowned self] in
-			event(self)
+		return observable.bind(onNext: {
+			event($0)
 		})
-		
-		if let disposeBag = disposeBag {
-			disposable.disposed(by: disposeBag)
-		}
-		
-		return self
 	}
 }
 
@@ -82,37 +270,11 @@ public extension TappableControl
 
 
 
-public extension NSObjectProtocol
-	where Self: UIControl
+internal extension ControlProperty
 {
 	@discardableResult
-	func on(controlEvent: UIControl.Event,
-			event: @escaping (Self) -> Void,
-			disposedBy disposeBag: DisposeBag? = nil,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
-			scheduler: SchedulerType = MainScheduler.instance) -> Self
-	{
-		var disposable = self.rx.controlEvent(controlEvent).on(event: { _ in
-			event(self)
-		})
-		
-		if let disposeBag = disposeBag {
-			disposable.disposed(by: disposeBag)
-		}
-		
-		return self
-	}
-}
-
-
-
-
-
-public extension ControlEvent
-{
-	@discardableResult
-	func on(event: @escaping (E) -> Void,
+	func on(_ event: @escaping (E) -> Void,
+			takeUntil: Observable<Void>,
 			throttle: TimeInterval = 0.0,
 			debounce: TimeInterval = 0.0,
 			scheduler: SchedulerType = MainScheduler.instance,
@@ -140,6 +302,7 @@ public extension ControlEvent
 		})
 	}
 }
+
 
 
 
