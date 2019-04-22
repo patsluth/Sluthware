@@ -20,18 +20,12 @@ import CancelForPromiseKit
 
 public extension Promise
 {
-	public typealias ObservableElement = Swift.Result<T, Error>
-	
-	
-	
-	
-	
-	public func asSingle() -> Single<ObservableElement>
+	func asSingle() -> Single<Swift.Result<T, Error>>
 	{
 		return self.asObservable().asSingle()
 	}
 	
-	public func asObservable() -> Observable<ObservableElement>
+	func asObservable() -> Observable<Swift.Result<T, Error>>
 	{
 		let (promise, resolver) = Promise<T>.pending()
 		
@@ -58,6 +52,50 @@ public extension Promise
 					resolver.reject(PMKError.cancelled)
 				}
 			})
+	}
+}
+
+
+
+
+
+
+public extension CancellablePromise
+{
+	func asSingle() -> Single<Swift.Result<T, Error>>
+	{
+		return self.asObservable().asSingle()
+	}
+	
+	func asObservable() -> Observable<Swift.Result<T, Error>>
+	{
+		//		let (promise, resolver) = Promise<T>.pending()
+		//
+		//		self.done({
+		//			guard promise.isPending else { return resolver.reject(PMKError.cancelled) }
+		//			resolver.fulfill($0)
+		//		}).catch({
+		//			resolver.reject($0)
+		//		})
+		
+		return Observable.create { observable in
+			
+			let context = self.done({
+				observable.onNext(.success($0))
+			}).catch({
+				observable.onNext(.failure($0))
+			})
+			
+			return Disposables.create {
+				context.cancel()
+			}
+			
+		}
+		//			.do(onDispose: {
+		//				if promise.isPending {
+		//					resolver.reject(PMKError.cancelled)
+		//				}
+		//			})
 	}
 }
 

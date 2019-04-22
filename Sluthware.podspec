@@ -220,6 +220,7 @@ Pod::Spec.new do |s|
 	s.subspec 'Alamofire' do |ss|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'Alamofire'
+		ss.dependency 'CancelForPromiseKit/Alamofire'
 		
 		ss.source_files = 'Sluthware/Classes/Alamofire/**/*'
 	end
