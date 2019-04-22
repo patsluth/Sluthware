@@ -40,6 +40,7 @@ Pod::Spec.new do |s|
 		'SystemConfiguration'
 		
 		ss.ios.dependency 'SnapKit'
+		ss.ios.dependency 'PromiseKit'
 
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
 
@@ -49,7 +50,8 @@ Pod::Spec.new do |s|
 		'Sluthware/Classes/CoreGraphics/**/*',
 		'Sluthware/Classes/CoreLocation/**/*',
 		'Sluthware/Classes/UIKit/**/*',
-		'Sluthware/Classes/Reachability/**/*'
+		'Sluthware/Classes/Reachability/**/*',
+		'Sluthware/Classes/PromiseKit/**/*'
 
 
 
@@ -142,17 +144,6 @@ Pod::Spec.new do |s|
 		ss.ios.source_files = 'Sluthware/Classes/RxSwift+iOS/**/*'
 		ss.osx.source_files = 'Sluthware/Classes/RxSwift+macOS/**/*'
 	end
-
-
-
-
-
-	s.subspec 'PromiseKit' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'PromiseKit'
-
-		ss.source_files = 'Sluthware/Classes/PromiseKit/**/*'
-	end
 	
 	
 	
@@ -217,7 +208,6 @@ Pod::Spec.new do |s|
 	s.subspec 'API' do |ss|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'Alamofire'
-		ss.dependency 'PromiseKit'
 
 		ss.source_files = 'Sluthware/Classes/API/**/*'
 	end

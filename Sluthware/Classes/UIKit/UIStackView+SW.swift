@@ -1,5 +1,5 @@
 //
-//  UIStackView.swift
+//  UIStackView+SW.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-09-30.
@@ -7,6 +7,8 @@
 //
 
 import UIKit
+
+import SnapKit
 
 
 
@@ -98,6 +100,8 @@ public extension UIStackView
 	func remove(_ arrangedSubviews: [UIView]) -> Self
 	{
 		arrangedSubviews.forEach {
+			$0.snp.removeConstraints()
+			$0.removeFromSuperview()
 			self.removeArrangedSubview($0)
 		}
 		return self

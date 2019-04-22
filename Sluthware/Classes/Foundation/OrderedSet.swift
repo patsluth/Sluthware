@@ -21,7 +21,7 @@ public struct OrderedSet<Element>: Collection
 	
 	
 	
-	fileprivate var elements = [Element]()
+	fileprivate(set) var elements = [Element]()
 	fileprivate var elementIndices = [Element: OrderedSet.Index]()
 	
 	public var startIndex: OrderedSet.Index {
@@ -63,27 +63,27 @@ public struct OrderedSet<Element>: Collection
 		}
 	}
 	
-//	public mutating func remove(_ element: Element)
-//	{
-//		guard let elementIndex = self.elementIndices[element] else { return }
-//
-//		self.remove(at: elementIndex)
-//	}
-//
-//	@discardableResult
-//	public mutating func remove(at index: OrderedSet.Index) -> Element?
-//	{
-//		guard let elementIndex = self.elementIndices[element] else { return nil }
-//
-//		let element = self.elements.remove(at: elementIndex)
-//		self.elementIndices[element] = nil
-//
-//		for i in stride(from: index, to: self.elements.endIndex, by: 1) {
-//			self.elementIndices[self.elements[i]] = i
-//		}
-//
-//		return element
-//	}
+	//	public mutating func remove(_ element: Element)
+	//	{
+	//		guard let elementIndex = self.elementIndices[element] else { return }
+	//
+	//		self.remove(at: elementIndex)
+	//	}
+	//
+	//	@discardableResult
+	//	public mutating func remove(at index: OrderedSet.Index) -> Element?
+	//	{
+	//		guard let elementIndex = self.elementIndices[element] else { return nil }
+	//
+	//		let element = self.elements.remove(at: elementIndex)
+	//		self.elementIndices[element] = nil
+	//
+	//		for i in stride(from: index, to: self.elements.endIndex, by: 1) {
+	//			self.elementIndices[self.elements[i]] = i
+	//		}
+	//
+	//		return element
+	//	}
 	
 	public func contains(_ element: Element) -> Bool
 	{
@@ -94,7 +94,7 @@ public struct OrderedSet<Element>: Collection
 	{
 		return self.elementIndices[element]
 	}
-
+	
 	public func index(after i: OrderedSet.Index) -> OrderedSet.Index
 	{
 		return self.elements.index(after: i)
@@ -103,6 +103,22 @@ public struct OrderedSet<Element>: Collection
 	public subscript (index: OrderedSet.Index) -> Element
 	{
 		return self.elements[index]
+	}
+}
+
+
+
+
+
+extension OrderedSet: ExpressibleByArrayLiteral
+{
+	public typealias ArrayLiteralElement = Element
+	
+	public init(arrayLiteral elements: Element...)
+	{
+		elements.forEach({
+			self.add($0)
+		})
 	}
 }
 

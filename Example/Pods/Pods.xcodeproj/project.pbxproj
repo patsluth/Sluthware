@@ -366,7 +366,7 @@
 		89DF397EA164BCF945C64B0E51F4714A /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B843CD47272900B23BD9D349729AE7 /* UIView+Rx.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		89F64C1F5260D1503BB17ED59FC68970 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B542BACBB655F2413373E15790284558 /* Throttle.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8B008F97FBE32F0B463FA17668BC30DE /* SnapKit+SW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D715FEBD6749EBAD0B845D2A56BA9 /* SnapKit+SW.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		8B555E05757E5B0BA2A3DEA1FFC84F04 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349383F591370F8C8DFD38988D993F75 /* UIStackView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8B555E05757E5B0BA2A3DEA1FFC84F04 /* UIStackView+SW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349383F591370F8C8DFD38988D993F75 /* UIStackView+SW.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8B697CFDE9DDE0810DFBC03C71E0F625 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFD38083BE05EFEE8AE86EE815C0CB /* UICollectionView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8B915C96938148F3E6BDF00EBB9D533B /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4861058C3AB4A2B887229BE0F9956136 /* NetworkReachabilityManager.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8BE1B476D41A6FC6EC9646584B8597DA /* Pods-Sluthware_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F72CB47877829AA00B3239A6D05DE808 /* Pods-Sluthware_Tests-dummy.m */; };
@@ -845,7 +845,7 @@
 		32AF3EFA64B5D412A226446DB4C0310B /* Array+NSArray.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Array+NSArray.swift"; sourceTree = "<group>"; };
 		32F58E0E106CD00CD50897E8359E8AFB /* Array+Random.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Array+Random.swift"; sourceTree = "<group>"; };
 		330774F7F015B820C1C090CA1325686D /* Timer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timer.swift; path = RxSwift/Observables/Timer.swift; sourceTree = "<group>"; };
-		349383F591370F8C8DFD38988D993F75 /* UIStackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
+		349383F591370F8C8DFD38988D993F75 /* UIStackView+SW.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIStackView+SW.swift"; sourceTree = "<group>"; };
 		3521305BBF8CEC9AE9A1BE9F4058C3EB /* ObservableType+unwrapOrComplete.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "ObservableType+unwrapOrComplete.swift"; sourceTree = "<group>"; };
 		3584F92E33F5B35B52126EA5B878A124 /* FloatingPointType+Angles.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "FloatingPointType+Angles.swift"; sourceTree = "<group>"; };
 		35B898BA020C5B48423F86B92CCD1FF3 /* DisposeBag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DisposeBag.swift; path = RxSwift/Disposables/DisposeBag.swift; sourceTree = "<group>"; };
@@ -1908,7 +1908,7 @@
 				97E3E86EF897E1C99DE9CADF21FA5E1C /* UIScrollView+PDF.swift */,
 				9FD088CEF76FC7CD077F34D0284542AF /* UISearchBar.swift */,
 				7F7D73627560F9E9756329DF7B7E3F11 /* UISegmentedControl+CaseIterable.swift */,
-				349383F591370F8C8DFD38988D993F75 /* UIStackView.swift */,
+				349383F591370F8C8DFD38988D993F75 /* UIStackView+SW.swift */,
 				046157F4FAEB9730EBDFA27E1511C1A6 /* UITableView.swift */,
 				C055E5079D44D033401918190DB27899 /* UITableViewCellBase.swift */,
 				261B8358F7F802A6C0E603A097585DF5 /* UITintLabel.swift */,
@@ -3399,7 +3399,7 @@
 				2181FB876C825CF31369F249788FE49D /* UIScrollView.swift in Sources */,
 				FB809EB5031B902481F1B5A4031F705B /* UISearchBar.swift in Sources */,
 				E69D7645CDB0CE99EE599C1757B2810F /* UISegmentedControl+CaseIterable.swift in Sources */,
-				8B555E05757E5B0BA2A3DEA1FFC84F04 /* UIStackView.swift in Sources */,
+				8B555E05757E5B0BA2A3DEA1FFC84F04 /* UIStackView+SW.swift in Sources */,
 				6A6F7ADB647AA03205FB49A8D59D26C0 /* UITableView.swift in Sources */,
 				BCDC2EB27E2018E1B70BDF691AB5834D /* UITableViewCellBase.swift in Sources */,
 				625025A68795F1456109345C3F956EE4 /* UITableViewHeaderFooterWithEmbeddedContentView.swift in Sources */,
