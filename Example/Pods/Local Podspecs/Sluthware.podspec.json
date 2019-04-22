@@ -38,6 +38,12 @@
         "dependencies": {
           "SnapKit": [
 
+          ],
+          "PromiseKit": [
+
+          ],
+          "CancelForPromiseKit": [
+
           ]
         },
         "resources": "Sluthware/Resources/UIKit/**/*",
@@ -48,7 +54,8 @@
           "Sluthware/Classes/CoreGraphics/**/*",
           "Sluthware/Classes/CoreLocation/**/*",
           "Sluthware/Classes/UIKit/**/*",
-          "Sluthware/Classes/Reachability/**/*"
+          "Sluthware/Classes/Reachability/**/*",
+          "Sluthware/Classes/PromiseKit/**/*"
         ]
       },
       "osx": {
@@ -168,18 +175,6 @@
       }
     },
     {
-      "name": "PromiseKit",
-      "dependencies": {
-        "Sluthware/Default": [
-
-        ],
-        "PromiseKit": [
-
-        ]
-      },
-      "source_files": "Sluthware/Classes/PromiseKit/**/*"
-    },
-    {
       "name": "Firebase",
       "dependencies": {
         "Sluthware/Default": [
@@ -268,9 +263,6 @@
 
         ],
         "Alamofire": [
-
-        ],
-        "PromiseKit": [
 
         ]
       },

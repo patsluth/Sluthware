@@ -41,6 +41,7 @@ Pod::Spec.new do |s|
 		
 		ss.ios.dependency 'SnapKit'
 		ss.ios.dependency 'PromiseKit'
+		ss.ios.dependency 'CancelForPromiseKit'
 
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
 

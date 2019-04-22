@@ -12,7 +12,6 @@ target 'Sluthware_Example' do
     pod 'Sluthware', :path => '../'
 #		pod 'Sluthware/API', :path => '../'
 		pod 'Sluthware/RxSwift', :path => '../'
-		pod 'Sluthware/PromiseKit', :path => '../'
 		pod 'Sluthware/Alamofire', :path => '../'
 #		pod 'Sluthware/CoreLocation', :path => '../'
 #		pod 'Sluthware/SceneKit', :path => '../'

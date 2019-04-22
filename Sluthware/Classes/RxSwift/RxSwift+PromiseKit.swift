@@ -10,9 +10,9 @@ import Foundation
 
 import RxSwift
 import RxCocoa
-
-#if canImport(PromiseKit)
 import PromiseKit
+import CancelForPromiseKit
+
 
 
 
@@ -78,8 +78,19 @@ public extension ObservableType
 				})
 		}
 	}
+	
+	func asPromise() -> CancellablePromise<E>
+	{
+		return CancellablePromise { resolver in
+			_ = self.take(1).asSingle()
+				.subscribe(onSuccess: {
+					resolver.fulfill($0)
+				}, onError: {
+					resolver.reject($0)
+				})
+		}
+	}
 }
-#endif
 
 
 
