@@ -38,7 +38,7 @@ public extension UIApplication
 			case .notDetermined:
 				nc.requestAuthorization(options: options) { status, error in
 					if let result = Result(status, error) {
-						printSW(result)
+						swlog(result)
 					}
 					self.authorizeUserNotifications(options: options, completion)
 				}

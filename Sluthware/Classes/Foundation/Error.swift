@@ -27,7 +27,7 @@ public extension Error
 					function: String = #function,
 					line: Int = #line) -> Self
 	{
-		printSW(file: file.fileNameFull, function: function, line: line, self)
+		swlog(file: file.fileNameFull, function: function, line: line, self)
 		
 		return self
 	}
