@@ -15,6 +15,38 @@ public enum AspectRatio
 {
 	case WidthByHeight
 	case HeightByWidth
+	
+	
+	
+	
+	
+	public static func widthPercentage(_ size: CGSize!) -> CGFloat
+	{
+		guard let size = size else { return 0 }
+		
+		return size.width / size.height
+	}
+	
+	public static func targetWidth(_ size: CGSize!) -> CGFloat
+	{
+		guard let size = size else { return 0 }
+		
+		return size.height * self.widthPercentage(size)
+	}
+	
+	public static func heightPercentage(_ size: CGSize!) -> CGFloat
+	{
+		guard let size = size else { return 0 }
+		
+		return size.height / size.width
+	}
+	
+	public static func targetHeight(_ size: CGSize!) -> CGFloat
+	{
+		guard let size = size else { return 0 }
+		
+		return size.width * self.heightPercentage(size)
+	}
 }
 
 
@@ -38,16 +70,12 @@ public extension AspectRatio
 		
 		open override var intrinsicContentSize: CGSize {
 			var size = self.bounds.size
-			guard let image = self.image else { return size }
-			var aspectRato: CGFloat = 0
 			
 			switch self.type {
 			case .WidthByHeight:
-				let aspectRato = image.size.height / image.size.width
-				size.height(size.width * aspectRato)
+				size.height = AspectRatio.targetHeight(self.image?.size)
 			case .HeightByWidth:
-				let aspectRato = image.size.width / image.size.height
-				size.width(size.height * aspectRato)
+				size.width = AspectRatio.targetWidth(self.image?.size)
 			}
 			
 			return size

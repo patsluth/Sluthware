@@ -276,6 +276,9 @@
         ],
         "Alamofire": [
 
+        ],
+        "CancelForPromiseKit/Alamofire": [
+
         ]
       },
       "source_files": "Sluthware/Classes/Alamofire/**/*"

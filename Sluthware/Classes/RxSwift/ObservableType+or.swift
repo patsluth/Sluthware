@@ -47,29 +47,6 @@ public extension ObservableType
 			return Disposables.create([disposableA, disposableB])
 		})
 	}
-	
-	public func ignore<O>(until otherObservable: O) -> Observable<E>
-		where O: ObservableType
-	{
-		return otherObservable.flatMapLatest({ _ in
-			self
-		})
-//		return Observable.create({ observable in
-//
-//			let disposable = otherObservable.flatMapLatest({
-//				self
-//			})
-////			let disposableA = self.bind(onNext: {
-////				observable.onNext(.A($0))
-////			})
-////
-////			let disposableB = b.bind(onNext: {
-////				observable.onNext(.B($0))
-////			})
-//
-//			return Disposables.create([disposable])
-//		})
-	}
 }
 
 

@@ -107,26 +107,38 @@ public extension ObservableType
 {
 	func asPromise() -> Promise<E>
 	{
-		return Promise { resolver in
-			_ = self.take(1).asSingle()
-				.subscribe(onSuccess: {
-					resolver.fulfill($0)
-				}, onError: {
-					resolver.reject($0)
-				})
-		}
+		let (promise, resolver) = Promise<E>.pending()
+		
+		_ = self.take(1)
+			.subscribe(onNext: {
+				resolver.fulfill($0)
+			}, onError: {
+				resolver.reject($0)
+			}, onDisposed: {
+				if !promise.isFulfilled {
+					resolver.reject(PMKError.cancelled)
+				}
+			})
+		
+		return promise
 	}
 	
 	func asPromise() -> CancellablePromise<E>
 	{
-		return CancellablePromise { resolver in
-			_ = self.take(1).asSingle()
-				.subscribe(onSuccess: {
-					resolver.fulfill($0)
-				}, onError: {
-					resolver.reject($0)
-				})
-		}
+		let (promise, resolver) = CancellablePromise<E>.pending()
+		
+		_ = self.take(1)
+			.subscribe(onNext: {
+				resolver.fulfill($0)
+			}, onError: {
+				resolver.reject($0)
+			}, onDisposed: {
+				if !promise.isFulfilled {
+					promise.cancel()
+				}
+			})
+		
+		return promise
 	}
 }
 

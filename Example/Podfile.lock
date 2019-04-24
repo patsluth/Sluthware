@@ -3,6 +3,10 @@ PODS:
   - CancelForPromiseKit (1.1.0):
     - CancelForPromiseKit/CorePromise (= 1.1.0)
     - CancelForPromiseKit/Foundation (= 1.1.0)
+  - CancelForPromiseKit/Alamofire (1.1.0):
+    - Alamofire (~> 4.0)
+    - CancelForPromiseKit/CorePromise
+    - PromiseKit/Alamofire (~> 6.0)
   - CancelForPromiseKit/CorePromise (1.1.0):
     - PromiseKit/CorePromise (~> 6.0)
   - CancelForPromiseKit/Foundation (1.1.0):
@@ -12,6 +16,9 @@ PODS:
     - PromiseKit/CorePromise (= 6.8.4)
     - PromiseKit/Foundation (= 6.8.4)
     - PromiseKit/UIKit (= 6.8.4)
+  - PromiseKit/Alamofire (6.8.4):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
   - PromiseKit/CorePromise (6.8.4)
   - PromiseKit/Foundation (6.8.4):
     - PromiseKit/CorePromise
@@ -32,6 +39,7 @@ PODS:
     - Sluthware/Default (= 1.0.31)
   - Sluthware/Alamofire (1.0.31):
     - Alamofire
+    - CancelForPromiseKit/Alamofire
     - Sluthware/Default
   - Sluthware/Default (1.0.31):
     - CancelForPromiseKit
@@ -70,9 +78,9 @@ SPEC CHECKSUMS:
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
-  Sluthware: 8dce0f1b86264486a35709ffab66a12520181480
+  Sluthware: 54b1a96fc7ebfd0da8ddd022fc07769afe9ed04f
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
 PODFILE CHECKSUM: ee217338c98dff914e08dd5aaabac7d54b5e33c3
 
-COCOAPODS: 1.7.0.beta.2
+COCOAPODS: 1.7.0.beta.3
