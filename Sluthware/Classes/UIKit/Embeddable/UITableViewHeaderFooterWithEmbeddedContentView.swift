@@ -18,12 +18,18 @@ public extension UIEmbeddableContentView
 	typealias TVReusableView = UITableViewHeaderFooterWithEmbeddedContentView<Self>
 }
 
+public enum Embedded
+{
+	public typealias TVReusableView<T> = UITableViewHeaderFooterWithEmbeddedContentView<T>
+		where T: UIView
+}
+
 
 
 
 
 public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableViewHeaderFooterView, UIViewWithEmbeddedContent
-	where T: UIEmbeddableContentView
+	where T: UIView
 {
 	public typealias Embedded = T
 	
@@ -57,7 +63,7 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableViewHeade
 	{
 		super.prepareForReuse()
 		
-		self.embedded.prepareForReuse?()
+		//		self.embedded.prepareForReuse?()
 	}
 	
 	public override func prepareForInterfaceBuilder()
@@ -66,6 +72,8 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableViewHeade
 		
 		self.embedded.prepareForInterfaceBuilder()
 	}
+	
+	
 	
 	deinit
 	{

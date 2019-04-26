@@ -144,7 +144,7 @@ public extension NSObjectProtocol
 	
 	
 	@discardableResult
-	func on<T>(_ controlProperty: (Reactive<Self>) -> ControlProperty<T>,
+	func on<T>(_ controlPropertyKeyPath: KeyPath<Reactive<Self>, ControlProperty<T>>,
 			   _ event: @escaping (Self, T) -> Void,
 			   throttle: TimeInterval = 0.0,
 			   debounce: TimeInterval = 0.0,
@@ -154,8 +154,8 @@ public extension NSObjectProtocol
 		let _event = { [unowned self] (t: T) in
 			event(self, t)
 		}
-		
-		let disposable = controlProperty(self.rx)
+		let controlProperty = self.rx[keyPath: controlPropertyKeyPath]
+		let disposable = controlProperty
 			.on(_event,
 				takeUntil: self.rx.deallocated,
 				throttle: throttle,
@@ -166,7 +166,7 @@ public extension NSObjectProtocol
 		return DisposableReturnValue(value: self, disposable: disposable)
 	}
 	
-	func on<T>(_ controlProperty: (Reactive<Self>) -> ControlProperty<T>,
+	func on<T>(_ controlPropertyKeyPath: KeyPath<Reactive<Self>, ControlProperty<T>>,
 			   _ event: @escaping (Self, T) -> Void,
 			   throttle: TimeInterval = 0.0,
 			   debounce: TimeInterval = 0.0,
