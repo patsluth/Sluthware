@@ -174,7 +174,7 @@ public extension NSObjectProtocol
 			   debug: Bool = false,
 			   disposedBy disposeBag: DisposeBag? = nil) -> Self
 	{
-		return self.on(controlProperty,
+		return self.on(controlPropertyKeyPath,
 					   event,
 					   throttle: throttle,
 					   debounce: debounce,

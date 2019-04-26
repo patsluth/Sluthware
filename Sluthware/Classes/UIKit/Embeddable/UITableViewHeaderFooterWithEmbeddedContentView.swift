@@ -13,15 +13,10 @@ import SnapKit
 
 
 
-public extension UIEmbeddableContentView
+public extension NSObjectProtocol
+	where Self: UIView
 {
 	typealias TVReusableView = UITableViewHeaderFooterWithEmbeddedContentView<Self>
-}
-
-public enum Embedded
-{
-	public typealias TVReusableView<T> = UITableViewHeaderFooterWithEmbeddedContentView<T>
-		where T: UIView
 }
 
 
@@ -63,7 +58,7 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableViewHeade
 	{
 		super.prepareForReuse()
 		
-		//		self.embedded.prepareForReuse?()
+		(self.embedded as? UIEmbeddableContentView)?.prepareForReuse?()
 	}
 	
 	public override func prepareForInterfaceBuilder()

@@ -13,7 +13,8 @@ import SnapKit
 
 
 
-public extension UIEmbeddableContentView
+public extension NSObjectProtocol
+	where Self: UIView
 {
 	typealias TVCell = UITableViewWithEmbeddedContentCell<Self>
 }
@@ -23,7 +24,7 @@ public extension UIEmbeddableContentView
 
 
 public class UITableViewWithEmbeddedContentCell<T>: UITableViewCell, UIViewWithEmbeddedContent
-	where T: UIEmbeddableContentView
+	where T: UIView
 {
 	public typealias Embedded = T
 	
@@ -49,7 +50,7 @@ public class UITableViewWithEmbeddedContentCell<T>: UITableViewCell, UIViewWithE
 	{
 		super.prepareForReuse()
 		
-		self.embedded.prepareForReuse?()
+		(self.embedded as? UIEmbeddableContentView)?.prepareForReuse?()
 	}
 	
 	public override func prepareForInterfaceBuilder()

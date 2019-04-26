@@ -13,7 +13,8 @@ import SnapKit
 
 
 
-public extension UIEmbeddableContentView
+public extension NSObjectProtocol
+	where Self: UIView
 {
 	typealias CVReusableView = UICollectionReusableWithEmbeddedContentView<Self>
 }
@@ -23,7 +24,7 @@ public extension UIEmbeddableContentView
 
 
 public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusableView, UIViewWithEmbeddedContent
-	where T: UIEmbeddableContentView
+	where T: UIView
 {
 	public typealias Embedded = T
 	public typealias PreferredLayoutAttributesProvider = (UICollectionReusableWithEmbeddedContentView<T>, UICollectionViewLayoutAttributes) -> Void
@@ -71,7 +72,7 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusabl
 		super.prepareForReuse()
 		
 		self.preferredLayoutAttributesProvider = nil
-		self.embedded.prepareForReuse?()
+		(self.embedded as? UIEmbeddableContentView)?.prepareForReuse?()
 	}
 	
 	public override func prepareForInterfaceBuilder()
