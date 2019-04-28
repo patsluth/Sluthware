@@ -11,11 +11,11 @@ import UIKit
 
 
 
-@objc public protocol UIEmbeddableContentView
-	where Self: UIView
-{
-	@objc optional func prepareForReuse()
-}
+//@objc public protocol UIEmbeddableContentView
+//	where Self: UIView
+//{
+//	@objc optional func prepareForReuse()
+//}
 
 
 

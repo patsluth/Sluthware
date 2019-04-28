@@ -23,7 +23,7 @@ public extension NSObjectProtocol
 
 
 
-public class UITableViewWithEmbeddedContentCell<T>: UITableViewCell, UIViewWithEmbeddedContent
+public class UITableViewWithEmbeddedContentCell<T>: UITableView.BaseCell, UIViewWithEmbeddedContent
 	where T: UIView
 {
 	public typealias Embedded = T
@@ -50,7 +50,7 @@ public class UITableViewWithEmbeddedContentCell<T>: UITableViewCell, UIViewWithE
 	{
 		super.prepareForReuse()
 		
-		(self.embedded as? UIEmbeddableContentView)?.prepareForReuse?()
+		(self.embedded as? UIReusableViewProtocol)?.prepareForReuse()
 	}
 	
 	public override func prepareForInterfaceBuilder()

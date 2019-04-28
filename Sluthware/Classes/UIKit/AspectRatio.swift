@@ -27,25 +27,11 @@ public enum AspectRatio
 		return size.width / size.height
 	}
 	
-	public static func targetWidth(_ size: CGSize!) -> CGFloat
-	{
-		guard let size = size else { return 0 }
-		
-		return size.height * self.widthPercentage(size)
-	}
-	
 	public static func heightPercentage(_ size: CGSize!) -> CGFloat
 	{
 		guard let size = size else { return 0 }
 		
 		return size.height / size.width
-	}
-	
-	public static func targetHeight(_ size: CGSize!) -> CGFloat
-	{
-		guard let size = size else { return 0 }
-		
-		return size.width * self.heightPercentage(size)
 	}
 }
 
@@ -73,9 +59,9 @@ public extension AspectRatio
 			
 			switch self.type {
 			case .WidthByHeight:
-				size.height = AspectRatio.targetHeight(self.image?.size)
+				size.height = size.width * AspectRatio.heightPercentage(self.image?.size)
 			case .HeightByWidth:
-				size.width = AspectRatio.targetWidth(self.image?.size)
+				size.width = size.height * AspectRatio.widthPercentage(self.image?.size)
 			}
 			
 			return size

@@ -40,6 +40,9 @@ Pod::Spec.new do |s|
 		'SystemConfiguration'
 		
 		ss.ios.dependency 'SnapKit'
+		ss.ios.dependency 'RxSwift'
+		ss.ios.dependency 'RxCocoa'
+		ss.ios.dependency 'RxSwiftExt'
 		ss.ios.dependency 'PromiseKit'
 		ss.ios.dependency 'CancelForPromiseKit'
 
@@ -52,7 +55,8 @@ Pod::Spec.new do |s|
 		'Sluthware/Classes/CoreLocation/**/*',
 		'Sluthware/Classes/UIKit/**/*',
 		'Sluthware/Classes/Reachability/**/*',
-		'Sluthware/Classes/PromiseKit/**/*'
+		'Sluthware/Classes/PromiseKit/**/*',
+		'Sluthware/Classes/RxSwift/**/*'
 
 
 
@@ -128,23 +132,6 @@ Pod::Spec.new do |s|
 
 		ss.ios.source_files = 'Sluthware/Classes/ARKit/**/*'
 	end
-
-
-
-
-
-	s.subspec 'RxSwift' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'RxSwift'
-		ss.dependency 'RxCocoa'
-		ss.dependency 'RxSwiftExt'
-
-		ss.ios.frameworks = 'UIKit'
-
-		ss.source_files = 'Sluthware/Classes/RxSwift/**/*'
-		ss.ios.source_files = 'Sluthware/Classes/RxSwift+iOS/**/*'
-		ss.osx.source_files = 'Sluthware/Classes/RxSwift+macOS/**/*'
-	end
 	
 	
 	
@@ -207,8 +194,7 @@ Pod::Spec.new do |s|
 
 
 	s.subspec 'API' do |ss|
-		ss.dependency 'Sluthware/Default'
-		ss.dependency 'Alamofire'
+		ss.dependency 'Sluthware/Alamofire'
 
 		ss.source_files = 'Sluthware/Classes/API/**/*'
 	end

@@ -23,7 +23,7 @@ public extension NSObjectProtocol
 
 
 
-public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusableView, UIViewWithEmbeddedContent
+public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionView.BaseReusableView, UIViewWithEmbeddedContent
 	where T: UIView
 {
 	public typealias Embedded = T
@@ -72,7 +72,7 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionReusabl
 		super.prepareForReuse()
 		
 		self.preferredLayoutAttributesProvider = nil
-		(self.embedded as? UIEmbeddableContentView)?.prepareForReuse?()
+		(self.embedded as? UIReusableViewProtocol)?.prepareForReuse()
 	}
 	
 	public override func prepareForInterfaceBuilder()

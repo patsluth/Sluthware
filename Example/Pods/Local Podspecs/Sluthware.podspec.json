@@ -18,7 +18,7 @@
   "social_media_url": "https://twitter.com/patsluth",
   "swift_versions": "5.0",
   "platforms": {
-    "ios": "9.0",
+    "ios": "10.0",
     "osx": "10.11"
   },
   "static_framework": true,
@@ -39,6 +39,15 @@
           "SnapKit": [
 
           ],
+          "RxSwift": [
+
+          ],
+          "RxCocoa": [
+
+          ],
+          "RxSwiftExt": [
+
+          ],
           "PromiseKit": [
 
           ],
@@ -55,7 +64,8 @@
           "Sluthware/Classes/CoreLocation/**/*",
           "Sluthware/Classes/UIKit/**/*",
           "Sluthware/Classes/Reachability/**/*",
-          "Sluthware/Classes/PromiseKit/**/*"
+          "Sluthware/Classes/PromiseKit/**/*",
+          "Sluthware/Classes/RxSwift/**/*"
         ]
       },
       "osx": {
@@ -150,31 +160,6 @@
       }
     },
     {
-      "name": "RxSwift",
-      "dependencies": {
-        "Sluthware/Default": [
-
-        ],
-        "RxSwift": [
-
-        ],
-        "RxCocoa": [
-
-        ],
-        "RxSwiftExt": [
-
-        ]
-      },
-      "ios": {
-        "frameworks": "UIKit",
-        "source_files": "Sluthware/Classes/RxSwift+iOS/**/*"
-      },
-      "source_files": "Sluthware/Classes/RxSwift/**/*",
-      "osx": {
-        "source_files": "Sluthware/Classes/RxSwift+macOS/**/*"
-      }
-    },
-    {
       "name": "Firebase",
       "dependencies": {
         "Sluthware/Default": [
@@ -259,10 +244,7 @@
     {
       "name": "API",
       "dependencies": {
-        "Sluthware/Default": [
-
-        ],
-        "Alamofire": [
+        "Sluthware/Alamofire": [
 
         ]
       },

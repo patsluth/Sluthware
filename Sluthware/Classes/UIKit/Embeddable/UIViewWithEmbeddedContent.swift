@@ -11,8 +11,7 @@ import UIKit
 
 
 
-public protocol UIViewWithEmbeddedContent
-	where Self: UIView
+public protocol UIViewWithEmbeddedContent: UIView
 {
 	associatedtype Embedded: UIView
 	

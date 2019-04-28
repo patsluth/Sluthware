@@ -23,7 +23,7 @@ public extension NSObjectProtocol
 
 
 
-public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableViewHeaderFooterView, UIViewWithEmbeddedContent
+public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableView.BaseHeaderFooterView, UIViewWithEmbeddedContent
 	where T: UIView
 {
 	public typealias Embedded = T
@@ -58,7 +58,7 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableViewHeade
 	{
 		super.prepareForReuse()
 		
-		(self.embedded as? UIEmbeddableContentView)?.prepareForReuse?()
+		(self.embedded as? UIReusableViewProtocol)?.prepareForReuse()
 	}
 	
 	public override func prepareForInterfaceBuilder()
