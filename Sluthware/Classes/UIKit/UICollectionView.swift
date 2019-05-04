@@ -65,6 +65,26 @@ public extension UICollectionView
 					  withReuseIdentifier: reuseIdentifier)
 	}
 	
+	/// Wrapper for registerSupplementary kind UICollectionView.elementKindSectionHeader
+	func registerHeader<T>(_ type: T.Type,
+						   reuseIdentifier: String = "\(T.self)")
+		where T: UICollectionReusableView
+	{
+		self.registerSupplementary(type,
+								   kind: UICollectionView.elementKindSectionHeader,
+								   reuseIdentifier: reuseIdentifier)
+	}
+	
+	/// Wrapper for registerSupplementary kind UICollectionView.elementKindSectionFooter
+	func registerFooter<T>(_ type: T.Type,
+						   reuseIdentifier: String = "\(T.self)")
+		where T: UICollectionReusableView
+	{
+		self.registerSupplementary(type,
+								   kind: UICollectionView.elementKindSectionFooter,
+								   reuseIdentifier: reuseIdentifier)
+	}
+	
 	
 	
 	
