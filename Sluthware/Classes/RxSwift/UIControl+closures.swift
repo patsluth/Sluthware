@@ -71,8 +71,8 @@ public extension NSObjectProtocol
 	@discardableResult
 	func on(_ controlEvent: UIControl.Event,
 			_ event: @escaping (Self) -> Void,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> DisposableReturnValue<Self>
 	{
@@ -95,8 +95,8 @@ public extension NSObjectProtocol
 	@discardableResult
 	func on(_ controlEvent: UIControl.Event,
 			_ event: @escaping (Self) -> Void,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false,
 			disposedBy disposeBag: DisposeBag? = nil) -> Self
@@ -113,8 +113,8 @@ public extension NSObjectProtocol
 	
 	@discardableResult
 	func on(tap event: @escaping (Self) -> Void,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> DisposableReturnValue<Self>
 	{
@@ -128,8 +128,8 @@ public extension NSObjectProtocol
 	
 	@discardableResult
 	func on(tap event: @escaping (Self) -> Void,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false,
 			disposedBy disposeBag: DisposeBag? = nil) -> Self
@@ -146,8 +146,8 @@ public extension NSObjectProtocol
 	@discardableResult
 	func on<T>(_ controlPropertyKeyPath: KeyPath<Reactive<Self>, ControlProperty<T>>,
 			   _ event: @escaping (Self, T) -> Void,
-			   throttle: TimeInterval = 0.0,
-			   debounce: TimeInterval = 0.0,
+			   throttle: RxTimeInterval = .never,
+			   debounce: RxTimeInterval = .never,
 			   scheduler: SchedulerType = MainScheduler.instance,
 			   debug: Bool = false) -> DisposableReturnValue<Self>
 	{
@@ -168,8 +168,8 @@ public extension NSObjectProtocol
 	
 	func on<T>(_ controlPropertyKeyPath: KeyPath<Reactive<Self>, ControlProperty<T>>,
 			   _ event: @escaping (Self, T) -> Void,
-			   throttle: TimeInterval = 0.0,
-			   debounce: TimeInterval = 0.0,
+			   throttle: RxTimeInterval = .never,
+			   debounce: RxTimeInterval = .never,
 			   scheduler: SchedulerType = MainScheduler.instance,
 			   debug: Bool = false,
 			   disposedBy disposeBag: DisposeBag? = nil) -> Self
@@ -192,8 +192,8 @@ public extension NSObjectProtocol
 {
 	@discardableResult
 	func on(tap event: @escaping (Self) -> Void,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> DisposableReturnValue<Self>
 	{
@@ -214,8 +214,8 @@ public extension NSObjectProtocol
 	
 	@discardableResult
 	func on(tap event: @escaping (Self) -> Void,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false,
 			disposedBy disposeBag: DisposeBag? = nil) -> Self
@@ -237,8 +237,8 @@ internal extension ControlEvent
 	@discardableResult
 	func on(_ event: @escaping (E) -> Void,
 			takeUntil: Observable<Void>,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> Disposable
 	{
@@ -247,10 +247,10 @@ internal extension ControlEvent
 			.takeUntil(takeUntil)
 			.observeOn(scheduler)
 		
-		if throttle > 0.0 {
+		if throttle != .never {
 			observable = observable.throttle(throttle, scheduler: scheduler)
 		}
-		if debounce > 0.0 {
+		if debounce != .never {
 			observable = observable.debounce(debounce, scheduler: scheduler)
 		}
 		
@@ -275,8 +275,8 @@ internal extension ControlProperty
 	@discardableResult
 	func on(_ event: @escaping (E) -> Void,
 			takeUntil: Observable<Void>,
-			throttle: TimeInterval = 0.0,
-			debounce: TimeInterval = 0.0,
+			throttle: RxTimeInterval = .never,
+			debounce: RxTimeInterval = .never,
 			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> Disposable
 	{
@@ -284,10 +284,10 @@ internal extension ControlProperty
 			.asObservable()
 			.observeOn(scheduler)
 		
-		if throttle > 0.0 {
+		if throttle != .never {
 			observable = observable.throttle(throttle, scheduler: scheduler)
 		}
-		if debounce > 0.0 {
+		if debounce != .never {
 			observable = observable.debounce(debounce, scheduler: scheduler)
 		}
 		
