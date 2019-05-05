@@ -48,10 +48,7 @@ public extension AspectRatio
 		}
 		
 		open override var image: UIImage? {
-			didSet
-			{
-				self.invalidateIntrinsicContentSize()
-			}
+			didSet { self.invalidateIntrinsicContentSize() }
 		}
 		
 		open override var intrinsicContentSize: CGSize {
