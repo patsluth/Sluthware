@@ -10,17 +10,16 @@ If you're using [RxSwift](https://github.com/ReactiveX/RxSwift), you may have en
 Installation
 ===========
 
-This branch of RxSwiftExt targets Swift 4.x and RxSwift 4.0.0 or later.
+This branch of RxSwiftExt targets Swift 5.x and RxSwift 5.0.0 or later.
 
-* If you're looking for the Swift 3 version of RxSwiftExt, please use version `2.5.1` of the framework.
-* If your project is running on Swift 2.x, please use version `1.2` of the framework.
+* If you're looking for the Swift 4 version of RxSwiftExt, please use version `3.4.0` of the framework.
 
 #### CocoaPods
 
-Using Swift 4:
+Add to your `Podfile`:
 
 ```ruby
-pod 'RxSwiftExt'
+pod 'RxSwiftExt', '~> 5'
 ```
 
 This will install both the `RxSwift` and `RxCocoa` extensions.
@@ -30,16 +29,10 @@ If you're interested in only installing the `RxSwift` extensions, without the `R
 pod 'RxSwiftExt/Core'
 ```
 
-Using Swift 3:
+Using Swift 4:
 
 ```ruby
-pod 'RxSwiftExt', '2.5.1'
-```
-
-If you use Swift 2.x:
-
-```ruby
-pod 'RxSwiftExt', '1.2'
+pod 'RxSwiftExt', '~> 3'
 ```
 
 #### Carthage
@@ -81,6 +74,8 @@ These operators are much like the RxSwift & RxCocoa core operators, but provide 
 * [Observable.zip(with:)](#zipwith)
 * [withUnretained](#withunretained)
 * [count](#count)
+* [partition](#partition)
+* [bufferWithTrigger](#bufferWithTrigger)
 
 There are two more available operators for `materialize()`'d sequences:
 
@@ -598,6 +593,35 @@ next(3)
 completed
 ```
 
+#### partition
+
+Partition a stream into two separate streams of elements that match, and don't match, the provided predicate.
+
+```swift
+let numbers = Observable
+        .of(1, 2, 3, 4, 5, 6)
+
+    let (evens, odds) = numbers.partition { $0 % 2 == 0 }
+
+    _ = evens.debug("even").subscribe() // emits 2, 4, 6
+    _ = odds.debug("odds").subscribe() // emits 1, 3, 5
+```
+
+#### bufferWithTrigger
+Collects the elements of the source observable, and emits them as an array when the trigger emits.
+
+```swift
+let observable = Observable<Int>.interval(1, scheduler: MainScheduler.instance)
+let signalAtThreeSeconds = Observable<Int>.timer(3, scheduler: MainScheduler.instance).map { _ in () }
+let signalAtFiveSeconds = Observable<Int>.timer(5, scheduler: MainScheduler.instance).map { _ in () }
+let trigger = Observable.of(signalAtThreeSeconds, signalAtFiveSeconds).merge()
+let buffered = observable.bufferWithTrigger(trigger)
+buffered.subscribe { print($0) }
+// prints next([0, 1, 2]) @ 3, next([3, 4]) @ 5
+```
+
+A live demonstration is available in the Playground.
+
 Reactive Extensions details
 ===========
 
@@ -622,6 +646,6 @@ slider.rx.value.map(CGFloat.init)
 ```
 ## License
 
-This library belongs to _RxSwiftCommunity_.
+This library belongs to _RxSwift Community_.
 
 RxSwiftExt is available under the MIT license. See the LICENSE file for more info.
