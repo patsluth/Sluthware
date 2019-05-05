@@ -42,7 +42,6 @@ Pod::Spec.new do |s|
 		ss.ios.dependency 'SnapKit'
 		ss.ios.dependency 'RxSwift'
 		ss.ios.dependency 'RxCocoa'
-		ss.ios.dependency 'ObservableArray-RxSwift'
 		ss.ios.dependency 'RxSwiftExt'
 		ss.ios.dependency 'PromiseKit'
 		ss.ios.dependency 'CancelForPromiseKit'
