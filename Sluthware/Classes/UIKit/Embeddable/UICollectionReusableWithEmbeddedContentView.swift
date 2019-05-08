@@ -91,18 +91,3 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionView.Ba
 
 
 
-
-extension UICollectionReusableWithEmbeddedContentView: ModelConsumer
-	where T: ModelConsumer
-{
-	public typealias Model = T.Model
-	
-	public var model: T.Model! {
-		get { return self.embedded.model }
-		set { self.embedded.model = newValue }
-	}
-}
-
-
-
-

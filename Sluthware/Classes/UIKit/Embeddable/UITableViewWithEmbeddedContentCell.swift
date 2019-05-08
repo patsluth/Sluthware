@@ -69,18 +69,3 @@ public class UITableViewWithEmbeddedContentCell<T>: UITableView.BaseCell, UIView
 
 
 
-
-extension UITableViewWithEmbeddedContentCell: ModelConsumer
-	where Embedded: ModelConsumer
-{
-	public typealias Model = Embedded.Model
-	
-	public var model: Embedded.Model! {
-		get { return self.embedded.model }
-		set { self.embedded.model = newValue }
-	}
-}
-
-
-
-

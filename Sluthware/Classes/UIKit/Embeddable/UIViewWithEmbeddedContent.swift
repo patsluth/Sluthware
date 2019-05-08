@@ -23,3 +23,18 @@ public protocol UIViewWithEmbeddedContent: UIView
 
 
 
+
+extension UIViewWithEmbeddedContent
+	where Embedded: ModelConsumer
+{
+	public typealias Model = Embedded.Model
+	
+	public var model: Embedded.Model! {
+		get { return self.embedded.model }
+		set { self.embedded.model = newValue }
+	}
+}
+
+
+
+

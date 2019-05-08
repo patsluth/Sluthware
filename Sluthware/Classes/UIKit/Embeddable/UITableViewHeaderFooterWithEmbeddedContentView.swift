@@ -79,18 +79,3 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableView.Base
 
 
 
-
-extension UITableViewHeaderFooterWithEmbeddedContentView: ModelConsumer
-	where Embedded: ModelConsumer
-{
-	public typealias Model = Embedded.Model
-	
-	public var model: Embedded.Model! {
-		get { return self.embedded.model }
-		set { self.embedded.model = newValue }
-	}
-}
-
-
-
-
