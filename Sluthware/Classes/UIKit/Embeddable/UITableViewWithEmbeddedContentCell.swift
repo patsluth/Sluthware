@@ -32,7 +32,7 @@ public class UITableViewWithEmbeddedContentCell<T>: UITableView.BaseCell, UIView
 	
 	
 	
-	public lazy var embedded: T = {
+	public lazy var embedded: T! = {
 		T.make({
 			self.selectionStyle = .none
 			

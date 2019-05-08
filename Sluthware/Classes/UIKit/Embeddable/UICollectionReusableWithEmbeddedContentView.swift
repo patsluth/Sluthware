@@ -33,7 +33,7 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionView.Ba
 	
 	
 	
-	public lazy var embedded: T = {
+	public lazy var embedded: T! = {
 		T.make({
 			self.addSubview($0)
 		}).make(constraints: {

@@ -17,7 +17,7 @@ public protocol UIViewWithEmbeddedContent: UIView
 	
 	
 	
-	var embedded: Embedded { get set }
+	var embedded: Embedded! { get set }
 }
 
 

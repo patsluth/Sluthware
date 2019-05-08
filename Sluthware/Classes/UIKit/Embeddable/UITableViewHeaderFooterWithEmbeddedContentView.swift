@@ -32,7 +32,7 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableView.Base
 	
 	
 	
-	public lazy var embedded: T = {
+	public lazy var embedded: T! = {
 		T.make({
 			self.contentView.addSubview($0)
 		}).make(constraints: {
