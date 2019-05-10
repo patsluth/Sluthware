@@ -11,31 +11,35 @@ import AVKit
 
 import PromiseKit
 import CancelForPromiseKit
+import Kingfisher
 
 
 
 
 
 @available(iOS 11.0, *)
-enum Thumbnail
+public enum Thumbnail
 {
-	static func generateAsync(for url: URL!, size: CGSize) -> CancellablePromise<UIImage?>
+	public static func generateAsync(for url: URL!, size: CGSize) -> CancellableGuarantee<UIImage?>
 	{
-		let (promise, resolver) = CancellablePromise<UIImage?>.pending()
+		let (guarantee, resolver) = CancellableGuarantee<UIImage?>.pending()
 		
-		DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async(execute: {
+		let task = DispatchWorkItem(qos: .background, flags: .enforceQoS, block: {
 			let image = Thumbnail.generate(for: url, size: size)
 			DispatchQueue.main.async(execute: {
-				if !promise.isCancelled {
-					resolver.fulfill(image)
-				}
+				resolver(image)
 			})
 		})
 		
-		return promise
+		guarantee.appendCancellableTask(task: task, reject: nil)
+		
+		DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+			.async(execute: task)
+		
+		return guarantee
 	}
 	
-	static func generate(for url: URL!, size: CGSize) -> UIImage?
+	public static func generate(for url: URL!, size: CGSize) -> UIImage?
 	{
 		guard let url = url else { return nil }
 		let mime = Mime(url: url)
@@ -45,7 +49,7 @@ enum Thumbnail
 				return UIImage(data: data)
 			}
 		}
-
+		
 		if let uti = url.uti, AVURLAsset.audiovisualTypes().contains(AVFileType(uti)) {
 			return Thumbnail.generateVideo(for: url, size: size)
 		} else if AVURLAsset.audiovisualMIMETypes().contains(mime.contentType) {
@@ -109,6 +113,36 @@ enum Thumbnail
 		return context.makeImage().flatMap {
 			UIImage(cgImage: $0, scale: UIScreen.main.scale, orientation: UIImage.Orientation.up)
 		}
+	}
+}
+
+
+
+
+
+@available(iOS 11.0, *)
+struct ThumbnailImageDataProvider: ImageDataProvider
+{
+	let cacheKey: String
+	private let guarantee: CancellableGuarantee<UIImage?>
+	
+	init(url: URL, size: CGSize)
+	{
+		self.cacheKey = "\(type(of: self))_\(url.absoluteString)"
+		self.guarantee = Thumbnail.generateAsync(for: url, size: size)
+	}
+	
+	func data(handler: @escaping (Kingfisher.Result<Data, Error>) -> Void)
+	{
+		self.guarantee.done({
+			if let data = $0?.pngData() {
+				handler(.success(data))
+			} else if let data = $0?.jpegData(compressionQuality: 100) {
+				handler(.success(data))
+			} else {
+				handler(.success(Data()))
+			}
+		})
 	}
 }
 

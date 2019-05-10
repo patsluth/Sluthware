@@ -45,6 +45,7 @@ Pod::Spec.new do |s|
 		ss.ios.dependency 'RxSwiftExt'
 		ss.ios.dependency 'PromiseKit'
 		ss.ios.dependency 'CancelForPromiseKit'
+		ss.ios.dependency 'Kingfisher'
 
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
 
