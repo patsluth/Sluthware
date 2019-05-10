@@ -14,6 +14,10 @@ import Foundation
 
 public extension URL
 {
+	var uti: String? {
+		return (try? self.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey]))?.typeIdentifier
+	}
+	
 	func isFileTypeOf(_ pathExtension: String) -> Bool
 	{
 		guard self.isFileURL else { return false }

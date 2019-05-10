@@ -53,6 +53,9 @@
           ],
           "CancelForPromiseKit": [
 
+          ],
+          "Kingfisher": [
+
           ]
         },
         "resources": "Sluthware/Resources/UIKit/**/*",
