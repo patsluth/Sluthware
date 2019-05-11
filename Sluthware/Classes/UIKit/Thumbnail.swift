@@ -20,14 +20,56 @@ import Kingfisher
 @available(iOS 11.0, *)
 public enum Thumbnail
 {
-	public static func generateAsync(for url: URL!, size: CGSize) -> CancellableGuarantee<UIImage?>
+	public enum GenerationError: Error
 	{
-		let (guarantee, resolver) = CancellableGuarantee<UIImage?>.pending()
+		case InvalidURL
+		case Failed
+	}
+	
+	public typealias Output = Swift.Result<Kingfisher.Image, GenerationError>
+	
+	
+	
+	/// Attempts to generate thumbnail for URL. Supports image, video and pdf types
+	public static func generateAsync(for url: URL!,
+									 size: CGSize,
+									 useCache: Bool = true) -> CancellableGuarantee<Output>
+	{
+		let (guarantee, resolver) = CancellableGuarantee<Output>.pending()
+		let cache = ImageCache.default
+		let cacheKey = "\(Thumbnail.self)_\(url.absoluteString)"
 		
 		let task = DispatchWorkItem(qos: .background, flags: .enforceQoS, block: {
-			let image = Thumbnail.generate(for: url, size: size)
-			DispatchQueue.main.async(execute: {
-				resolver(image)
+			func _generate() -> Output
+			{
+				return Thumbnail.generateFor(anyURL: url, size: size)
+			}
+			
+			guard useCache else {
+				resolver(_generate())
+				return
+			}
+			
+			cache.retrieveImage(forKey: cacheKey, completionHandler: {
+				$0.value?.image
+				if case .success(let result) = $0, let image = result.image {
+					resolver(.success(image))
+					return
+				}
+				
+				let output = _generate()
+				do {
+					cache.store(try output.get(),
+								original: nil,
+								forKey: cacheKey,
+								options: KingfisherParsedOptionsInfo(nil),
+								toDisk: true,
+								completionHandler: nil)
+				} catch {
+					cache.removeImage(forKey: cacheKey)
+				}
+				
+				resolver(output)
 			})
 		})
 		
@@ -39,53 +81,77 @@ public enum Thumbnail
 		return guarantee
 	}
 	
-	public static func generate(for url: URL!, size: CGSize) -> UIImage?
+	/// Attempts to generate thumbnail for URL. Supports image, video and pdf types
+	public static func generateFor(anyURL url: URL!,
+								   size: CGSize) -> Output
 	{
-		guard let url = url else { return nil }
-		let mime = Mime(url: url)
-		
-		if mime.contentType.lowercased().starts(with: "image") {
-			if let data = try? Data(contentsOf: url) {
-				return UIImage(data: data)
-			}
+		guard let url = url else {
+			return .failure(GenerationError.InvalidURL)
 		}
 		
-		if let uti = url.uti, AVURLAsset.audiovisualTypes().contains(AVFileType(uti)) {
-			return Thumbnail.generateVideo(for: url, size: size)
-		} else if AVURLAsset.audiovisualMIMETypes().contains(mime.contentType) {
-			return Thumbnail.generateVideo(for: url, size: size)
+		if let image = try? Thumbnail.generateFor(imageURL: url, size: size).get() {
+			return .success(image)
+		}
+		if let image = try? Thumbnail.generateFor(videoURL: url, size: size).get() {
+			return .success(image)
+		}
+		if let image = try? Thumbnail.generateFor(pdfURL: url, size: size).get() {
+			return .success(image)
 		}
 		
-		if mime.contentType.lowercased().contains("pdf") {
-			return Thumbnail.generatePDF(for: url, size: size)
-		}
-		
-		return nil
+		return .failure(GenerationError.Failed)
 	}
 	
-	static fileprivate func generateVideo(for url: URL, size: CGSize) -> UIImage?
+	static func generateFor(imageURL url: URL,
+							size: CGSize) -> Output
 	{
+		guard url.mime.contentType.lowercased().starts(with: "image") else {
+			return .failure(GenerationError.InvalidURL)
+		}
+		
+		guard let data = try? Data(contentsOf: url), let image = UIImage(data: data) else {
+			return .failure(GenerationError.Failed)
+		}
+		
+		return .success(image)
+	}
+	
+	static func generateFor(videoURL url: URL,
+							size: CGSize,
+							at seconds: Double = 1) -> Output
+	{
+		guard let uti = url.uti, AVURLAsset.audiovisualTypes().contains(AVFileType(uti)) ||
+			AVURLAsset.audiovisualMIMETypes().contains(url.mime.contentType) else {
+				return .failure(GenerationError.InvalidURL)
+		}
+		
 		let scale = UIScreen.main.scale
 		let asset = AVURLAsset(url: url)
 		let generator = AVAssetImageGenerator(asset: asset)
 		generator.appliesPreferredTrackTransform = true
-		generator.maximumSize = CGSize(width: size.width * scale, height: size.height * scale)
+		generator.maximumSize = size * scale
 		
-		let kPreferredTimescale: Int32 = 1000
-		var actualTime: CMTime = CMTime(seconds: 0, preferredTimescale: kPreferredTimescale)
-		//generates thumbnail at first second of the video
-		let cgImage = try? generator.copyCGImage(at: CMTime(seconds: 1, preferredTimescale: kPreferredTimescale),
-												 actualTime: &actualTime)
-		return cgImage.flatMap {
-			UIImage(cgImage: $0, scale: scale, orientation: UIImage.Orientation.up)
+		let timescale: Int32 = 1000
+		let atTime = CMTime(seconds: seconds, preferredTimescale: timescale)
+		var actualTime = CMTime(seconds: seconds, preferredTimescale: timescale)
+		
+		guard let cgImage = try? generator.copyCGImage(at: atTime, actualTime: &actualTime) else {
+			return .failure(GenerationError.Failed)
 		}
+		
+		return .success(UIImage(cgImage: cgImage, scale: scale, orientation: .up))
 	}
 	
-	static fileprivate func generatePDF(for url: URL, size: CGSize) -> UIImage?
+	static func generateFor(pdfURL url: URL,
+							size: CGSize,
+							page: UInt = 1) -> Output
 	{
-		guard let document = CGPDFDocument(url as CFURL) else { return nil }
-		guard let page = document.page(at: 1) else { return nil }
+		guard url.mime.contentType.lowercased().contains("pdf"),
+			let page = CGPDFDocument(url as CFURL)?.page(at: Int(page)) else {
+				return .failure(GenerationError.InvalidURL)
+		}
 		
+		let scale = UIScreen.main.scale
 		let originalPageRect: CGRect = page.getBoxRect(.mediaBox)
 		var targetPageRect = AVMakeRect(aspectRatio: originalPageRect.size,
 										insideRect: CGRect(origin: CGPoint.zero, size: size))
@@ -93,9 +159,11 @@ public enum Thumbnail
 		
 		UIGraphicsBeginImageContextWithOptions(targetPageRect.size, true, 0.0)
 		
-		guard let context = UIGraphicsGetCurrentContext() else { return nil }
+		guard let context = UIGraphicsGetCurrentContext() else {
+			return .failure(GenerationError.Failed)
+		}
 		
-		context.setFillColor(gray: 1.0, alpha: 1.0)
+		context.setFillColor(UIColor.clear.cgColor)		// Transparent background
 		context.fill(targetPageRect)
 		
 		context.saveGState()
@@ -110,39 +178,11 @@ public enum Thumbnail
 		
 		UIGraphicsEndImageContext()
 		
-		return context.makeImage().flatMap {
-			UIImage(cgImage: $0, scale: UIScreen.main.scale, orientation: UIImage.Orientation.up)
+		guard let cgImage = context.makeImage() else {
+			return .failure(GenerationError.Failed)
 		}
-	}
-}
-
-
-
-
-
-@available(iOS 11.0, *)
-struct ThumbnailImageDataProvider: ImageDataProvider
-{
-	let cacheKey: String
-	private let guarantee: CancellableGuarantee<UIImage?>
-	
-	init(url: URL, size: CGSize)
-	{
-		self.cacheKey = "\(type(of: self))_\(url.absoluteString)"
-		self.guarantee = Thumbnail.generateAsync(for: url, size: size)
-	}
-	
-	func data(handler: @escaping (Kingfisher.Result<Data, Error>) -> Void)
-	{
-		self.guarantee.done({
-			if let data = $0?.pngData() {
-				handler(.success(data))
-			} else if let data = $0?.jpegData(compressionQuality: 100) {
-				handler(.success(data))
-			} else {
-				handler(.success(Data()))
-			}
-		})
+		
+		return .success(UIImage(cgImage: cgImage, scale: scale, orientation: .up))
 	}
 }
 

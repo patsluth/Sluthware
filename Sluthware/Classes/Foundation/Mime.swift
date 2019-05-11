@@ -6,8 +6,8 @@ import Foundation
 
 public struct Mime
 {
-	public let name: String
-    public let contentType: String
+	public let type: String
+	public let contentType: String
 	
 	
 	
@@ -15,25 +15,39 @@ public struct Mime
 	
 	public init(pathExtension: String)
 	{
-		self.name = pathExtension
-		self.contentType = MIME_TYPES[self.name.lowercased()] ?? DEFAULT_MIME_TYPE
+		self.type = pathExtension
+		self.contentType = MIME_TYPES[self.type.lowercased()] ?? DEFAULT_MIME_TYPE
 	}
 	
 	public init(path: String)
 	{
 		self.init(path: path as NSString)
-    }
-
-    public init(path: NSString)
+	}
+	
+	public init(path: NSString)
 	{
 		self.init(pathExtension: path.pathExtension)
-    }
-
-    public init(url: URL)
+	}
+	
+	public init(url: URL)
 	{
 		self.init(pathExtension: url.pathExtension)
-    }
+	}
 }
+
+
+
+
+
+public extension URL
+{
+	var mime: Mime {
+		return Mime(url: self)
+	}
+}
+
+
+
 
 
 let DEFAULT_MIME_TYPE = "application/octet-stream"
