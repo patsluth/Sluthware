@@ -36,7 +36,9 @@ public extension Array
 	
 	public static func +(lhs: Array<Element>, rhs: Element) -> Array<Element>
 	{
-		return [] + lhs + rhs
+		var lhs = lhs
+		lhs += rhs
+		return lhs
 	}
 	
 	public static func +=(lhs: inout Array<Element>, rhs: Element)

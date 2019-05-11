@@ -68,15 +68,16 @@ public extension Array
 	}
 	
 	@available(OSX 10.6, *)
-	func index(of obj: Any,
+	func index(of obj: Element,
 			   inSortedRange r: NSRange,
 			   options opts: NSBinarySearchingOptions = [],
-			   usingComparator cmp: (Any, Any) -> ComparisonResult) -> Int
+			   usingComparator cmp: (Element, Element) -> ComparisonResult) -> Int
 	{
-		return (self as NSArray).index(of: obj,
-									   inSortedRange: r,
-									   options: opts,
-									   usingComparator: cmp)
+		let array = self as NSArray
+		return array.index(of: obj as Any,
+						   inSortedRange: r,
+						   options: opts,
+						   usingComparator: { cmp($0 as! Element, $1 as! Element)})
 	}
 }
 
