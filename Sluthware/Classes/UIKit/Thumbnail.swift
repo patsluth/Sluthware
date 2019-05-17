@@ -45,15 +45,23 @@ public enum Thumbnail
 				return Thumbnail.generateFor(anyURL: url, size: size)
 			}
 			
+			/// cache.retrieveImage can still complete if the task is cancelled,
+			/// so this ensures the output will only be sent if it needs to be
+			func _resolve(_ output: Output)
+			{
+				if guarantee.isPending && !guarantee.isCancelled {
+					resolver(output)
+				}
+			}
+			
 			guard useCache else {
-				resolver(_generate())
+				_resolve(_generate())
 				return
 			}
 			
 			cache.retrieveImage(forKey: cacheKey, completionHandler: {
-				$0.value?.image
 				if case .success(let result) = $0, let image = result.image {
-					resolver(.success(image))
+					_resolve(.success(image))
 					return
 				}
 				
@@ -69,7 +77,7 @@ public enum Thumbnail
 					cache.removeImage(forKey: cacheKey)
 				}
 				
-				resolver(output)
+				_resolve(output)
 			})
 		})
 		
@@ -120,9 +128,12 @@ public enum Thumbnail
 							size: CGSize,
 							at seconds: Double = 1) -> Output
 	{
-		guard let uti = url.uti, AVURLAsset.audiovisualTypes().contains(AVFileType(uti)) ||
-			AVURLAsset.audiovisualMIMETypes().contains(url.mime.contentType) else {
-				return .failure(GenerationError.InvalidURL)
+		if let uti = url.uti, AVURLAsset.audiovisualTypes().contains(AVFileType(uti)) {
+			// continue
+		} else if AVURLAsset.audiovisualMIMETypes().contains(url.mime.contentType) {
+			// continue
+		} else {
+			return .failure(GenerationError.InvalidURL)
 		}
 		
 		let scale = UIScreen.main.scale

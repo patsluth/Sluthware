@@ -15,34 +15,15 @@ import RxCocoa
 
 
 
-//public protocol TappableControl: NSObject
-//{
-//	var tap: RxCocoa.ControlEvent<()> { get }
-//}
-//
-//extension UIButton: TappableControl
-//{
-//	public var tap: ControlEvent<()> {
-//		return self.rx.tap
-//	}
-//}
-//
-//extension UIBarButtonItem: TappableControl
-//{
-//	public var tap: ControlEvent<()> {
-//		return self.rx.tap
-//	}
-//}
-
-
-
-
-
 // Wrapper to call disposed(by:) and map to self
 public struct DisposableReturnValue<T>
 {
 	let value: T
 	let disposable: Disposable
+	
+	
+	
+	
 	
 	@discardableResult
 	public func dispose() -> T
@@ -73,7 +54,6 @@ public extension NSObjectProtocol
 			_ event: @escaping (Self) -> Void,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> DisposableReturnValue<Self>
 	{
 		let _event = { [unowned self] in
@@ -85,7 +65,6 @@ public extension NSObjectProtocol
 				takeUntil: self.rx.deallocated,
 				throttle: throttle,
 				debounce: debounce,
-				scheduler: scheduler,
 				debug: debug)
 		
 		
@@ -97,7 +76,6 @@ public extension NSObjectProtocol
 			_ event: @escaping (Self) -> Void,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false,
 			disposedBy disposeBag: DisposeBag? = nil) -> Self
 	{
@@ -105,7 +83,6 @@ public extension NSObjectProtocol
 					   event,
 					   throttle: throttle,
 					   debounce: debounce,
-					   scheduler: scheduler,
 					   debug: debug).disposed(by: disposeBag)
 	}
 	
@@ -115,14 +92,12 @@ public extension NSObjectProtocol
 	func on(tap event: @escaping (Self) -> Void,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> DisposableReturnValue<Self>
 	{
 		return self.on(.touchUpInside,
 					   event,
 					   throttle: throttle,
 					   debounce: debounce,
-					   scheduler: scheduler,
 					   debug: debug)
 	}
 	
@@ -130,14 +105,12 @@ public extension NSObjectProtocol
 	func on(tap event: @escaping (Self) -> Void,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false,
 			disposedBy disposeBag: DisposeBag? = nil) -> Self
 	{
 		return self.on(tap: event,
 					   throttle: throttle,
 					   debounce: debounce,
-					   scheduler: scheduler,
 					   debug: debug).disposed(by: disposeBag)
 	}
 	
@@ -148,7 +121,6 @@ public extension NSObjectProtocol
 			   _ event: @escaping (Self, T) -> Void,
 			   throttle: RxTimeInterval = .never,
 			   debounce: RxTimeInterval = .never,
-			   scheduler: SchedulerType = MainScheduler.instance,
 			   debug: Bool = false) -> DisposableReturnValue<Self>
 	{
 		let _event = { [unowned self] (t: T) in
@@ -160,7 +132,6 @@ public extension NSObjectProtocol
 				takeUntil: self.rx.deallocated,
 				throttle: throttle,
 				debounce: debounce,
-				scheduler: scheduler,
 				debug: debug)
 		
 		return DisposableReturnValue(value: self, disposable: disposable)
@@ -170,7 +141,6 @@ public extension NSObjectProtocol
 			   _ event: @escaping (Self, T) -> Void,
 			   throttle: RxTimeInterval = .never,
 			   debounce: RxTimeInterval = .never,
-			   scheduler: SchedulerType = MainScheduler.instance,
 			   debug: Bool = false,
 			   disposedBy disposeBag: DisposeBag? = nil) -> Self
 	{
@@ -178,7 +148,6 @@ public extension NSObjectProtocol
 					   event,
 					   throttle: throttle,
 					   debounce: debounce,
-					   scheduler: scheduler,
 					   debug: debug).disposed(by: disposeBag)
 	}
 }
@@ -194,7 +163,6 @@ public extension NSObjectProtocol
 	func on(tap event: @escaping (Self) -> Void,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> DisposableReturnValue<Self>
 	{
 		let _event = { [unowned self] in
@@ -206,7 +174,6 @@ public extension NSObjectProtocol
 				takeUntil: self.rx.deallocated,
 				throttle: throttle,
 				debounce: debounce,
-				scheduler: scheduler,
 				debug: debug)
 		
 		return DisposableReturnValue(value: self, disposable: disposable)
@@ -216,14 +183,12 @@ public extension NSObjectProtocol
 	func on(tap event: @escaping (Self) -> Void,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false,
 			disposedBy disposeBag: DisposeBag? = nil) -> Self
 	{
 		return self.on(tap: event,
 					   throttle: throttle,
 					   debounce: debounce,
-					   scheduler: scheduler,
 					   debug: debug).disposed(by: disposeBag)
 	}
 }
@@ -235,24 +200,15 @@ public extension NSObjectProtocol
 internal extension ControlEvent
 {
 	@discardableResult
-	func on(_ event: @escaping (E) -> Void,
+	func on(_ event: @escaping (Element) -> Void,
 			takeUntil: Observable<Void>,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> Disposable
 	{
 		var observable = self
 			.asObservable()
 			.takeUntil(takeUntil)
-			.observeOn(scheduler)
-		
-		if throttle != .never {
-			observable = observable.throttle(throttle, scheduler: scheduler)
-		}
-		if debounce != .never {
-			observable = observable.debounce(debounce, scheduler: scheduler)
-		}
 		
 		#if DEBUG
 		if debug {
@@ -260,7 +216,20 @@ internal extension ControlEvent
 		}
 		#endif
 		
-		return observable.bind(onNext: {
+		var driver = observable
+			.asDriver(onErrorRecover: { _ in
+				Driver<Element>.empty()
+			})
+		
+		if throttle != .never {
+			driver = driver.throttle(RxTimeInterval.seconds(1))
+		}
+		
+		if debounce != .never {
+			driver = driver.debounce(debounce)
+		}
+		
+		return driver.drive(onNext: {
 			event($0)
 		})
 	}
@@ -277,19 +246,11 @@ internal extension ControlProperty
 			takeUntil: Observable<Void>,
 			throttle: RxTimeInterval = .never,
 			debounce: RxTimeInterval = .never,
-			scheduler: SchedulerType = MainScheduler.instance,
 			debug: Bool = false) -> Disposable
 	{
 		var observable = self
 			.asObservable()
-			.observeOn(scheduler)
-		
-		if throttle != .never {
-			observable = observable.throttle(throttle, scheduler: scheduler)
-		}
-		if debounce != .never {
-			observable = observable.debounce(debounce, scheduler: scheduler)
-		}
+			.takeUntil(takeUntil)
 		
 		#if DEBUG
 		if debug {
@@ -297,7 +258,20 @@ internal extension ControlProperty
 		}
 		#endif
 		
-		return observable.bind(onNext: {
+		var driver = observable
+			.asDriver(onErrorRecover: { _ in
+				Driver<Element>.empty()
+			})
+		
+		if throttle != .never {
+			driver = driver.throttle(throttle)
+		}
+		
+		if debounce != .never {
+			driver = driver.debounce(debounce)
+		}
+		
+		return driver.drive(onNext: {
 			event($0)
 		})
 	}
