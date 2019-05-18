@@ -17,7 +17,7 @@ public extension KeyedEncodingContainer
 	mutating func encode<T>(_ value: T, forKeys keys: Key...) throws
 		where T: Encodable
 	{
-		self.encode(value: forKeys: keys)
+		try self.encode(value, forKeys: keys)
 	}
 	
 	mutating func encode<T>(_ value: T, forKeys keys: [Key]) throws
@@ -31,7 +31,7 @@ public extension KeyedEncodingContainer
 	mutating func encodeConditional<T>(_ object: T, forKeys keys: Key...) throws
 		where T: AnyObject, T: Encodable
 	{
-		self.encodeConditional(value: forKeys: keys)
+		try self.encodeConditional(object, forKeys: keys)
 	}
 	
 	mutating func encodeConditional<T>(_ object: T, forKeys keys: [Key]) throws
@@ -45,7 +45,7 @@ public extension KeyedEncodingContainer
 	mutating func encodeIfPresent<T>(_ value: T, forKeys keys: Key...) throws
 		where T: AnyObject, T: Encodable
 	{
-		self.encodeIfPresent(value: forKeys: keys)
+		try self.encodeIfPresent(value, forKeys: keys)
 	}
 	
 	mutating func encodeIfPresent<T>(_ value: T, forKeys keys: [Key]) throws
