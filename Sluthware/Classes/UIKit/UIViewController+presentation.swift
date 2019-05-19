@@ -34,6 +34,16 @@ public extension NSObjectProtocol
 				 animated: Bool,
 				 _ completion: @escaping (Self) -> Void) -> Self
 	{
+		if let presentedVC = vc.presentedViewController {
+			if type(of: presentedVC) == type(of: self) {
+				// continue
+			} else {
+				self.present(from: presentedVC, animated: animated, completion)
+			}
+			
+			return self
+		}
+		
 		vc.present(self, animated: animated, completion: {
 			completion(self)
 		})
@@ -45,6 +55,10 @@ public extension NSObjectProtocol
 	@discardableResult
 	func show(from vc: UIViewController, sender: Any? = nil) -> Self
 	{
+		if let nc = vc.navigationController, vc !== nc.viewControllers.last {
+			return self
+		}
+		
 		vc.show(self, sender: sender)
 		
 		return self
