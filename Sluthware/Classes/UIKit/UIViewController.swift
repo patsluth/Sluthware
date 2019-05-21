@@ -18,10 +18,14 @@ public extension NSObjectProtocol
 	@discardableResult
 	func embedIn(parent vc: UIViewController, superview: UIView) -> Self
 	{
-		self.willMove(toParent: self)
+		self.willMove(toParent: vc)
 		vc.addChild(self)
-		superview.addSubview(self.view)
-		self.didMove(toParent: self)
+		if let stackView = superview as? UIStackView {
+			stackView.add(self.view)
+		} else {
+			superview.addSubview(self.view)
+		}
+		self.didMove(toParent: vc)
 		
 		return self
 	}

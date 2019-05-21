@@ -53,7 +53,7 @@ public func swlog<T>(function: String = #function,
 
 
 @discardableResult
-public func cast<T>(_ object: Any, as type: T.Type, _ block: (T) -> Void) -> Bool
+public func cast<T>(_ object: Any!, as type: T.Type, _ block: (T) -> Void) -> Bool
 {
 	if let t = object as? T {
 		block(t)
