@@ -33,19 +33,29 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionView.Ba
 	
 	
 	
-	public lazy var embedded: T! = {
-		T.make({
-			self.addSubview($0)
-		}).make(constraints: {
-			$0.edges.equalTo(self.snp.margins)
-		})
-	}()
+	public var embedded: T!
 	
 	private var preferredLayoutAttributesProvider: PreferredLayoutAttributesProvider? = nil
 	
 	
 	
 	
+	
+	public override init(frame: CGRect)
+	{
+		super.init(frame: frame)
+		
+		self.embedded = T.make({
+			self.addSubview($0)
+		}).make(constraints: {
+			$0.edges.equalTo(self.snp.margins)
+		})
+	}
+	
+	public required init?(coder aDecoder: NSCoder)
+	{
+		super.init(coder: aDecoder)
+	}
 	
 	@discardableResult
 	public func preferredLayoutAttributes(provider: @escaping PreferredLayoutAttributesProvider) -> Self

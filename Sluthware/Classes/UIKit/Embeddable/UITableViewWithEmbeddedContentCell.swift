@@ -32,19 +32,43 @@ public class UITableViewWithEmbeddedContentCell<T>: UITableView.BaseCell, UIView
 	
 	
 	
-	public lazy var embedded: T! = {
-		T.make({
-			self.selectionStyle = .none
-			
+	public var embedded: T!
+	
+	public override var isSelected: Bool {
+		didSet
+		{
+			(self.embedded as? SelectableViewProtocol)?.isSelected = self.isSelected
+		}
+	}
+	
+	public override var isHighlighted: Bool {
+		didSet
+		{
+			(self.embedded as? HighlightableViewProtocol)?.isHighlighted = self.isHighlighted
+		}
+	}
+	
+	
+	
+	
+	
+	public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
+	{
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		
+		self.selectionStyle = .none
+		
+		self.embedded = T.make({
 			self.contentView.addSubview($0)
 		}).make(constraints: {
 			$0.edges.equalTo(self.contentView.snp.margins)
 		})
-	}()
+	}
 	
-	
-	
-	
+	public required init?(coder aDecoder: NSCoder)
+	{
+		super.init(coder: aDecoder)
+	}
 	
 	public override func prepareForReuse()
 	{
