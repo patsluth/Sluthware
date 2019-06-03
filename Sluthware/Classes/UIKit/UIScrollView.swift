@@ -6,7 +6,7 @@
 //  Copyright © 2017 Pat Sluth. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 
@@ -14,11 +14,11 @@ import Foundation
 
 public extension UIScrollView
 {
-	var isAtStart: Bool {
+	var isAtLeft: Bool {
 		return (self.contentOffset.x <= 0.0)
 	}
 	
-	var isAtEnd: Bool {
+	var isAtRight: Bool {
 		return (self.contentOffset.x >= (self.contentSize.width - self.bounds.width))
 	}
 	

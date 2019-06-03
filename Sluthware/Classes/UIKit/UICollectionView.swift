@@ -14,6 +14,21 @@ import Foundation
 
 public extension UICollectionView
 {
+	func lastIndexPath(inSection section: Int? = nil) -> IndexPath?
+	{
+		let section = section ?? self.numberOfSections - 1
+		let item = self.numberOfItems(inSection: section) - 1
+		
+		return IndexPath(item: item, section: section)
+	}
+}
+
+
+
+
+
+public extension UICollectionView
+{
 	func registerCell<T>(_ type: T.Type,
 						 reuseIdentifier: String = "\(T.self)")
 		where T: UICollectionViewCell
