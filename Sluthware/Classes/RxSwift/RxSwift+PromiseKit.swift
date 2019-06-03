@@ -17,7 +17,6 @@ import CancelForPromiseKit
 
 
 
-
 public extension Promise
 {
 	func asSingle() -> Single<Swift.Result<T, Error>>
@@ -30,31 +29,30 @@ public extension Promise
 		let (promise, resolver) = Promise<T>.pending()
 		
 		self.done({
-			guard promise.isPending else { return resolver.reject(PMKError.cancelled) }
-			resolver.fulfill($0)
+			if promise.isPending && !promise.isRejected {
+				resolver.fulfill($0)
+			} else {
+				resolver.reject(PMKError.cancelled)
+			}
 		}).catch({
 			resolver.reject($0)
 		})
 		
-		return Observable.create { observable in
-			
+		return Observable.create({ observable in
 			promise.done({
 				observable.onNext(.success($0))
 			}).catch({
 				observable.onNext(.failure($0))
 			})
 			
-			return Disposables.create {
-			}
-			
-			}.do(onDispose: {
+			return Disposables.create(with: {
 				if promise.isPending {
 					resolver.reject(PMKError.cancelled)
 				}
 			})
+		})
 	}
 }
-
 
 
 
@@ -69,33 +67,19 @@ public extension CancellablePromise
 	
 	func asObservable() -> Observable<Swift.Result<T, Error>>
 	{
-		//		let (promise, resolver) = Promise<T>.pending()
-		//
-		//		self.done({
-		//			guard promise.isPending else { return resolver.reject(PMKError.cancelled) }
-		//			resolver.fulfill($0)
-		//		}).catch({
-		//			resolver.reject($0)
-		//		})
-		
-		return Observable.create { observable in
-			
+		return Observable.create({ observable in
 			let context = self.done({
 				observable.onNext(.success($0))
 			}).catch({
 				observable.onNext(.failure($0))
 			})
 			
-			return Disposables.create {
-				context.cancel()
-			}
-			
-		}
-		//			.do(onDispose: {
-		//				if promise.isPending {
-		//					resolver.reject(PMKError.cancelled)
-		//				}
-		//			})
+			return Disposables.create(with: {
+				if self.isPending {
+					context.cancel()
+				}
+			})
+		})
 	}
 }
 
@@ -123,7 +107,7 @@ public extension ObservableType
 		return promise
 	}
 	
-	func asPromise() -> CancellablePromise<E>
+	func asCancellablePromise() -> CancellablePromise<E>
 	{
 		let (promise, resolver) = CancellablePromise<E>.pending()
 		
