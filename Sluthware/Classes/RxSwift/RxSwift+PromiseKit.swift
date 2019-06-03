@@ -17,14 +17,33 @@ import CancelForPromiseKit
 
 
 
-public extension Promise
+/// A protocol for promise types that can be converted to RxSwift observables
+public protocol RxSwiftPromiseKitConvertible
+{
+	associatedtype T
+	
+	func asObservable() -> Observable<Swift.Result<T, Error>>
+}
+
+
+
+
+
+public extension RxSwiftPromiseKitConvertible
 {
 	func asSingle() -> Single<Swift.Result<T, Error>>
 	{
 		return self.asObservable().asSingle()
 	}
-	
-	func asObservable() -> Observable<Swift.Result<T, Error>>
+}
+
+
+
+
+
+extension Promise: RxSwiftPromiseKitConvertible
+{
+	public func asObservable() -> Observable<Swift.Result<T, Error>>
 	{
 		let (promise, resolver) = Promise<T>.pending()
 		
@@ -58,14 +77,9 @@ public extension Promise
 
 
 
-public extension CancellablePromise
+extension CancellablePromise: RxSwiftPromiseKitConvertible
 {
-	func asSingle() -> Single<Swift.Result<T, Error>>
-	{
-		return self.asObservable().asSingle()
-	}
-	
-	func asObservable() -> Observable<Swift.Result<T, Error>>
+	public func asObservable() -> Observable<Swift.Result<T, Error>>
 	{
 		return Observable.create({ observable in
 			let context = self.done({
@@ -107,7 +121,7 @@ public extension ObservableType
 		return promise
 	}
 	
-	func asCancellablePromise() -> CancellablePromise<E>
+	func asPromise() -> CancellablePromise<E>
 	{
 		let (promise, resolver) = CancellablePromise<E>.pending()
 		
