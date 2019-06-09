@@ -14,7 +14,7 @@ import Foundation
 
 public extension Collection
 {
-	public subscript(safe index: Index?) -> Element?
+	subscript(safe index: Index?) -> Element?
 	{
 		guard let index = index else { return nil }
 		guard self.indices.contains(index) else { return nil }
@@ -28,7 +28,7 @@ public extension Collection
 
 public extension Dictionary
 {
-	public subscript(safe key: Key?) -> Value?
+	subscript(safe key: Key?) -> Value?
 	{
 		guard let key = key else { return nil }
 		let index = self.index(forKey: key)

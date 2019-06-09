@@ -15,7 +15,7 @@ import UIKit
 
 public extension UIView
 {
-	public var ancestorViewController: UIViewController?
+	var ancestorViewController: UIViewController?
 	{
 		var responder: UIResponder? = self
 		
@@ -29,7 +29,7 @@ public extension UIView
 		return nil
 	}
 	
-	public func recurseAncestors(includingSelf: Bool = true,
+	func recurseAncestors(includingSelf: Bool = true,
 								 _ block: (UIView) -> Void)
 	{
 		self.recurseAncestors(includingSelf: includingSelf, { view, stop in
@@ -37,7 +37,7 @@ public extension UIView
 		})
 	}
 	
-	public func recurseAncestors(includingSelf: Bool = true,
+	func recurseAncestors(includingSelf: Bool = true,
 								 _ block: (UIView, inout Bool) -> Void)
 	{
 		var stop = false
@@ -52,7 +52,7 @@ public extension UIView
 		}
 	}
 	
-	public func recurseDecendents(includingSelf: Bool = true,
+	func recurseDecendents(includingSelf: Bool = true,
 								  _ block: (UIView) -> Void)
 	{
 		self.recurseDecendents(includingSelf: includingSelf, { view, stop in
@@ -60,7 +60,7 @@ public extension UIView
 		})
 	}
 	
-	public func recurseDecendents(includingSelf: Bool = true,
+	func recurseDecendents(includingSelf: Bool = true,
 								  _ block: (UIView, inout Bool) -> Void)
 	{
 		var stop = false
@@ -82,7 +82,7 @@ public extension UIView
 
 public extension UIViewController
 {
-	public func recurseAncestors(includingSelf: Bool = true,
+	func recurseAncestors(includingSelf: Bool = true,
 								 _ block: (UIViewController) -> Void)
 	{
 		self.recurseAncestors(includingSelf: includingSelf, { viewController, stop in
@@ -90,7 +90,7 @@ public extension UIViewController
 		})
 	}
 	
-	public func recurseAncestors(includingSelf: Bool = true,
+	func recurseAncestors(includingSelf: Bool = true,
 								 _ block: (UIViewController, inout Bool) -> Void)
 	{
 		var stop = false
@@ -109,7 +109,7 @@ public extension UIViewController
 		}
 	}
 	
-	public func recurseDecendents(includingSelf: Bool = true,
+	func recurseDecendents(includingSelf: Bool = true,
 								  _ block: (UIViewController) -> Void)
 	{
 		self.recurseDecendents(includingSelf: includingSelf, { viewController, stop in
@@ -117,7 +117,7 @@ public extension UIViewController
 		})
 	}
 	
-	public func recurseDecendents(includingSelf: Bool = true,
+	func recurseDecendents(includingSelf: Bool = true,
 								  _ block: (UIViewController, inout Bool) -> Void)
 	{
 		var stop = false
