@@ -27,7 +27,7 @@ open class _ViewCell<View>: Cell<NSNull>
 open class ViewCell<View>: _ViewCell<View>, CellType
 	where View: UIView
 {
-	fileprivate(set) var view: View!
+	public fileprivate(set) var view: View!
 	
 	
 	
@@ -58,28 +58,28 @@ open class ViewCell<View>: _ViewCell<View>, CellType
 		super.update()
 	}
 	
-//	open override func cellCanBecomeFirstResponder() -> Bool
-//	{
-//		return self.viewRow.view.canBecomeFirstResponder
-//	}
-
-//	open override func cellResignFirstResponder() -> Bool
-//	{
-//		return self.viewRow.view.resignFirstResponder()
-//	}
-//
-//	open override func cellBecomeFirstResponder(withDirection: Direction = .down) -> Bool
-//	{
-//		return self.viewRow.view.becomeFirstResponder()
-//	}
-//
-//	open override var inputAccessoryView: UIView?
-//	{
-//		if self.viewRow.view.isFirstResponder {
-//			return self.viewRow.view.inputAccessoryView
-//		}
-//		return super.inputAccessoryView
-//	}
+	//	open override func cellCanBecomeFirstResponder() -> Bool
+	//	{
+	//		return self.viewRow.view.canBecomeFirstResponder
+	//	}
+	
+	//	open override func cellResignFirstResponder() -> Bool
+	//	{
+	//		return self.viewRow.view.resignFirstResponder()
+	//	}
+	//
+	//	open override func cellBecomeFirstResponder(withDirection: Direction = .down) -> Bool
+	//	{
+	//		return self.viewRow.view.becomeFirstResponder()
+	//	}
+	//
+	//	open override var inputAccessoryView: UIView?
+	//	{
+	//		if self.viewRow.view.isFirstResponder {
+	//			return self.viewRow.view.inputAccessoryView
+	//		}
+	//		return super.inputAccessoryView
+	//	}
 }
 
 
@@ -109,9 +109,9 @@ public protocol ViewRowType: BaseRow, RowType
 
 
 
-extension ViewRowType
+public extension ViewRowType
 {
-	internal init(_ cellSetup: @escaping ((Self.Cell, Self) -> Void))
+	init(_ cellSetup: @escaping ((Self.Cell, Self) -> Void))
 	{
 		self.init(nil, {
 			$0.cellSetup({ cell, row in
@@ -126,7 +126,7 @@ extension ViewRowType
 
 
 /// A row that displays a custom view and value associated with that view
-final class ViewRow<View>: _ViewRow<View>, ViewRowType
+public final class ViewRow<View>: _ViewRow<View>, ViewRowType
 	where View: UIView
 {
 }
