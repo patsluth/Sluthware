@@ -32,13 +32,7 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableView.Base
 	
 	
 	
-	public lazy var embedded: T! = {
-		T.make({
-			self.contentView.addSubview($0)
-		}).make(constraints: {
-			$0.edges.equalTo(self.contentView.snp.margins)
-		})
-	}()
+	public var embedded: T!
 	
 	
 	
@@ -47,6 +41,12 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableView.Base
 	public override init(reuseIdentifier: String?)
 	{
 		super.init(reuseIdentifier: reuseIdentifier)
+		
+		self.embedded = T.make({
+			self.contentView.addSubview($0)
+		}).make(constraints: {
+			$0.edges.equalTo(self.contentView.snp.margins)
+		})
 	}
 	
 	required init?(coder aDecoder: NSCoder)

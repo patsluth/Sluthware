@@ -17,41 +17,23 @@ import CancelForPromiseKit
 
 
 
+/// A protocol for promise types that can be converted to RxSwift observables
+public protocol RxSwiftPromiseKitConvertible
+{
+	associatedtype T
+	
+	func asObservable() -> Observable<Swift.Result<T, Error>>
+}
 
-public extension Promise
+
+
+
+
+public extension RxSwiftPromiseKitConvertible
 {
 	func asSingle() -> Single<Swift.Result<T, Error>>
 	{
 		return self.asObservable().asSingle()
-	}
-	
-	func asObservable() -> Observable<Swift.Result<T, Error>>
-	{
-		let (promise, resolver) = Promise<T>.pending()
-		
-		self.done({
-			guard promise.isPending else { return resolver.reject(PMKError.cancelled) }
-			resolver.fulfill($0)
-		}).catch({
-			resolver.reject($0)
-		})
-		
-		return Observable.create { observable in
-			
-			promise.done({
-				observable.onNext(.success($0))
-			}).catch({
-				observable.onNext(.failure($0))
-			})
-			
-			return Disposables.create {
-			}
-			
-			}.do(onDispose: {
-				if promise.isPending {
-					resolver.reject(PMKError.cancelled)
-				}
-			})
 	}
 }
 
@@ -59,43 +41,59 @@ public extension Promise
 
 
 
-
-public extension CancellablePromise
+extension Promise: RxSwiftPromiseKitConvertible
 {
-	func asSingle() -> Single<Swift.Result<T, Error>>
+	public func asObservable() -> Observable<Swift.Result<T, Error>>
 	{
-		return self.asObservable().asSingle()
-	}
-	
-	func asObservable() -> Observable<Swift.Result<T, Error>>
-	{
-		//		let (promise, resolver) = Promise<T>.pending()
-		//
-		//		self.done({
-		//			guard promise.isPending else { return resolver.reject(PMKError.cancelled) }
-		//			resolver.fulfill($0)
-		//		}).catch({
-		//			resolver.reject($0)
-		//		})
+		let (promise, resolver) = Promise<T>.pending()
 		
-		return Observable.create { observable in
+		self.done({
+			if promise.isPending && !promise.isRejected {
+				resolver.fulfill($0)
+			} else {
+				resolver.reject(PMKError.cancelled)
+			}
+		}).catch({
+			resolver.reject($0)
+		})
+		
+		return Observable.create({ observable in
+			promise.done({
+				observable.onNext(.success($0))
+			}).catch({
+				observable.onNext(.failure($0))
+			})
 			
+			return Disposables.create(with: {
+				if promise.isPending {
+					resolver.reject(PMKError.cancelled)
+				}
+			})
+		})
+	}
+}
+
+
+
+
+
+extension CancellablePromise: RxSwiftPromiseKitConvertible
+{
+	public func asObservable() -> Observable<Swift.Result<T, Error>>
+	{
+		return Observable.create({ observable in
 			let context = self.done({
 				observable.onNext(.success($0))
 			}).catch({
 				observable.onNext(.failure($0))
 			})
 			
-			return Disposables.create {
-				context.cancel()
-			}
-			
-		}
-		//			.do(onDispose: {
-		//				if promise.isPending {
-		//					resolver.reject(PMKError.cancelled)
-		//				}
-		//			})
+			return Disposables.create(with: {
+				if self.isPending {
+					context.cancel()
+				}
+			})
+		})
 	}
 }
 

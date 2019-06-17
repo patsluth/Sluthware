@@ -14,7 +14,7 @@ import Foundation
 
 public extension UserDefaults
 {
-	public subscript<T>(_ type: T.Type, _ key: String) -> T?
+	subscript<T>(_ type: T.Type, _ key: String) -> T?
 	{
 		get
 		{

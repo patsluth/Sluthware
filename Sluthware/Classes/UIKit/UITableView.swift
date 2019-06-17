@@ -15,6 +15,21 @@ import ObjectiveC
 
 public extension UITableView
 {
+	func lastIndexPath(inSection section: Int? = nil) -> IndexPath?
+	{
+		let section = section ?? self.numberOfSections - 1
+		let row = self.numberOfRows(inSection: section) - 1
+		
+		return IndexPath(row: row, section: section)
+	}
+}
+
+
+
+
+
+public extension UITableView
+{
 	@available(iOS 5.0, *)
 	func registerCell<T>(_ type: T.Type,
 						 nib: UINib?,

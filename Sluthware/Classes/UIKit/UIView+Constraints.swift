@@ -15,12 +15,12 @@ import Foundation
 public extension UIView
 {
 	@available(*, deprecated, renamed: "constrainTo(view:with:)")
-	public func constrainSizeTo(view: UIView, withEdgeInsets edgeInsets: UIEdgeInsets)
+	func constrainSizeTo(view: UIView, withEdgeInsets edgeInsets: UIEdgeInsets)
 	{
 		self.constrainTo(view: view, with: edgeInsets)
 	}
 	
-	@objc public func constrainTo(view: UIView, with edgeInsets: UIEdgeInsets = UIEdgeInsets.zero)
+	@objc func constrainTo(view: UIView, with edgeInsets: UIEdgeInsets = UIEdgeInsets.zero)
 	{
 		NSLayoutConstraint.activate([
 			self.topAnchor.constraint(equalTo: view.topAnchor, constant: edgeInsets.top),
@@ -37,7 +37,7 @@ public extension UIView
 
 public extension UIView
 {
-	public var safeTopAnchor: NSLayoutYAxisAnchor {
+	var safeTopAnchor: NSLayoutYAxisAnchor {
 		if #available(iOS 11.0, *) {
 			return self.safeAreaLayoutGuide.topAnchor
 		} else {
@@ -45,7 +45,7 @@ public extension UIView
 		}
 	}
 	
-	public var safeLeftAnchor: NSLayoutXAxisAnchor {
+	var safeLeftAnchor: NSLayoutXAxisAnchor {
 		if #available(iOS 11.0, *){
 			return self.safeAreaLayoutGuide.leftAnchor
 		} else {
@@ -53,7 +53,7 @@ public extension UIView
 		}
 	}
 	
-	public var safeLeadingAnchor: NSLayoutXAxisAnchor {
+	var safeLeadingAnchor: NSLayoutXAxisAnchor {
 		if #available(iOS 11.0, *){
 			return self.safeAreaLayoutGuide.leadingAnchor
 		} else {
@@ -61,7 +61,7 @@ public extension UIView
 		}
 	}
 	
-	public var safeRightAnchor: NSLayoutXAxisAnchor {
+	var safeRightAnchor: NSLayoutXAxisAnchor {
 		if #available(iOS 11.0, *){
 			return self.safeAreaLayoutGuide.rightAnchor
 		} else {
@@ -69,7 +69,7 @@ public extension UIView
 		}
 	}
 	
-	public var safeTrailingAnchor: NSLayoutXAxisAnchor {
+	var safeTrailingAnchor: NSLayoutXAxisAnchor {
 		if #available(iOS 11.0, *){
 			return self.safeAreaLayoutGuide.trailingAnchor
 		} else {
@@ -77,7 +77,7 @@ public extension UIView
 		}
 	}
 	
-	public var safeBottomAnchor: NSLayoutYAxisAnchor {
+	var safeBottomAnchor: NSLayoutYAxisAnchor {
 		if #available(iOS 11.0, *) {
 			return self.safeAreaLayoutGuide.bottomAnchor
 		} else {

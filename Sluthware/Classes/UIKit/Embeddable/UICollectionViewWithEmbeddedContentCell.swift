@@ -33,19 +33,43 @@ public class UICollectionViewWithEmbeddedContentCell<T>: UICollectionView.BaseCe
 	
 	
 	
-	public lazy var embedded: T! = {
-		T.make({
+	public var embedded: T!
+	
+	private var preferredLayoutAttributesProvider: PreferredLayoutAttributesProvider? = nil
+	
+	public override var isSelected: Bool {
+		didSet
+		{
+			(self.embedded as? SelectableViewProtocol)?.isSelected = self.isSelected
+		}
+	}
+	
+	public override var isHighlighted: Bool {
+		didSet
+		{
+			(self.embedded as? HighlightableViewProtocol)?.isHighlighted = self.isHighlighted
+		}
+	}
+	
+	
+	
+	
+	
+	public override init(frame: CGRect)
+	{
+		super.init(frame: frame)
+		
+		self.embedded = T.make({
 			self.contentView.addSubview($0)
 		}).make(constraints: {
 			$0.edges.equalTo(self.contentView.snp.margins)
 		})
-	}()
+	}
 	
-	private var preferredLayoutAttributesProvider: PreferredLayoutAttributesProvider? = nil
-	
-	
-	
-	
+	public required init?(coder aDecoder: NSCoder)
+	{
+		super.init(coder: aDecoder)
+	}
 	
 	@discardableResult
 	public func preferredLayoutAttributes(provider: @escaping PreferredLayoutAttributesProvider) -> Self

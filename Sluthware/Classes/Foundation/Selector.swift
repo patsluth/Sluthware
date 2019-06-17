@@ -14,16 +14,16 @@ import Foundation
 
 public extension Selector
 {
-	public var isGetter: Bool {
+	var isGetter: Bool {
 		return !self.isSetter
 	}
 	
-	public var isSetter: Bool {
+	var isSetter: Bool {
 		let string = "\(self)"
 		return (string.hasPrefix("set") && string.hasSuffix(":"))
 	}
 	
-	public var asGetter: Selector {
+	var asGetter: Selector {
 		guard self.isSetter else { return self }
 		
 		let string = "\(self)".dropFirst(3).dropLast(1)
@@ -31,7 +31,7 @@ public extension Selector
 		return Selector(letter + string.dropFirst(1))
 	}
 	
-	public var asSetter: Selector {
+	var asSetter: Selector {
 		guard self.isGetter else { return self }
 		
 		let string = "\(self)"

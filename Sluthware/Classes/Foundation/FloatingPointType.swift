@@ -33,7 +33,7 @@ extension CGFloat:	FloatingPointType { public func to<T: FloatingPointType>() ->
 
 public extension Float
 {
-	public init<T: FloatingPointType>(_ value: T)
+	init<T: FloatingPointType>(_ value: T)
 	{
 		let _value: Float = value.to()
 		self.init(_value)
@@ -46,7 +46,7 @@ public extension Float
 
 public extension Double
 {
-	public init<T: FloatingPointType>(_ value: T)
+	init<T: FloatingPointType>(_ value: T)
 	{
 		let _value: Double = value.to()
 		self.init(_value)
@@ -59,7 +59,7 @@ public extension Double
 
 public extension CGFloat
 {
-	public init<T: FloatingPointType>(_ value: T)
+	init<T: FloatingPointType>(_ value: T)
 	{
 		let _value: CGFloat = value.to()
 		self.init(_value)
@@ -72,17 +72,17 @@ public extension CGFloat
 
 public extension FloatingPointType
 {
-	public func value(percentage: Self, between min: Self, and max: Self) -> Self
+	func value(percentage: Self, between min: Self, and max: Self) -> Self
 	{
 		return ((percentage * (max - min)) + min)
 	}
 	
-	public func percentage(between min: Self, and max: Self) -> Self
+	func percentage(between min: Self, and max: Self) -> Self
 	{
 		return ((self - min) / (max - min))
 	}
 	
-	public func rounded(to places: Int) -> Self
+	func rounded(to places: Int) -> Self
 	{
 		let divisor = Self(pow(10.0, Double(places)))
 		return (self * divisor).rounded() / divisor
@@ -95,9 +95,9 @@ public extension FloatingPointType
 
 public extension FloatingPointType
 {
-	public typealias Parts = (integer: Int, decimal: Self)
+	typealias Parts = (integer: Int, decimal: Self)
 	
-	public var parts: Parts {
+	var parts: Parts {
 		return Parts(integer: Int(floor(self)),
 					 decimal: self.truncatingRemainder(dividingBy: 1.0))
 	}
