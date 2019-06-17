@@ -223,6 +223,17 @@ Pod::Spec.new do |s|
 		
 		ss.source_files = 'Sluthware/Classes/R.swift/**/*'
 	end
+	
+	
+	
+	
+	
+	s.subspec 'R.swift' do |ss|
+		ss.dependency 'Sluthware/Default'
+		ss.dependency 'Eureka'
+		
+		ss.source_files = 'Sluthware/Classes/Eureka/**/*'
+	end
 
 
 

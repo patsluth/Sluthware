@@ -282,6 +282,19 @@
         ]
       },
       "source_files": "Sluthware/Classes/R.swift/**/*"
+    },
+    {
+      "name": "R.swift",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Eureka": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/Eureka/**/*"
     }
-  ]
+  ],
+  "swift_version": "5.0"
 }
