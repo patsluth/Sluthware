@@ -228,7 +228,7 @@ Pod::Spec.new do |s|
 	
 	
 	
-	s.subspec 'R.swift' do |ss|
+	s.subspec 'Eureka' do |ss|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'Eureka'
 		
