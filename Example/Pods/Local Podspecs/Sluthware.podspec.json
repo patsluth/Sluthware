@@ -283,5 +283,6 @@
       },
       "source_files": "Sluthware/Classes/R.swift/**/*"
     }
-  ]
+  ],
+  "swift_version": "5.0"
 }

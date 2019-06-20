@@ -37,7 +37,8 @@ Pod::Spec.new do |s|
 		'CoreGraphics',
 		'CoreLocation',
 		'UIKit',
-		'SystemConfiguration'
+		'SystemConfiguration',
+        'AVKit'
 		
 		ss.ios.dependency 'SnapKit'
 		ss.ios.dependency 'RxSwift'
