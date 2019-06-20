@@ -33,7 +33,8 @@
           "CoreGraphics",
           "CoreLocation",
           "UIKit",
-          "SystemConfiguration"
+          "SystemConfiguration",
+          "AVKit"
         ],
         "dependencies": {
           "SnapKit": [
@@ -282,6 +283,18 @@
         ]
       },
       "source_files": "Sluthware/Classes/R.swift/**/*"
+    },
+    {
+      "name": "Eureka",
+      "dependencies": {
+        "Sluthware/Default": [
+
+        ],
+        "Eureka": [
+
+        ]
+      },
+      "source_files": "Sluthware/Classes/Eureka/**/*"
     }
   ],
   "swift_version": "5.0"

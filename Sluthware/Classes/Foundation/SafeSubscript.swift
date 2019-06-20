@@ -26,6 +26,24 @@ public extension Collection
 
 
 
+public extension Collection
+	where Index == Int
+{
+	subscript(safe range: Range<Index>?) -> [Element?]
+	{
+		var elements = [Element?]()
+		guard let range = range else { return elements }
+		for i in range {
+			elements += self[safe: i]
+		}
+		return elements
+	}
+}
+
+
+
+
+
 public extension Dictionary
 {
 	subscript(safe key: Key?) -> Value?
