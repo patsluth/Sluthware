@@ -39,13 +39,13 @@ PODS:
   - RxSwiftExt/RxCocoa (5.0.0):
     - RxCocoa (~> 5.0)
     - RxSwiftExt/Core
-  - Sluthware (1.0.31):
-    - Sluthware/Default (= 1.0.31)
-  - Sluthware/Alamofire (1.0.31):
+  - Sluthware (1.1.0):
+    - Sluthware/Default (= 1.1.0)
+  - Sluthware/Alamofire (1.1.0):
     - Alamofire
     - CancelForPromiseKit/Alamofire
     - Sluthware/Default
-  - Sluthware/Default (1.0.31):
+  - Sluthware/Default (1.1.0):
     - CancelForPromiseKit
     - Kingfisher
     - PromiseKit
@@ -84,9 +84,9 @@ SPEC CHECKSUMS:
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   RxSwiftExt: 4564187392cc53823ef241fa4a11647861567026
-  Sluthware: de9e7c9754704bde16d2770d40a3964b97947bdd
+  Sluthware: 7d3df4d08b86f9a68ad043907220eb59d558ef17
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
 PODFILE CHECKSUM: 2793c11888e0bdf3e23399e6f54f91e70e9f00b1
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.7.2

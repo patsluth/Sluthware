@@ -1,5 +1,5 @@
 //
-//  UITableView.swift
+//  UITintedLabel.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-12-19.
@@ -10,7 +10,7 @@
 
 
 
-public class UITintLabel: UILabel
+public class UITintedLabel: UILabel
 {
 	override public func tintColorDidChange()
 	{
