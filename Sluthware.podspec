@@ -9,7 +9,7 @@
 # pod lib lint --sources='https://github.com/CocoaPods/Specs.git,https://github.com/ABTSoftware/PodSpecs.git' --verbose --fail-fast
 Pod::Spec.new do |s|
     s.name             = 'Sluthware'
-    s.version          = '1.0.31'
+    s.version          = '1.1.0'
     s.summary          = 'Sluthware shared framework'
     s.description      = 'Sluthware shared framework description'
     s.homepage         = 'https://sluthware.com'
