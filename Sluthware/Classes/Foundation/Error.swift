@@ -14,23 +14,23 @@ import Foundation
 
 public extension Error
 {
-	public var ns: NSError {
-		return self as NSError
-	}
-	
-	
-	
-	
-	
-	@discardableResult
-	public func log(file: String = #file,
-					function: String = #function,
-					line: Int = #line) -> Self
-	{
-		swlog(file: file.fileNameFull, function: function, line: line, self)
-		
-		return self
-	}
+    public var ns: NSError {
+        return self as NSError
+    }
+    
+    
+    
+    
+    
+    @discardableResult
+    public func log(file: String = #file,
+                    function: String = #function,
+                    line: Int = #line) -> Self
+    {
+        sw.log(file: file.fileNameFull, function: function, line: line, self)
+        
+        return self
+    }
 }
 
 

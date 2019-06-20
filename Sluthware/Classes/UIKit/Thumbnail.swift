@@ -59,8 +59,8 @@ public enum Thumbnail
 				return
 			}
 			
-			cache.retrieveImage(forKey: cacheKey, completionHandler: {
-				if case .success(let result) = $0, let image = result.image {
+            cache.retrieveImage(forKey: cacheKey, completionHandler: {
+                if let image = try? $0.get().image {
 					_resolve(.success(image))
 					return
 				}
