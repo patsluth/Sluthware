@@ -36,7 +36,9 @@ public enum sw
     
     /// block cast
     @discardableResult
-    public static func cast<T>(_ object: Any, _ type: T.Type, _ block: ((T) -> Void)? = nil) -> T?
+    public static func cast<T>(_ object: Any,
+                               _ type: T.Type,
+                               _ block: ((T) -> Void)? = nil) -> T?
     {
         let t = object as? T
         
