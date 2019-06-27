@@ -22,58 +22,75 @@ public typealias FontDescriptor = NSFontDescriptor
 
 public extension Font
 {
-	func scaledBy<T>(percent: T) -> Font!
-		where T: Sluthware.FloatingPointType
-	{
-		return self.withSize(self.pointSize * CGFloat(percent))
-	}
-	
-	public func forFraction() -> Font!
-	{
-		#if os(iOS) || os(watchOS) || os(tvOS)
-		let attributes = [
-			FontDescriptor.AttributeName.featureSettings: [[
-				FontDescriptor.FeatureKey.featureIdentifier: kFractionsType,
-				FontDescriptor.FeatureKey.typeIdentifier: kDiagonalFractionsSelector,
-				],
-			]]
-		#elseif os(macOS)
-		let attributes = [
-			FontDescriptor.AttributeName.featureSettings: [[
-				FontDescriptor.FeatureKey.typeIdentifier: kFractionsType,
-				FontDescriptor.FeatureKey.selectorIdentifier: kDiagonalFractionsSelector,
-				],
-			]]
-		#endif
-		
-		return Font(descriptor: self.fontDescriptor.addingAttributes(attributes),
-					size: self.pointSize)
-	}
-	
-	func with(traits: FontDescriptor.SymbolicTraits) -> Font?
-	{
-		if let fontDescriptor = self.fontDescriptor.withSymbolicTraits(traits) {
-			return UIFont(descriptor: fontDescriptor, size: self.pointSize)
-		}
-		return nil
-	}
+    func scaledBy<T>(percent: T) -> Font!
+        where T: Sluthware.FloatingPointType
+    {
+        return self.withSize(self.pointSize * CGFloat(percent))
+    }
+    
+    public func forFraction() -> Font!
+    {
+        #if os(iOS) || os(watchOS) || os(tvOS)
+        let attributes = [
+            FontDescriptor.AttributeName.featureSettings: [[
+                FontDescriptor.FeatureKey.featureIdentifier: kFractionsType,
+                FontDescriptor.FeatureKey.typeIdentifier: kDiagonalFractionsSelector,
+                ],
+            ]]
+        #elseif os(macOS)
+        let attributes = [
+            FontDescriptor.AttributeName.featureSettings: [[
+                FontDescriptor.FeatureKey.typeIdentifier: kFractionsType,
+                FontDescriptor.FeatureKey.selectorIdentifier: kDiagonalFractionsSelector,
+                ],
+            ]]
+        #endif
+        
+        return Font(descriptor: self.fontDescriptor.addingAttributes(attributes),
+                    size: self.pointSize)
+    }
+    
+    func withSize(_ fontSize: CGFloat) -> Font!
+    {
+        return Font(descriptor: self.fontDescriptor, size: fontSize)
+    }
+    
+    func with(traits: FontDescriptor.SymbolicTraits) -> Font?
+    {
+        #if os(macOS)
+        let fontDescriptor = self.fontDescriptor.withSymbolicTraits(traits)
+        return Font(descriptor: fontDescriptor, size: self.pointSize)
+        #else
+        if let fontDescriptor = self.fontDescriptor.withSymbolicTraits(traits) {
+            return Font(descriptor: fontDescriptor, size: self.pointSize)
+        }
+        return nil
+        #endif
+    }
 }
 
 
 
 
 
-#if os(macOS)
+//#if os(macOS)
 
-extension NSFont
-{
-	func withSize(_ fontSize: CGFloat) -> NSFont!
-	{
-		return NSFont(descriptor: self.fontDescriptor, size: fontSize)
-	}
-}
+//extension Font
+//{
+//
+//}
 
-#endif
+//#elseif os(macOS)
+//
+//extension NSFont
+//{
+//    func withSize(_ fontSize: CGFloat) -> Font!
+//    {
+//        return Font(descriptor: self.fontDescriptor, size: fontSize)
+//    }
+//}
+//
+//#endif
 
 
 
