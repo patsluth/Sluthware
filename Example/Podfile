@@ -12,6 +12,7 @@ target 'Sluthware_Example' do
     pod 'Sluthware', :path => '../'
 #		pod 'Sluthware/API', :path => '../'
 		pod 'Sluthware/Alamofire', :path => '../'
+    pod 'Sluthware/Eureka', :path => '../'
 #		pod 'Sluthware/CoreLocation', :path => '../'
 #		pod 'Sluthware/SceneKit', :path => '../'
 #		pod 'Sluthware/simd', :path => '../'

@@ -12,6 +12,7 @@ PODS:
   - CancelForPromiseKit/Foundation (1.1.0):
     - CancelForPromiseKit/CorePromise
     - PromiseKit/Foundation (~> 6.0)
+  - Eureka (5.0.0)
   - Kingfisher (5.6.0)
   - PromiseKit (6.9.0):
     - PromiseKit/CorePromise (= 6.9.0)
@@ -53,16 +54,21 @@ PODS:
     - RxSwift
     - RxSwiftExt
     - SnapKit
+  - Sluthware/Eureka (1.1.0):
+    - Eureka
+    - Sluthware/Default
   - SnapKit (5.0.0)
 
 DEPENDENCIES:
   - Sluthware (from `../`)
   - Sluthware/Alamofire (from `../`)
+  - Sluthware/Eureka (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - CancelForPromiseKit
+    - Eureka
     - Kingfisher
     - PromiseKit
     - RxCocoa
@@ -78,6 +84,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   CancelForPromiseKit: 753c8798c31519ab324dad33974b7f8e4a92257b
+  Eureka: 0f64f477ec8ef6201c6fec143d60ff5c201cf654
   Kingfisher: 1a50df6880a60bae26f3e21a0df3d17b892f5e0b
   PromiseKit: 97397236f9e9c443d5b70a941d49cad25160af7a
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
@@ -87,6 +94,6 @@ SPEC CHECKSUMS:
   Sluthware: 7d3df4d08b86f9a68ad043907220eb59d558ef17
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: c2519e258197497cc7f2dd219bd77661a503bcfe
+PODFILE CHECKSUM: 6c82a557b61362f97ab46a5a19deb07658b724e2
 
 COCOAPODS: 1.7.2

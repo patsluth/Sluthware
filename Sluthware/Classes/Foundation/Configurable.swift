@@ -1,5 +1,5 @@
 //
-// 	Transformable.swift
+// 	Configurable.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2019-02-25.
@@ -11,11 +11,11 @@ import Foundation
 
 
 
-public protocol Transformable: NSObjectProtocol {}
+public protocol Configurable {}
 
-extension NSObject: Transformable {}
+extension NSObject: Configurable {}
 
-public extension Transformable
+public extension Configurable
 {
 	@discardableResult
 	func configure(_ block: (Self) -> Void) -> Self
