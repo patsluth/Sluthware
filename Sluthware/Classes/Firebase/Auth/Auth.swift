@@ -9,7 +9,6 @@
 import Foundation
 
 import FirebaseAuth
-import FirebaseFirestore
 import RxSwift
 import RxCocoa
 import PromiseKit
