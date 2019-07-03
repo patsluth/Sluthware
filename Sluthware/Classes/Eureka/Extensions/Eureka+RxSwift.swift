@@ -15,7 +15,7 @@ import Eureka
 
 
 
-public extension RowOf: ReactiveCompatible
+extension RowOf: ReactiveCompatible
 {
     
 }

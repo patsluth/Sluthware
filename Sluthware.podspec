@@ -141,8 +141,6 @@ Pod::Spec.new do |s|
 	
 	s.subspec 'Firebase' do |ss|
 		ss.dependency 'Sluthware/Default'
-		ss.dependency 'Sluthware/RxSwift'
-		ss.dependency 'Sluthware/PromiseKit'
 		ss.dependency 'Firebase'
 		ss.dependency 'Firebase/Core'
 		ss.dependency 'Firebase/Auth'
@@ -156,8 +154,6 @@ Pod::Spec.new do |s|
 	
 	s.subspec 'FirebaseFirestore' do |ss|
 		ss.dependency 'Sluthware/Default'
-		ss.dependency 'Sluthware/RxSwift'
-		ss.dependency 'Sluthware/PromiseKit'
 		ss.dependency 'Sluthware/Firebase'
 		ss.dependency 'Firebase/Firestore'
 		
@@ -170,7 +166,6 @@ Pod::Spec.new do |s|
 	
 	s.subspec 'FirebaseFunctions' do |ss|
 		ss.dependency 'Sluthware/Default'
-		ss.dependency 'Sluthware/PromiseKit'
 		ss.dependency 'Firebase'
 		ss.dependency 'Firebase/Core'
 		ss.dependency 'Firebase/Functions'

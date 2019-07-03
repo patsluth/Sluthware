@@ -16,14 +16,14 @@ import PromiseKit
 
 public func attempt<T>(times: UInt,
 					   retryIn: DispatchTimeInterval,
-					   _ closure: @escaping () -> Promise<T>) -> Promise<T>
+					   _ block: @escaping () -> Promise<T>) -> Promise<T>
 {
 	var attempts = 0
 	
 	func attemptInternal() -> Promise<T>
 	{
 		attempts += 1
-		return closure().recover({ error -> Promise<T> in
+		return block().recover({ error -> Promise<T> in
 			guard attempts < times else { throw error }
 			return after(retryIn).then({ _ -> Promise<T> in
 				attemptInternal()
@@ -40,14 +40,14 @@ public func attempt<T>(times: UInt,
 
 public func attempt<T, V>(times: UInt,
 						  retryWhen: Guarantee<V>,
-						  _ closure: @escaping () -> Promise<T>) -> Promise<T>
+						  _ block: @escaping () -> Promise<T>) -> Promise<T>
 {
 	var attempts = 0
 	
 	func attemptInternal() -> Promise<T>
 	{
 		attempts += 1
-		return closure().recover({ error -> Promise<T> in
+		return block().recover({ error -> Promise<T> in
 			guard attempts < times else { throw error }
 			return retryWhen.then({ _ -> Promise<T> in
 				attemptInternal()
