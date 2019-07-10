@@ -169,12 +169,6 @@
         "Sluthware/Default": [
 
         ],
-        "Sluthware/RxSwift": [
-
-        ],
-        "Sluthware/PromiseKit": [
-
-        ],
         "Firebase": [
 
         ],
@@ -193,12 +187,6 @@
         "Sluthware/Default": [
 
         ],
-        "Sluthware/RxSwift": [
-
-        ],
-        "Sluthware/PromiseKit": [
-
-        ],
         "Sluthware/Firebase": [
 
         ],
@@ -212,9 +200,6 @@
       "name": "FirebaseFunctions",
       "dependencies": {
         "Sluthware/Default": [
-
-        ],
-        "Sluthware/PromiseKit": [
 
         ],
         "Firebase": [

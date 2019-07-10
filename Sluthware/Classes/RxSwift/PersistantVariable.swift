@@ -27,7 +27,14 @@ public class PersistantVariable<T>: ObservableType
 	private let _relay: BehaviorRelay<E>
 	
 	public var value: E {
-		return self._relay.value
+		get
+		{
+			return self._relay.value
+		}
+		set
+		{
+			self._relay.accept(newValue)
+		}
 	}
 	
 	
@@ -42,7 +49,7 @@ public class PersistantVariable<T>: ObservableType
 		self._relay = BehaviorRelay(value: nil)
 		
 		defer {
-			self._relay.accept(self.readValue())
+			self.value = self.readValue()
 		}
 	}
 	
