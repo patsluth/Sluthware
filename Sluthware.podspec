@@ -47,6 +47,7 @@ Pod::Spec.new do |s|
 		ss.ios.dependency 'PromiseKit'
 		ss.ios.dependency 'CancelForPromiseKit'
 		ss.ios.dependency 'Kingfisher'
+		ss.ios.dependency 'SwiftDate'
 
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'
 
@@ -58,7 +59,8 @@ Pod::Spec.new do |s|
 		'Sluthware/Classes/UIKit/**/*',
 		'Sluthware/Classes/Reachability/**/*',
 		'Sluthware/Classes/PromiseKit/**/*',
-		'Sluthware/Classes/RxSwift/**/*'
+		'Sluthware/Classes/RxSwift/**/*',
+		'Sluthware/Classes/SwiftDate/**/*'
 
 
 
