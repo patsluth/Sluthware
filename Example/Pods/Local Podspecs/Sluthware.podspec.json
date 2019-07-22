@@ -57,6 +57,9 @@
           ],
           "Kingfisher": [
 
+          ],
+          "SwiftDate": [
+
           ]
         },
         "resources": "Sluthware/Resources/UIKit/**/*",
@@ -69,7 +72,8 @@
           "Sluthware/Classes/UIKit/**/*",
           "Sluthware/Classes/Reachability/**/*",
           "Sluthware/Classes/PromiseKit/**/*",
-          "Sluthware/Classes/RxSwift/**/*"
+          "Sluthware/Classes/RxSwift/**/*",
+          "Sluthware/Classes/SwiftDate/**/*"
         ]
       },
       "osx": {

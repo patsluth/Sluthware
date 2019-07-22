@@ -17,33 +17,35 @@ import CancelForPromiseKit
 
 
 
-/// A protocol for promise types that can be converted to RxSwift observables
-public protocol RxSwiftPromiseKitConvertible
+///// A protocol for promise types that can be converted to RxSwift observables
+//public protocol RxSwiftPromiseKitConvertible
+//{
+//	associatedtype T
+//
+//	func asObservable() -> Observable<Swift.Result<T, Error>>
+//}
+//
+//
+//
+//
+//
+//public extension RxSwiftPromiseKitConvertible
+//{
+//	func asSingle() -> Single<Swift.Result<T, Error>>
+//	{
+//		return self.asObservable().asSingle()
+//	}
+//}
+
+
+
+
+
+extension Promise: ObservableConvertibleType
 {
-	associatedtype T
+	public typealias Element = Swift.Result<T, Error>
 	
-	func asObservable() -> Observable<Swift.Result<T, Error>>
-}
-
-
-
-
-
-public extension RxSwiftPromiseKitConvertible
-{
-	func asSingle() -> Single<Swift.Result<T, Error>>
-	{
-		return self.asObservable().asSingle()
-	}
-}
-
-
-
-
-
-extension Promise: RxSwiftPromiseKitConvertible
-{
-	public func asObservable() -> Observable<Swift.Result<T, Error>>
+	public func asObservable() -> Observable<Element>
 	{
 		let (promise, resolver) = Promise<T>.pending()
 		
@@ -62,6 +64,8 @@ extension Promise: RxSwiftPromiseKitConvertible
 				observable.onNext(.success($0))
 			}).catch({
 				observable.onNext(.failure($0))
+			}).finally({
+				observable.onCompleted()
 			})
 			
 			return Disposables.create(with: {
@@ -77,15 +81,19 @@ extension Promise: RxSwiftPromiseKitConvertible
 
 
 
-extension CancellablePromise: RxSwiftPromiseKitConvertible
+extension CancellablePromise: ObservableConvertibleType
 {
-	public func asObservable() -> Observable<Swift.Result<T, Error>>
+	public typealias Element = Swift.Result<T, Error>
+	
+	public func asObservable() -> Observable<Element>
 	{
 		return Observable.create({ observable in
 			let context = self.done({
 				observable.onNext(.success($0))
 			}).catch({
 				observable.onNext(.failure($0))
+			}).finally({
+				observable.onCompleted()
 			})
 			
 			return Disposables.create(with: {
@@ -101,13 +109,14 @@ extension CancellablePromise: RxSwiftPromiseKitConvertible
 
 
 
-public extension ObservableType
+public extension ObservableConvertibleType
 {
 	func asPromise() -> Promise<E>
 	{
 		let (promise, resolver) = Promise<E>.pending()
 		
-		_ = self.take(1)
+		_ = self.asObservable()
+			.take(1)
 			.subscribe(onNext: {
 				resolver.fulfill($0)
 			}, onError: {
@@ -125,7 +134,8 @@ public extension ObservableType
 	{
 		let (promise, resolver) = CancellablePromise<E>.pending()
 		
-		_ = self.take(1)
+		_ = self.asObservable()
+			.take(1)
 			.subscribe(onNext: {
 				resolver.fulfill($0)
 			}, onError: {
