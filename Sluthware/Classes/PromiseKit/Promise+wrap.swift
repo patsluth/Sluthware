@@ -9,6 +9,66 @@
 import Foundation
 
 import PromiseKit
+import CancelForPromiseKit
+
+
+
+
+
+
+public extension Promise
+{
+	static func wrap<T>(_ block: () throws -> T) -> Promise<T>
+	{
+		return promise_wrap(block)
+	}
+	
+	static func wrap<T>(_ block: (Resolver<T>) -> Void) -> Promise<T>
+	{
+		let (promise, resolver) = Promise<T>.pending()
+		
+		block(resolver)
+		
+		return promise
+	}
+}
+
+public extension Guarantee
+{
+	static func wrap<T>(_ block: () -> T) -> Guarantee<T>
+	{
+		return promise_wrap(block)
+	}
+}
+
+
+
+
+
+public extension CancellablePromise
+{
+	static func wrap<T>(_ block: () throws -> T) -> CancellablePromise<T>
+	{
+		return promise_wrap(block)
+	}
+	
+	static func wrap<T>(_ block: (Resolver<T>) -> Void) -> CancellablePromise<T>
+	{
+		let (promise, resolver) = CancellablePromise<T>.pending()
+		
+		block(resolver)
+		
+		return promise
+	}
+}
+
+public extension CancellableGuarantee
+{
+	static func wrap<T>(_ block: () -> T) -> CancellableGuarantee<T>
+	{
+		return promise_wrap(block)
+	}
+}
 
 
 
@@ -28,6 +88,28 @@ public func promise_wrap<T>(_ block: () throws -> T) -> Promise<T>
 public func promise_wrap<T>(_ block: () -> T) -> Guarantee<T>
 {
 	return Guarantee<T>(resolver: { resolver in
+		resolver(block())
+	})
+}
+
+
+
+
+
+public func promise_wrap<T>(_ block: () throws -> T) -> CancellablePromise<T>
+{
+	return CancellablePromise<T>(resolver: { resolver in
+		do {
+			resolver.fulfill(try block())
+		} catch {
+			resolver.reject(error)
+		}
+	})
+}
+
+public func promise_wrap<T>(_ block: () -> T) -> CancellableGuarantee<T>
+{
+	return CancellableGuarantee<T>(resolver: { resolver in
 		resolver(block())
 	})
 }

@@ -14,11 +14,9 @@ import Foundation
 
 public extension URLComponents
 {
-	var queryItemsByName: [String: String]? {
-		return self.queryItems?.reduce(into: [String: String]()) { result, element in
-			if let value = element.value {
-				result[element.name] = value
-			}
+	var queryItemsByName: [String: URLQueryItem]? {
+		return self.queryItems?.reduce(into: [String: URLQueryItem]()) {
+			$0[$1.name] = $1
 		}
 	}
 }
