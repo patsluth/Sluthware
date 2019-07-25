@@ -87,27 +87,27 @@ class ViewController2: UIViewController
 		
 		
 		
-		let vc = DebugViewController(nibName: "DebugViewController",
-									 bundle: Bundle(for: DebugViewController.classForCoder()))
-		let nc = UINavigationController(rootViewController: vc)
-		self.present(nc, animated: true) {
-			let fracations: [Fraction] = [20 / 11,
-										  5 / 7,
-										  Fraction(0.25),
-										  4 / 0,
-										  0 / 4,
-										  Fraction.NaN]
-			
-			let attributedFormatter = FractionFormatter() {
-				$0.font = UIFont.systemFont(ofSize: 25.0)
-				$0.useProperFractions = true
-			}
-			
-			vc.textView.attributedText = fracations.reduce(into: NSAttributedString(), {
-				$0 += attributedFormatter.format($1.roundedTo(den: 15))
-				$0 += Char.NewLine
-			})
-		}
+//		let vc = DebugViewController(nibName: "DebugViewController",
+//									 bundle: Bundle(for: DebugViewController.classForCoder()))
+//		let nc = UINavigationController(rootViewController: vc)
+//		self.present(nc, animated: true) {
+//			let fracations: [Fraction] = [20 / 11,
+//										  5 / 7,
+//										  Fraction(0.25),
+//										  4 / 0,
+//										  0 / 4,
+//										  Fraction.NaN]
+//
+//			let attributedFormatter = FractionFormatter() {
+//				$0.font = UIFont.systemFont(ofSize: 25.0)
+//				$0.useProperFractions = true
+//			}
+//
+//			vc.textView.attributedText = fracations.reduce(into: NSAttributedString(), {
+//				$0 += attributedFormatter.format($1.roundedTo(den: 15))
+//				$0 += Char.NewLine
+//			})
+//		}
 	}
 	
 	override func viewDidLayoutSubviews()
