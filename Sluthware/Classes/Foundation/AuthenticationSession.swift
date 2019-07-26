@@ -23,7 +23,7 @@ import CancelForPromiseKit
 @available(iOS 11.0, *)
 public enum AuthenticationSession
 {
-	static func start(url: URL, callbackURLScheme: String?) -> CancellablePromise<URL>
+	public static func start(url: URL, callbackURLScheme: String?) -> CancellablePromise<URL>
 	{
 		if #available(iOS 12.0, *) {
 			return self._start(ASWebAuthenticationSession.self,
