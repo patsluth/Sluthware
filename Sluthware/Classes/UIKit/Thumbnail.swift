@@ -26,7 +26,7 @@ public enum Thumbnail
 		case Failed
 	}
 	
-	public typealias Output = Swift.Result<Kingfisher.Image, GenerationError>
+	public typealias Output = Swift.Result<Image, GenerationError>
 	
 	
 	
@@ -59,8 +59,8 @@ public enum Thumbnail
 				return
 			}
 			
-            cache.retrieveImage(forKey: cacheKey, completionHandler: {
-                if let image = try? $0.get().image {
+			cache.retrieveImage(forKey: cacheKey, options: nil, completionHandler: {
+				if let image = try? $0.get().image {
 					_resolve(.success(image))
 					return
 				}

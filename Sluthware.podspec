@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
 	s.swift_version = '5.0'
 
-	s.ios.deployment_target = '9.0'
+	s.ios.deployment_target = '10.0'
 	s.osx.deployment_target = '10.11'
 
 	s.static_framework = true
@@ -46,7 +46,7 @@ Pod::Spec.new do |s|
 		ss.ios.dependency 'RxSwiftExt'
 		ss.ios.dependency 'PromiseKit'
 		ss.ios.dependency 'CancelForPromiseKit'
-		ss.ios.dependency 'Kingfisher'
+		ss.ios.dependency 'Kingfisher', '~> 5.7.1'
 		ss.ios.dependency 'SwiftDate'
 
 		ss.ios.resource = 'Sluthware/Resources/UIKit/**/*'

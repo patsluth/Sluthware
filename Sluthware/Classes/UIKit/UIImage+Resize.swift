@@ -14,6 +14,7 @@ import CoreGraphics
 
 public extension UIImage
 {
+	@available(iOS 10.0, *)
 	public func resizedTo(width: CGFloat) -> UIImage
 	{
 		let height = width * AspectRatio.heightPercentage(self.size)
@@ -21,6 +22,7 @@ public extension UIImage
 		return self.resizedTo(CGSize(width: width, height: height))
 	}
 	
+	@available(iOS 10.0, *)
 	public func resizedTo(height: CGFloat) -> UIImage
 	{
 		let width = height * AspectRatio.widthPercentage(self.size)
@@ -28,6 +30,7 @@ public extension UIImage
 		return self.resizedTo(CGSize(width: width, height: height))
 	}
 	
+	@available(iOS 10.0, *)
 	public func resizedTo(_ newSize: CGSize) -> UIImage
 	{
 		guard self.size != newSize else { return self }
