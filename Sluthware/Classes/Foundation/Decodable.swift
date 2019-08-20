@@ -14,22 +14,27 @@ import Foundation
 
 public extension Decodable
 {
-	static func decode<T>(_ value: T) throws -> Self
+	static func decode<T>(_ value: T, decoder: JSONDecoder? = nil) throws -> Self
 	{
+		let decoder = decoder ?? {
+			let _decoder = JSONDecoder()
+			_decoder.dateDecodingStrategy = .formatted(DateFormatter.properISO8601)
+			return _decoder
+			}()
+		
 		switch value {
 		case let value as Self:
 			return value
 		case let data as Data:
-			let decoder = JSONDecoder()
 			return try decoder.decode(Self.self, from: data)
 		case let string as String:
-			if let data = string.removingPercentEncodingSafe.data(using: String.Encoding.utf8) {
-				return try Self.decode(data)
+			if let data = string.removingPercentEncodingSafe.data(using: .utf8) {
+				return try Self.decode(data, decoder: decoder)
 			}
 		default:
 			if JSONSerialization.isValidJSONObject(value) {
 				let data = try JSONSerialization.data(withJSONObject: value)
-				return try Self.decode(data)
+				return try Self.decode(data, decoder: decoder)
 			}
 		}
 		

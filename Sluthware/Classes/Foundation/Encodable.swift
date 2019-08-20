@@ -14,10 +14,14 @@ import Foundation
 
 public extension Encodable
 {
-	func encode<T>(_ type: T.Type) throws -> T
+	func encode<T>(_ type: T.Type, encoder: JSONEncoder? = nil) throws -> T
 	{
-		let encoder = JSONEncoder()
-		encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
+		let encoder = encoder ?? {
+			let _encoder = JSONEncoder()
+			_encoder.dateEncodingStrategy = .formatted(DateFormatter.properISO8601)
+			_encoder.outputFormatting = .prettyPrinted
+			return _encoder
+		}()
 		let data = try encoder.encode(self)
 		
 		switch type {
