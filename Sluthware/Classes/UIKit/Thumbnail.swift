@@ -17,7 +17,7 @@ import Kingfisher
 
 
 
-@available(iOS 11.0, *)
+@available(iOS 10.0, *)
 public enum Thumbnail
 {
 	public enum GenerationError: Error
@@ -26,14 +26,14 @@ public enum Thumbnail
 		case Failed
 	}
 	
-	public typealias Output = Swift.Result<Image, GenerationError>
+	public typealias Output = Swift.Result<Kingfisher.Image, GenerationError>
 	
 	
 	
 	/// Attempts to generate thumbnail for URL. Supports image, video and pdf types
-	public static func generateAsync(for url: URL!,
-									 size: CGSize,
-									 useCache: Bool = true) -> CancellableGuarantee<Output>
+	static func generateAsync(for url: URL!,
+							  size: CGSize,
+							  useCache: Bool = true) -> CancellableGuarantee<Output>
 	{
 		let (guarantee, resolver) = CancellableGuarantee<Output>.pending()
 		let cache = ImageCache.default
@@ -90,8 +90,8 @@ public enum Thumbnail
 	}
 	
 	/// Attempts to generate thumbnail for URL. Supports image, video and pdf types
-	public static func generateFor(anyURL url: URL!,
-								   size: CGSize) -> Output
+	static func generateFor(anyURL url: URL!,
+							size: CGSize) -> Output
 	{
 		guard let url = url else {
 			return .failure(GenerationError.InvalidURL)

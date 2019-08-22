@@ -21,6 +21,7 @@
     "ios": "10.0",
     "osx": "10.11"
   },
+  "requires_arc": true,
   "static_framework": true,
   "default_subspecs": "Default",
   "subspecs": [
@@ -56,7 +57,7 @@
 
           ],
           "Kingfisher": [
-
+            "~> 5.7.1"
           ],
           "SwiftDate": [
 
