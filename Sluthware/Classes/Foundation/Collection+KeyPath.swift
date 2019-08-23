@@ -13,7 +13,7 @@ import Foundation
 
 
 public extension Collection
-	where Self: ExpressibleByArrayLiteral, Element: AnyObject
+	where Self: ExpressibleByArrayLiteral//, Element: AnyObject
 {
 	public func grouped<Value>(by keyPath: KeyPath<Element, Value>) -> [Value: [Element]]
 		where Value: Hashable

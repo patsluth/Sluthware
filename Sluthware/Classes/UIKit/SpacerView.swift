@@ -14,6 +14,14 @@ import UIKit
 
 public final class SpacerView: SeparatorView
 {
+	public override var intrinsicContentSize: CGSize {
+		return CGSize.zero
+	}
+	
+	
+	
+	
+	
 	override init(frame: CGRect)
 	{
 		super.init(frame: frame)
