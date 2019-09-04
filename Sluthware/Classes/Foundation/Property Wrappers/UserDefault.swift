@@ -12,38 +12,38 @@ import Foundation
 
 
 
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-@propertyWrapper
-public struct UserDefault<T>
-{
-	public let key: String
-	public let defaultValue: T
-	public let userDefaults: UserDefaults
-	
-	public var value: T {
-		get
-		{
-			return self.userDefaults.object(forKey: key) as? T ?? defaultValue
-		}
-		set
-		{
-			self.userDefaults.set(newValue, forKey: self.key)
-		}
-	}
-	
-	
-	
-	
-	
-	init(_ key: String,
-		 _ defaultValue: T,
-		 _ userDefaults: UserDefaults = UserDefaults.standard)
-	{
-		self.key = key
-		self.defaultValue = defaultValue
-		self.userDefaults = userDefaults
-	}
-}
+//@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+//@propertyWrapper
+//public struct UserDefault<T>
+//{
+//	public let key: String
+//	public let defaultValue: T
+//	public let userDefaults: UserDefaults
+//
+//	public var value: T {
+//		get
+//		{
+//			return self.userDefaults.object(forKey: key) as? T ?? defaultValue
+//		}
+//		set
+//		{
+//			self.userDefaults.set(newValue, forKey: self.key)
+//		}
+//	}
+//
+//
+//
+//
+//
+//	init(_ key: String,
+//		 _ defaultValue: T,
+//		 _ userDefaults: UserDefaults = UserDefaults.standard)
+//	{
+//		self.key = key
+//		self.defaultValue = defaultValue
+//		self.userDefaults = userDefaults
+//	}
+//}
 
 
 
