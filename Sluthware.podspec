@@ -100,9 +100,9 @@ Pod::Spec.new do |s|
 	s.subspec 'simd' do |ss|
 		ss.dependency 'Sluthware/Default'
 
-		ss.ios.frameworks = 'Foundation',
-		'CoreFoundation',
-		'Accelerate',
+		ss.frameworks = 'Foundation',
+		'CoreFoundation',,
+		'Darwin'
 		'simd'
 
 		ss.ios.source_files = 'Sluthware/Classes/simd/**/*'
@@ -116,7 +116,7 @@ Pod::Spec.new do |s|
 		ss.dependency 'Sluthware/Default'
 		ss.dependency 'Sluthware/simd'
 
-		ss.ios.frameworks = 'Foundation',
+		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'SceneKit'
 
@@ -132,7 +132,7 @@ Pod::Spec.new do |s|
 		ss.dependency 'Sluthware/SceneKit'
 		ss.dependency 'Sluthware/simd'
 
-		ss.ios.frameworks = 'Foundation',
+		ss.frameworks = 'Foundation',
 		'CoreFoundation',
 		'ARKit'
 
