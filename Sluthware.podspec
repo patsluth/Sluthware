@@ -101,9 +101,8 @@ Pod::Spec.new do |s|
 		ss.dependency 'Sluthware/Default'
 
 		ss.frameworks = 'Foundation',
-		'CoreFoundation',
-		'Darwin',
-		'simd'
+		'CoreFoundation'
+#		'simd'
 
 		ss.ios.source_files = 'Sluthware/Classes/simd/**/*'
 	end
