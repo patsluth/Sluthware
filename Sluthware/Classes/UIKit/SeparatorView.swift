@@ -72,6 +72,8 @@ public class SeparatorView: UIView
 	{
 		defer { super.updateConstraints() }
 		
+		guard self.lineView != nil else { return }
+		
 		let preservesMargins = self.preservesSuperviewLayoutMargins
 		
 		self.lineView.remake(constraints: {

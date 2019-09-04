@@ -26,7 +26,7 @@ public final class SpacerView: SeparatorView
 	{
 		super.init(frame: frame)
 		
-		self.lineView.backgroundColor = nil
+		self.lineView?.backgroundColor = nil
 		
 		defer {
 			self.value = 0
