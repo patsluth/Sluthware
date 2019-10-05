@@ -20,6 +20,14 @@ import RxCocoa
 public final class PersistantCodableVariable<T, RawType>: PersistantVariable<T>
 	where T: Codable
 {
+	public required init(_ type: T.Type,
+						 rawType: RawType.Type,
+						 key: String = "",
+						 userDefaults: UserDefaults = UserDefaults.standard)
+	{
+		super.init(type, key: "\(T.self)_\(key)", userDefaults: userDefaults)
+	}
+	
 	override func readValue() -> E
 	{
 		var value: E = nil
@@ -47,6 +55,8 @@ public final class PersistantCodableVariable<T, RawType>: PersistantVariable<T>
 		}
 	}
 }
+
+
 
 
 

@@ -33,7 +33,7 @@ public class PersistantVariable<T>: ObservableType
 		}
 		set
 		{
-			self._relay.accept(newValue)
+			self.accept(newValue)
 		}
 	}
 	
@@ -41,8 +41,9 @@ public class PersistantVariable<T>: ObservableType
 	
 	
 	
-	public init(_ key: String,
-				_ userDefaults: UserDefaults = UserDefaults.standard)
+	public init(_ type: T.Type,
+				key: String,
+				userDefaults: UserDefaults = UserDefaults.standard)
 	{
 		self.key = key
 		self.userDefaults = userDefaults
