@@ -54,15 +54,15 @@ extension String: NSAttributedStringConvertible
 
 public extension NSAttributedString
 {
-	public typealias Attributes = [NSAttributedString.Key: Any]
-	public typealias AttributesProvider = (inout Attributes) -> Void
+	typealias Attributes = [NSAttributedString.Key: Any]
+	typealias AttributesProvider = (inout Attributes) -> Void
 	
 	
 	
 	
 	
-	public convenience init(_ string: String,
-							_ attributesProvider: AttributesProvider = { _ in })
+	convenience init(_ string: String,
+					 _ attributesProvider: AttributesProvider = { _ in })
 	{
 		var attributes = Attributes()
 		attributesProvider(&attributes)
@@ -72,7 +72,7 @@ public extension NSAttributedString
 	
 	
 	
-	public static func +(lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString
+	static func +(lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString
 	{
 		let attributedString = NSMutableAttributedString()
 		attributedString.append(lhs)
@@ -80,32 +80,32 @@ public extension NSAttributedString
 		return attributedString as NSAttributedString
 	}
 	
-	public static func +=(lhs: inout NSAttributedString, rhs: NSAttributedString)
+	static func +=(lhs: inout NSAttributedString, rhs: NSAttributedString)
 	{
 		lhs = lhs + rhs
 	}
 	
-	public static func +(lhs: NSAttributedString, rhs: String) -> NSAttributedString
+	static func +(lhs: NSAttributedString, rhs: String) -> NSAttributedString
 	{
 		return lhs + rhs.attributed
 	}
 	
-	public static func +=(lhs: inout NSAttributedString, rhs: String)
+	static func +=(lhs: inout NSAttributedString, rhs: String)
 	{
 		lhs = lhs + rhs
 	}
 	
-	public static func +(lhs: String, rhs: NSAttributedString) -> String
+	static func +(lhs: String, rhs: NSAttributedString) -> String
 	{
 		return lhs + rhs.string
 	}
 	
-	public static func +(lhs: String, rhs: NSAttributedString) -> NSAttributedString
+	static func +(lhs: String, rhs: NSAttributedString) -> NSAttributedString
 	{
 		return lhs.attributed + rhs
 	}
 	
-	public static func +=(lhs: inout String, rhs: NSAttributedString)
+	static func +=(lhs: inout String, rhs: NSAttributedString)
 	{
 		lhs = lhs + rhs
 	}

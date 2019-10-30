@@ -14,7 +14,7 @@ import Foundation
 
 public extension UIView
 {
-	public func imageRepresentation() -> UIImage?
+	func imageRepresentation() -> UIImage?
 	{
 		var image: UIImage? = nil
 		

@@ -11,6 +11,14 @@ import Foundation
 
 
 
+@discardableResult
+func configure<T>(_ object: T, _ block: (T) -> Void) -> T
+{
+    block(object)
+    
+    return object
+}
+
 public protocol Configurable {}
 
 extension NSObject: Configurable {}

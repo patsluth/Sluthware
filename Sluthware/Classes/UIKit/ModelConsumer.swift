@@ -35,12 +35,12 @@ public protocol ModelViewController: ModelConsumer
 public extension ModelConsumer
 	where Self: NSObject
 {
-	init(model: Model)
-	{
-		self.init()
-		
-		self.model = model
-	}
+//	init(model: Model)
+//	{
+//		self.init()
+//
+//		self.model = model
+//	}
 }
 //
 //
@@ -61,8 +61,8 @@ public protocol ModelView: ModelConsumer
 
 public extension UITableView
 {
-	public typealias ModelCell = UITableViewCell & ModelView
-	//	public typealias SelectableModelCell = UITableView.ModelCell & SelectableModelViewProtocol
+	typealias ModelCell = UITableViewCell & ModelView
+	//	typealias SelectableModelCell = UITableView.ModelCell & SelectableModelViewProtocol
 }
 
 
@@ -71,8 +71,8 @@ public extension UITableView
 
 public extension UICollectionView
 {
-	public typealias ModelCell = UICollectionViewCell & ModelView
-	//	public typealias SelectableModelCell = UICollectionView.ModelCell & SelectableModelViewProtocol
+	typealias ModelCell = UICollectionViewCell & ModelView
+	//	typealias SelectableModelCell = UICollectionView.ModelCell & SelectableModelViewProtocol
 }
 
 

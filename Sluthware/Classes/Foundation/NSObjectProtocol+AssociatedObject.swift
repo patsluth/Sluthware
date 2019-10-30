@@ -98,17 +98,17 @@ public extension NSObjectProtocol
 	//								 policy)
 	//	}
 	
-	public func get<T>(associatedObject named: String,
-					   _ type: T.Type) -> T?
+	func get<T>(associatedObject named: String,
+				_ type: T.Type) -> T?
 	{
 		let key = UnsafeRawPointer(bitPattern: named.hash)!
 		
 		return objc_getAssociatedObject(self, key) as? T
 	}
 	
-	public func set<T>(associatedObject named: String,
-					   object: T?,
-					   policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+	func set<T>(associatedObject named: String,
+				object: T?,
+				policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 	{
 		let key = UnsafeRawPointer(bitPattern: named.hash)!
 		

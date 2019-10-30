@@ -14,7 +14,7 @@
 public enum sw
 {
     /// Logs prefix print(items) with file, function and line
-    public static func log(file: String = #file,
+    static func log(file: String = #file,
                            function: String = #function,
                            line: Int = #line,
                            _ items: Any...)
@@ -24,7 +24,7 @@ public enum sw
     }
     
     /// Log the sender type and items
-    public static func log<T>(function: String = #function,
+    static func log<T>(function: String = #function,
                               sender: T,
                               _ items: Any...)
     {
@@ -36,7 +36,7 @@ public enum sw
     
     /// block cast
     @discardableResult
-    public static func cast<T>(_ object: Any?,
+    static func cast<T>(_ object: Any?,
                                _ type: T.Type,
                                _ block: ((T) -> Void)? = nil) -> T?
     {

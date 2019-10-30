@@ -17,7 +17,7 @@ import RxCocoa
 // TODO: Remove
 public extension ObservableType
 {
-	func and<B>(_ b: Observable<B>) -> Observable<(E, B)>
+	func and<B>(_ b: Observable<B>) -> Observable<(Element, B)>
 	{
 		return Observable.combineLatest(self, b, resultSelector: {
 			($0, $1)
@@ -45,7 +45,7 @@ public extension ObservableType
 		//		})
 	}
 	
-	func and<B>(_ b: () -> Observable<B>) -> Observable<(E, B)>
+	func and<B>(_ b: () -> Observable<B>) -> Observable<(Element, B)>
 	{
 		return self.and(b())
 	}

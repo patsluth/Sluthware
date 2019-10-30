@@ -1,5 +1,5 @@
 //
-//  Decodable.swift
+//  Decodable+SW.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-10-08.

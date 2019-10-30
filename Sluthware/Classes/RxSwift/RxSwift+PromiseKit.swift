@@ -111,9 +111,9 @@ extension CancellablePromise: ObservableConvertibleType
 
 public extension ObservableConvertibleType
 {
-	func asPromise() -> Promise<E>
+	func asPromise() -> Promise<Element>
 	{
-		let (promise, resolver) = Promise<E>.pending()
+		let (promise, resolver) = Promise<Element>.pending()
 		
 		_ = self.asObservable()
 			.take(1)
@@ -130,9 +130,9 @@ public extension ObservableConvertibleType
 		return promise
 	}
 	
-	func asPromise() -> CancellablePromise<E>
+	func asPromise() -> CancellablePromise<Element>
 	{
-		let (promise, resolver) = CancellablePromise<E>.pending()
+		let (promise, resolver) = CancellablePromise<Element>.pending()
 		
 		_ = self.asObservable()
 			.take(1)

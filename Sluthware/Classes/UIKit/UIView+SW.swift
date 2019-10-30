@@ -14,7 +14,7 @@ import UIKit
 
 public extension UIView
 {
-	public enum Fitting
+	enum Fitting
 	{
 		// TODO: Use .Width/.Height with expanded
 		case CompressedSize

@@ -57,7 +57,7 @@
 
           ],
           "Kingfisher": [
-            "~> 5.7.1"
+
           ],
           "SwiftDate": [
 
@@ -120,8 +120,7 @@
       },
       "frameworks": [
         "Foundation",
-        "CoreFoundation",
-        "simd"
+        "CoreFoundation"
       ],
       "ios": {
         "source_files": "Sluthware/Classes/simd/**/*"

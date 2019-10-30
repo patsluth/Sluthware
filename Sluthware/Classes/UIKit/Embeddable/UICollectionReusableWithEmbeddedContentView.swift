@@ -45,11 +45,19 @@ public class UICollectionReusableWithEmbeddedContentView<T>: UICollectionView.Ba
 	{
 		super.init(frame: frame)
 		
-		self.embedded = T.make({
-			self.addSubview($0)
-		}).make(constraints: {
-			$0.edges.equalTo(self.snp.margins)
+		if let nib = (T.self as? NibProvider.Type)?.nib,
+			let nibView = nib.instantiate(withOwner: nil, options: nil).first as? T {
+			self.embedded = nibView
+		} else {
+			self.embedded = T.make()
+		}
+		
+		self.addSubview(self.embedded)
+		self.embedded.make(constraints: {
+			$0.edges.equalTo(self)
 		})
+		
+		self.backgroundColor = nil
 	}
 	
 	public required init?(coder aDecoder: NSCoder)

@@ -1,5 +1,5 @@
 //
-//  CGPoint.swift
+//  CGPoint+SW.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-12-08.

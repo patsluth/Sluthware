@@ -14,7 +14,7 @@ import Foundation
 
 public extension ClosedRange
 {
-	public func clamp(_ value: Bound) -> Bound
+	func clamp(_ value: Bound) -> Bound
 	{
 		return Swift.min(Swift.max(value, self.lowerBound), self.upperBound)
 	}
@@ -26,7 +26,7 @@ public extension ClosedRange
 
 public extension Range
 {
-	public func clamp(_ value: Bound) -> Bound
+	func clamp(_ value: Bound) -> Bound
 	{
 		return Swift.min(Swift.max(value, self.lowerBound), self.upperBound)
 	}

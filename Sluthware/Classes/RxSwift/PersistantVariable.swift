@@ -57,14 +57,14 @@ public class PersistantVariable<T>: ObservableType
 	func readValue() -> E
 	{
 		let value = self.userDefaults.value(forKey: self.key) as? T
-		sw.log(sender: self, "\(self.key) = \(value)")
+		sw.log(sender: self, "\(self.key) = \(value as Any)")
 		return value
 	}
 	
 	func write(value: E)
 	{
 		self.userDefaults.setValue(value, forKey: self.key)
-		sw.log(sender: self, "\(self.key) = \(value)")
+		sw.log(sender: self, "\(self.key) = \(value as Any)")
 	}
 	
 	public func accept(_ event: E)
@@ -77,7 +77,7 @@ public class PersistantVariable<T>: ObservableType
 	// MARK: ObservableType
 	
 	public func subscribe<O>(_ observer: O) -> Disposable
-		where O: ObserverType, O.E == E
+		where O: ObserverType, O.Element == E
 	{
 		return self._relay.subscribe(observer)
 	}

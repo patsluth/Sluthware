@@ -16,23 +16,23 @@ import RxCocoa
 
 public extension ObservableType
 {
-//	public static func or<A, B>(_ a: Observable<A>, _ b: Observable<B>) -> Observable<ExclusivePair<A, B>>
-//	{
-//		return Observable<ExclusivePair<A, B>>.create({ observable in
-//
-//			let disposableA = a.bind(onNext: {
-//				observable.onNext(.A($0))
-//			})
-//
-//			let disposableB = b.bind(onNext: {
-//				observable.onNext(.B($0))
-//			})
-//
-//			return Disposables.create([disposableA, disposableB])
-//		})
-//	}
+	//	public static func or<A, B>(_ a: Observable<A>, _ b: Observable<B>) -> Observable<ExclusivePair<A, B>>
+	//	{
+	//		return Observable<ExclusivePair<A, B>>.create({ observable in
+	//
+	//			let disposableA = a.bind(onNext: {
+	//				observable.onNext(.A($0))
+	//			})
+	//
+	//			let disposableB = b.bind(onNext: {
+	//				observable.onNext(.B($0))
+	//			})
+	//
+	//			return Disposables.create([disposableA, disposableB])
+	//		})
+	//	}
 	
-	public func or<B>(_ b: Observable<B>) -> Observable<ExclusivePair<E, B>>
+	func or<B>(_ b: Observable<B>) -> Observable<ExclusivePair<Element, B>>
 	{
 		return Observable.create({ observable in
 			

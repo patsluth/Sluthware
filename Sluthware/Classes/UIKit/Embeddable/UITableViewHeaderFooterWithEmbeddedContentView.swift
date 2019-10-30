@@ -42,11 +42,19 @@ public class UITableViewHeaderFooterWithEmbeddedContentView<T>: UITableView.Base
 	{
 		super.init(reuseIdentifier: reuseIdentifier)
 		
-		self.embedded = T.make({
-			self.contentView.addSubview($0)
-		}).make(constraints: {
-			$0.edges.equalTo(self.contentView.snp.margins)
+		if let nib = (T.self as? NibProvider.Type)?.nib,
+			let nibView = nib.instantiate(withOwner: nil, options: nil).first as? T {
+			self.embedded = nibView
+		} else {
+			self.embedded = T.make()
+		}
+		
+		self.contentView.addSubview(self.embedded)
+		self.embedded.make(constraints: {
+			$0.edges.equalTo(self.contentView)
 		})
+		
+		self.backgroundColor = nil
 	}
 	
 	required init?(coder aDecoder: NSCoder)

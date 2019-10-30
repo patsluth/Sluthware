@@ -1,5 +1,5 @@
 //
-//  UITableViewCellBase.swift
+//  UIReusableViewProtocol.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-08-07.
@@ -7,9 +7,6 @@
 //
 
 import UIKit
-
-import RxSwift
-import RxCocoa
 
 
 

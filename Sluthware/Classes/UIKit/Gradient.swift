@@ -15,9 +15,9 @@ import Foundation
 public extension UIImage
 {
 	public static func gradient(size: CGSize,
-						 startPoint: CGPoint,
-						 endPoint: CGPoint,
-						 colors: UIColor...) -> UIImage?
+								startPoint: CGPoint,
+								endPoint: CGPoint,
+								colors: UIColor...) -> UIImage?
 	{
 		return self.gradient(size: size,
 							 startPoint: startPoint,
@@ -26,9 +26,9 @@ public extension UIImage
 	}
 	
 	public static func gradient(size: CGSize,
-						 startPoint: CGPoint,
-						 endPoint: CGPoint,
-						 colors: [UIColor]) -> UIImage?
+								startPoint: CGPoint,
+								endPoint: CGPoint,
+								colors: [UIColor]) -> UIImage?
 	{
 		let gradientLayer: CAGradientLayer = {
 			let layer = CAGradientLayer()
@@ -56,9 +56,9 @@ public extension UIImage
 public extension UIColor
 {
 	public static func gradient(size: CGSize,
-						 startPoint: CGPoint,
-						 endPoint: CGPoint,
-						 colors: UIColor...) -> UIColor?
+								startPoint: CGPoint,
+								endPoint: CGPoint,
+								colors: UIColor...) -> UIColor?
 	{
 		return self.gradient(size: size,
 							 startPoint: startPoint,
@@ -67,9 +67,9 @@ public extension UIColor
 	}
 	
 	public static func gradient(size: CGSize,
-						 startPoint: CGPoint,
-						 endPoint: CGPoint,
-						 colors: [UIColor]) -> UIColor?
+								startPoint: CGPoint,
+								endPoint: CGPoint,
+								colors: [UIColor]) -> UIColor?
 	{
 		guard let image = UIImage.gradient(size: size,
 										   startPoint: startPoint,
@@ -79,6 +79,7 @@ public extension UIColor
 		return UIColor(patternImage: image)
 	}
 }
+
 
 
 

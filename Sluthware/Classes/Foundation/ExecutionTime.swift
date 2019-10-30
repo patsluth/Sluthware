@@ -15,7 +15,7 @@ import QuartzCore
 
 public enum ExecutionTime
 {
-	public static func of(_ closure: () -> Void, completedIn: (TimeInterval) -> Void) -> Void
+	static func of(_ closure: () -> Void, completedIn: (TimeInterval) -> Void) -> Void
 	{
 		let start = CACurrentMediaTime()
 		closure()

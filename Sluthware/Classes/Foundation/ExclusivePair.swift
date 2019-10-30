@@ -12,7 +12,7 @@ import Foundation
 
 
 
-// Represents two values where one is not nil and the other is nil
+/// Represents two values where one is not nil and the other is nil
 public enum ExclusivePair<_A, _B>
 {
 	case A(_A)
