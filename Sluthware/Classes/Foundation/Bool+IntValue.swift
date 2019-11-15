@@ -14,7 +14,7 @@ import Foundation
 
 public extension Bool
 {
-	public func intValue<T: IntegerType>(_ type: T.Type) -> T
+    func intValue<T: IntegerType>(_ type: T.Type) -> T
 	{
 		return (self == false) ? T(0) : T(1)
 	}

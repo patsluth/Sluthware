@@ -16,8 +16,8 @@ public extension UIScrollView
 {
 	struct Page
 	{
-		let x: Int
-		let y: Int
+		public let x: Int
+		public let y: Int
 		
 		static var zero: Page {
 			return Page(x: 0, y: 0)

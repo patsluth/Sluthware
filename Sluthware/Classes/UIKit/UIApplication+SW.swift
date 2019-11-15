@@ -15,7 +15,7 @@ import UserNotifications
 
 public extension UIApplication
 {
-	public static var sharedSafe: UIApplication? {
+    static var sharedSafe: UIApplication? {
 		let sharedSelector = NSSelectorFromString("shared")
 		guard UIApplication.responds(to: sharedSelector) else { return nil }
 		let shared = UIApplication.perform(sharedSelector)

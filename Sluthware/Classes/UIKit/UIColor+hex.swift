@@ -14,7 +14,7 @@ import Foundation
 
 public extension UIColor
 {
-	@objc public convenience init?(hex: String!)
+    @objc convenience init?(hex: String!)
 	{
 		guard var hex = hex else { return nil }
 		
@@ -48,7 +48,7 @@ public extension UIColor
 		}
 	}
 	
-	@objc public func toHex() -> String
+    @objc func toHex() -> String
 	{
 		var r: CGFloat = 0.0
 		var g: CGFloat = 0.0

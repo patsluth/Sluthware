@@ -19,7 +19,7 @@ extension ObservableType
 {
 	@available(iOS 10.0, *)
 	public func onceThenOnRunLoop<T>(inModes modes: [RunLoop.Mode]) -> Observable<T>
-		where E == T
+		where Element == T
 	{
 		return Observable<T>.create { observable in
 			

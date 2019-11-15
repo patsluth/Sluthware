@@ -17,7 +17,7 @@ public extension UIColor
 	/**
 	Red, Green, Blue, Alpha
 	*/
-	public struct RGBA: Codable, ReflectedStringConvertible
+    struct RGBA: Codable, ReflectedStringConvertible
 	{
 		var r: CGFloat
 		var g: CGFloat
@@ -36,7 +36,7 @@ public extension UIColor
 	
 	
 	
-	public func getRGBA() throws -> RGBA
+    func getRGBA() throws -> RGBA
 	{
 		var rgba = RGBA(r: 0.0, g: 0.0, b: 0.0, a: 0.0)
 		

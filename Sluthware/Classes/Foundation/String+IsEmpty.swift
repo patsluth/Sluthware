@@ -13,7 +13,7 @@ import Foundation
 
 public extension String
 {
-    public static func isEmpty(_ string: String?) -> Bool
+    static func isEmpty(_ string: String?) -> Bool
     {
         guard let string = string else { return true }
         

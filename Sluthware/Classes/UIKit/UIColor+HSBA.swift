@@ -17,7 +17,7 @@ public extension UIColor
 	/**
 	Hue, Saturation, Brightness, Alpha
 	*/
-	public struct HSBA: Codable, ReflectedStringConvertible
+    struct HSBA: Codable, ReflectedStringConvertible
 	{
 		var h: CGFloat
 		var s: CGFloat
@@ -36,7 +36,7 @@ public extension UIColor
 	
 	
 	
-	public func getHSBA() throws -> HSBA
+    func getHSBA() throws -> HSBA
 	{
 		var hsba = HSBA(h: 0.0, s: 0.0, b: 0.0, a: 0.0)
 		if !self.getHue(&hsba.h, saturation: &hsba.s, brightness: &hsba.b, alpha: &hsba.a) {

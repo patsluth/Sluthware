@@ -24,20 +24,97 @@ public protocol IntegerType: BinaryInteger
 	init(_ value: UInt32)
 	init(_ value: Int64)
 	init(_ value: UInt64)
-	
-	func to<T: IntegerType>() -> T
+
+	func cast<T: IntegerType>() -> T
 }
 
-extension Int:		IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension UInt:		IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension Int8:		IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension UInt8:	IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension Int16:	IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension UInt16:	IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension Int32:	IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension UInt32:	IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension Int64:	IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
-extension UInt64:	IntegerType { public func to<T: IntegerType>() -> T { return T(self) } }
+extension Int:		IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension UInt:		IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension Int8:		IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension UInt8:	IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension Int16:	IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension UInt16:	IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension Int32:	IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension UInt32:	IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension Int64:	IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+extension UInt64:	IntegerType { public func cast<T: IntegerType>() -> T { return T(self) } }
+
+public extension IntegerType {
+    init<F>(_ floatingPoint: F)
+        where F: FloatingPointType
+    {
+        self.init(floatingPoint)
+    }
+    
+//    init<I>(_ integer: I)
+//        where I: IntegerType
+//    {
+//        self.init(integer)
+//    }
+}
+
+public extension IntegerType
+{
+    static func +<R, T>(lhs: Self, rhs: R) -> T
+        where R: IntegerType, T: IntegerType
+    {
+        return T(lhs) + T(rhs)
+    }
+    
+    static func +=<R>(lhs: inout Self, rhs: R)
+        where R: IntegerType
+    {
+        lhs = lhs + Self(rhs)
+    }
+    
+    
+    
+    static func -<R, T>(lhs: Self, rhs: R) -> T
+        where R: IntegerType, T: IntegerType
+    {
+        return T(lhs) - T(rhs)
+    }
+    
+    static func -=<R>(lhs: inout Self, rhs: R)
+        where R: IntegerType
+    {
+        lhs = lhs - Self(rhs)
+    }
+    
+    
+    
+    static func *<R, T>(lhs: Self, rhs: R) -> T
+        where R: IntegerType, T: IntegerType
+    {
+        return T(lhs) * T(rhs)
+    }
+    
+    static func *=<R>(lhs: inout Self, rhs: R)
+        where R: IntegerType
+    {
+        lhs = lhs * Self(rhs)
+    }
+    
+    
+    
+    static func /<R, T>(lhs: Self, rhs: R) -> T
+        where R: IntegerType, T: IntegerType
+    {
+        return T(lhs) / T(rhs)
+    }
+    
+    static func /=<R>(lhs: inout Self, rhs: R)
+        where R: IntegerType
+    {
+        lhs = lhs / Self(rhs)
+    }
+}
+
+public extension IntegerType {
+    var numberOfDigits: UInt {
+        return UInt(ceil(log10(Double(self) + 1)))
+    }
+}
 
 
 

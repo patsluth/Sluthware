@@ -23,7 +23,7 @@ public class ShapeView: UIView
 	@IBInspectable
 	public var rawShape: String? {
 		get { return self.shape?.rawValue }
-		set { self.shape = Shape(rawValue: self.rawShape ?? "") }
+        set { self.shape = Shape(rawValue: newValue ?? "") }
 	}
 	
 	public var shape: Shape? = nil {

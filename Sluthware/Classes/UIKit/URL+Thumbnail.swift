@@ -24,80 +24,81 @@ public extension URL
     {
         case InvalidURL(message: String)
         case Failed
+        case ProcessorFailed(unprocessed: KFCrossPlatformImage)
     }
     
-    
+    private static let thumbnailOperationQueue: OperationQueue = {
+        let operationQueue = OperationQueue()
+        operationQueue.maxConcurrentOperationCount = 10
+        operationQueue.qualityOfService = .background
+        return operationQueue
+    }()
     
     
     
     /// Attempts to generate thumbnail 'targetSize'
     /// Supports image, video and pdf urls
-    func generateThumbnail(targetSize: CGSize,
-                           usingCache: Bool = true) -> CancellablePromise<KFCrossPlatformImage>
+    func generateThumbnail(usingCache: Bool = true,
+                           processor: ImageProcessor? = nil) -> CancellablePromise<KFCrossPlatformImage>
     {
-        let (promise, resolver) = CancellablePromise<KFCrossPlatformImage>.pending()
         let cache = ImageCache.default
-        let cacheKey = "\(self.absoluteString)_thumb_\(targetSize.width)x\(targetSize.height)"
+        let thumbnailCacheKey = "\(self.fileNameFull)_thumb_\(processor?.identifier ?? "unprocessed")"
+        let (promise, resolver) = CancellablePromise<KFCrossPlatformImage>.pending()
         
-        let task = DispatchWorkItem(qos: .background, flags: .enforceQoS, block: {
-            
-            /// cache.retrieveImage can still complete if the task is cancelled,
-            /// so this ensures the output will only be sent if it needs to be
-            if !usingCache {
-                cache.removeImage(forKey: cacheKey)
+        if !usingCache {
+            cache.removeImage(forKey: thumbnailCacheKey)
+        }
+        
+        let operation = BlockOperation()
+        operation.addExecutionBlock({ [unowned operation] in
+            guard !operation.isCancelled else { return }
+            do {
+                let image = try self.generateThumbnailSync(processor: processor)
+                
+                cache.store(image,
+                            forKey: thumbnailCacheKey,
+                            options: KingfisherParsedOptionsInfo(nil),
+                            toDisk: true)
+                
+                resolver.fulfill(image)
+            } catch {
+                resolver.reject(error)
             }
-            
-            cache.retrieveImage(forKey: cacheKey, options: nil, completionHandler: {
-                
-                // cache.retrieveImage can still complete if the task is cancelled,
-                // so this ensures the output will only be sent if it needs to be
-                guard promise.isPending && !promise.isCancelled else { return }
-                
-                if let image = try? $0.get().image {
-                    resolver.fulfill(image)
-                    return
-                }
-                
-                do {
-                    let image = try self.generateThumbnailSync(targetSize: targetSize)
-                    cache.store(image,
-                                original: nil,
-                                forKey: cacheKey,
-                                options: KingfisherParsedOptionsInfo(nil),
-                                toDisk: true,
-                                completionHandler: nil)
-                    resolver.fulfill(image)
-                } catch {
-                    resolver.reject(error)
-                }
-            })
         })
         
-        promise.appendCancellableTask(task: task, reject: nil)
+        promise.appendCancellableTask(task: CancellableFunction({ [weak operation] in
+            operation?.cancel()
+        }), reject: nil)
         
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-            .async(execute: task)
+        cache.retrieveImage(forKey: thumbnailCacheKey, options: nil, completionHandler: {
+            guard promise.isPending && !promise.isCancelled else { return }
+            
+            if let image = try? $0.get().image {
+                resolver.fulfill(image)
+            } else {
+                Self.thumbnailOperationQueue.addOperation(operation)
+            }
+        })
         
         return promise
     }
     
     /// Attempts to generate thumbnail for URL. Supports image, video and pdf types
-    func generateThumbnailSync(targetSize: CGSize) throws -> KFCrossPlatformImage
+    func generateThumbnailSync(processor: ImageProcessor? = nil) throws -> KFCrossPlatformImage
     {
-        if self.isImageURL {
-            return try self.generateImageThumbnailSync(targetSize: targetSize)
+        switch self {
+        case let url where url.isImageURL:
+            return try self.generateImageThumbnailSync(processor: processor)
+        case let url where url.isVideoURL:
+            return try self.generateVideoThumbnailSync(processor: processor)
+        case let url where url.isPDFURL:
+            return try self.generatePDFThumbnailSync(processor: processor)
+        default:
+            throw GenerateThumbnailError.InvalidURL(message: "Invalid URL")
         }
-        if self.isVideoURL {
-            return try self.generateVideoThumbnailSync(targetSize: targetSize)
-        }
-        if self.isPDFURL {
-            return try self.generatePDFThumbnailSync(targetSize: targetSize)
-        }
-        
-        throw GenerateThumbnailError.Failed
     }
     
-    func generateImageThumbnailSync(targetSize: CGSize) throws -> KFCrossPlatformImage
+    func generateImageThumbnailSync(processor: ImageProcessor? = nil) throws -> KFCrossPlatformImage
     {
         guard self.isImageURL else {
             throw GenerateThumbnailError.InvalidURL(message: "Invalid Image URL")
@@ -107,12 +108,11 @@ public extension URL
             throw GenerateThumbnailError.Failed
         }
         
-        return image
-            .imageResizedTo(targetSize)
+        return try self._process(unprocessed: image, processor: processor)
     }
     
-    func generateVideoThumbnailSync(targetSize: CGSize,
-                                    at seconds: Double = 1) throws -> KFCrossPlatformImage
+    func generateVideoThumbnailSync(at seconds: Double = 1,
+                                    processor: ImageProcessor? = nil) throws -> KFCrossPlatformImage
     {
         guard self.isVideoURL else {
             throw GenerateThumbnailError.InvalidURL(message: "Invalid Video URL")
@@ -121,51 +121,43 @@ public extension URL
         let asset = AVURLAsset(url: self)
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
-        generator.maximumSize = targetSize * UIScreen.main.scale
+        if let track = asset.tracks(withMediaType: .video).first {
+            generator.maximumSize = track.naturalSize * UIScreen.main.scale
+        }
         
         let timescale: Int32 = 1000
         let atTime = CMTime(seconds: seconds, preferredTimescale: timescale)
         var actualTime = CMTime(seconds: seconds, preferredTimescale: timescale)
         
         let cgImage = try generator.copyCGImage(at: atTime, actualTime: &actualTime)
+        let image = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
         
-        return UIImage(
-            cgImage: cgImage,
-            scale: UIScreen.main.scale,
-            orientation: .up
-        ).imageResizedTo(targetSize)
+        return try self._process(unprocessed: image, processor: processor)
     }
     
-    func generatePDFThumbnailSync(targetSize: CGSize,
-                                  page: UInt = 1) throws-> KFCrossPlatformImage
+    func generatePDFThumbnailSync(page: UInt = 1,
+                                  processor: ImageProcessor? = nil) throws-> KFCrossPlatformImage
     {
-        guard self.isPDFURL,
-            let page = CGPDFDocument(self as CFURL)?.page(at: Int(page)) else {
-                throw GenerateThumbnailError.InvalidURL(message: "Invalid PDF URL")
+        guard self.isPDFURL, let page = CGPDFDocument(self as CFURL)?.page(at: Int(page)) else {
+            throw GenerateThumbnailError.InvalidURL(message: "Invalid PDF URL")
         }
         
-        let scale = UIScreen.main.scale
-        let originalPageRect = page.getBoxRect(.mediaBox)
-        var targetPageRect = AVMakeRect(
-            aspectRatio: originalPageRect.size,
-            insideRect: CGRect(origin: CGPoint.zero, size: targetSize)
-        )
-        targetPageRect.origin = CGPoint.zero
+        let rect = page.getBoxRect(.mediaBox)
         
-        UIGraphicsBeginImageContextWithOptions(targetPageRect.size, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0.0)
         
         guard let context = UIGraphicsGetCurrentContext() else {
             throw GenerateThumbnailError.Failed
         }
         
-        context.setFillColor(UIColor.clear.cgColor)        // Transparent background
-        context.fill(targetPageRect)
+        context.setFillColor(UIColor.clear.cgColor)
+        context.fill(rect)
         
         context.saveGState()
-        context.translateBy(x: 0.0, y: targetPageRect.height)
+        context.translateBy(x: 0.0, y: rect.height)
         context.scaleBy(x: 1.0, y: -1.0)
         context.concatenate(page.getDrawingTransform(CGPDFBox.mediaBox,
-                                                     rect: targetPageRect,
+                                                     rect: rect,
                                                      rotate: 0,
                                                      preserveAspectRatio: true))
         context.drawPDFPage(page)
@@ -177,11 +169,27 @@ public extension URL
             throw GenerateThumbnailError.Failed
         }
         
-        return UIImage(
-            cgImage: cgImage,
-            scale: scale,
-            orientation: .up
-        ).imageResizedTo(targetSize)
+        let image = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
+        
+        return try self._process(unprocessed: image, processor: processor)
+    }
+    
+    private func _process(unprocessed image: UIImage,
+                          processor: ImageProcessor?) throws -> KFCrossPlatformImage {
+        guard var processor = processor else { return image }
+        if let resizingProcessor = processor as? ResizingImageProcessor {
+            if resizingProcessor.referenceSize.equalTo(.zero) {
+                processor = ResizingImageProcessor(
+                    referenceSize: image.size,
+                    mode: resizingProcessor.targetContentMode
+                )
+            }
+        }
+        let options = KingfisherParsedOptionsInfo(nil)
+        guard let processed = processor.process(item: .image(image), options: options) else {
+            throw GenerateThumbnailError.ProcessorFailed(unprocessed: image)
+        }
+        return processed
     }
 }
 

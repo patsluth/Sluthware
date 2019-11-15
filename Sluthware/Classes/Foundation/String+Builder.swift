@@ -52,7 +52,7 @@ public typealias StringBuilder = String.Builder
 
 public extension String
 {
-	public struct Builder
+    struct Builder
 	{
 		public typealias RawAttribute = (NSAttributedString.Key, Any)
 		private typealias Attributes = [NSAttributedString.Key: Any]

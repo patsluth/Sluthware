@@ -14,7 +14,7 @@ import Foundation
 
 public extension Array
 {
-	public mutating func popFirst() -> Element?
+	mutating func popFirst() -> Element?
 	{
 		if let first = self.first {
 			self.removeFirst()
@@ -24,7 +24,7 @@ public extension Array
 		return nil
 	}
 	
-	public mutating func popLast() -> Element?
+    mutating func popLast() -> Element?
 	{
 		if let last = self.last {
 			self.removeLast()
@@ -34,14 +34,14 @@ public extension Array
 		return nil
 	}
 	
-	public static func +(lhs: Array<Element>, rhs: Element) -> Array<Element>
+    static func +(lhs: Array<Element>, rhs: Element) -> Array<Element>
 	{
 		var lhs = lhs
 		lhs += rhs
 		return lhs
 	}
 	
-	public static func +=(lhs: inout Array<Element>, rhs: Element)
+    static func +=(lhs: inout Array<Element>, rhs: Element)
 	{
 		lhs.append(rhs)
 	}

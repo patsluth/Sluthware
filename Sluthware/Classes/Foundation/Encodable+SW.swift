@@ -14,6 +14,17 @@ import Foundation
 
 public extension Encodable
 {
+    func encode<T>(_ type: T.Type, encoder: (inout JSONEncoder) -> Void) throws -> T
+    {
+        var _encoder = JSONEncoder()
+        _encoder.dateEncodingStrategy = .formatted(DateFormatter.properISO8601)
+        _encoder.outputFormatting = .prettyPrinted
+        
+        encoder(&_encoder)
+        
+        return try self.encode(type, encoder: encoder)
+    }
+    
 	func encode<T>(_ type: T.Type, encoder: JSONEncoder? = nil) throws -> T
 	{
 		let encoder = encoder ?? {

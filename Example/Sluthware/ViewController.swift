@@ -396,7 +396,7 @@ class ViewController: UIViewController
 		
 		
 		if let image = UIImage(named: "fsociety") {
-			let resizedImage = image.resizedTo(image.size / 2.0)
+			let resizedImage = image.imageResizedTo(image.size / 2.0)
 			print("image.size =", image.size, "resizedImage.size =", resizedImage.size)
 			self.imageView.image = resizedImage
 		}
@@ -475,12 +475,12 @@ class ViewController: UIViewController
 		let set2 = Set<Int>(array2)
 		let set3 = Set<Double>(array3)
 		
-		print(array1.joined(separator: ","))
-		print(array2.joined(separator: ","))
-		print(array3.joined(separator: ","))
-		print(set1.joined(separator: ","))
-		print(set2.joined(separator: ","))
-		print(set3.joined(separator: ","))
+		print(array1.joined(by: ","))
+		print(array2.joined(by: ","))
+		print(array3.joined(by: ","))
+		print(set1.joined(by: ","))
+		print(set2.joined(by: ","))
+		print(set3.joined(by: ","))
 		
 		let image = self.view.imageRepresentation()
 		

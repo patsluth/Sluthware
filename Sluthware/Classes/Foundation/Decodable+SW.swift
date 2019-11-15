@@ -14,6 +14,16 @@ import Foundation
 
 public extension Decodable
 {
+    static func decode<T>(_ value: T, decoder: (inout JSONDecoder) -> Void) throws -> Self
+    {
+        var _decoder = JSONDecoder()
+        _decoder.dateDecodingStrategy = .formatted(DateFormatter.properISO8601)
+        
+        decoder(&_decoder)
+        
+        return try self.decode(value, decoder: _decoder)
+    }
+    
 	static func decode<T>(_ value: T, decoder: JSONDecoder? = nil) throws -> Self
 	{
 		let decoder = decoder ?? {
@@ -41,7 +51,3 @@ public extension Decodable
 		throw Errors.Decoding(T.self, codingPath: [])
 	}
 }
-
-
-
-

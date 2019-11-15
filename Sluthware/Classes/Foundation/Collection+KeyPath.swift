@@ -15,7 +15,7 @@ import Foundation
 public extension Collection
 	where Self: ExpressibleByArrayLiteral//, Element: AnyObject
 {
-	public func grouped<Value>(by keyPath: KeyPath<Element, Value>) -> [Value: [Element]]
+    func grouped<Value>(by keyPath: KeyPath<Element, Value>) -> [Value: [Element]]
 		where Value: Hashable
 	{
 		return self.reduce(into: [Value: [Element]](), {
@@ -26,7 +26,7 @@ public extension Collection
 		})
 	}
 	
-	public func sorted<Value>(by keyPath: KeyPath<Element, Value>,
+    func sorted<Value>(by keyPath: KeyPath<Element, Value>,
 							  _ comparator: (Value, Value) -> Bool) -> [Element]
 		where Value: Comparable
 	{
@@ -47,7 +47,7 @@ public extension Collection
 public extension Dictionary
 	where Key: Comparable
 {
-	public func sorted(by keyComparator: (Key, Key) -> Bool,
+    func sorted(by keyComparator: (Key, Key) -> Bool,
 					   _ valueTransformer: (Value) -> Value) -> [(key: Key, value: Value)]
 	{
 		return self.sorted(by: {

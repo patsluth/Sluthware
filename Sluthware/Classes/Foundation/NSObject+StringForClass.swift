@@ -14,11 +14,11 @@ import Foundation
 
 public extension NSObject
 {
-    public var stringForClass: String {
+    var stringForClass: String {
 		return String(describing: self.classForCoder)
 	}
 	
-	public static var stringForClass: String {
+    static var stringForClass: String {
 		return String(describing: self)
 	}
 }

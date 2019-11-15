@@ -13,7 +13,7 @@ import Foundation
 
 public extension String
 {
-	public struct WhitespaceTrimOptions: OptionSet
+    struct WhitespaceTrimOptions: OptionSet
 	{
 		public let rawValue: Int
 		
@@ -32,7 +32,7 @@ public extension String
 	
 	
 	
-	public func trim(_ options: String.WhitespaceTrimOptions) -> String
+    func trim(_ options: String.WhitespaceTrimOptions) -> String
 	{
 		var trimmedString = self
 		

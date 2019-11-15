@@ -26,7 +26,7 @@ public protocol AttributedFormatterProtocol
 
 public extension AttributedFormatterProtocol
 {
-	public init(_ initBlock: (Self) -> Void)
+    init(_ initBlock: (Self) -> Void)
 	{
 		self.init()
 		

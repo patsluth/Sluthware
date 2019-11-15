@@ -15,7 +15,7 @@ import UIKit
 
 public extension UISearchBar
 {
-	public var textField: UITextField! {
+    var textField: UITextField! {
 		return self.value(forKey: "searchField") as? UITextField
 	}
 }

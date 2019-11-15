@@ -22,7 +22,7 @@ public protocol ReflectedStringConvertible: CustomStringConvertible
 
 public extension ReflectedStringConvertible
 {
-	public var description: String {
+    var description: String {
 		let mirror = Mirror(reflecting: self)
 		var mirrors = [mirror]
 		var description = ""

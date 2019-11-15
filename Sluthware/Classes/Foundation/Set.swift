@@ -20,7 +20,7 @@ public extension Set
 		return self.index(self.startIndex, offsetBy: arrayIndex)
 	}
 	
-	public subscript(safe arrayIndex: Array<Element>.Index?) -> Element?
+    subscript(safe arrayIndex: Array<Element>.Index?) -> Element?
 	{
 		return self[safe: self.indexFor(arrayIndex: arrayIndex)]
 	}

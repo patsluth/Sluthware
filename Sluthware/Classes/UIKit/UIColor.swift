@@ -14,17 +14,17 @@ import Foundation
 
 public extension UIColor
 {
-	public func with(alpha: CGFloat) -> UIColor
+    func with(alpha: CGFloat) -> UIColor
 	{
 		return self.withAlphaComponent(alpha)
 	}
 	
-	public func lighter(by percentage: CGFloat) -> UIColor
+	func lighter(by percentage: CGFloat) -> UIColor
 	{
 		return self.adjusting(by: abs(percentage))
 	}
 	
-	public func darker(by percentage: CGFloat) -> UIColor
+	func darker(by percentage: CGFloat) -> UIColor
 	{
 		return self.adjusting(by: abs(percentage) * -1.0)
 	}
@@ -33,7 +33,7 @@ public extension UIColor
 	-ve percentage = darker
 	+ve percentage = lighter
 	*/
-	public func adjusting(by percentage: CGFloat) -> UIColor
+	func adjusting(by percentage: CGFloat) -> UIColor
 	{
 		guard var rgba = try? self.getRGBA() else { return self }
 		let percentage = (-1.0...1.0).clamp(percentage)
@@ -47,12 +47,12 @@ public extension UIColor
 	
 	
 	
-	public func brighter(by percentage: CGFloat) -> UIColor
+	func brighter(by percentage: CGFloat) -> UIColor
 	{
 		return self.adjustingBrightness(by: abs(percentage))
 	}
 	
-	public func dimmmer(by percentage: CGFloat) -> UIColor
+	func dimmmer(by percentage: CGFloat) -> UIColor
 	{
 		return self.adjustingBrightness(by: abs(percentage) * -1.0)
 	}
@@ -61,7 +61,7 @@ public extension UIColor
 	-ve percentage = brighter
 	+ve percentage = dimmmer
 	*/
-	public func adjustingBrightness(by percentage: CGFloat) -> UIColor
+	func adjustingBrightness(by percentage: CGFloat) -> UIColor
 	{
 		guard var hsba = try? self.getHSBA() else { return self }
 		let percentage = (-1.0...1.0).clamp(percentage)
@@ -82,7 +82,7 @@ public extension UIColor
 	
 	/// Calculates a nice constrasting color (good for selecting a text color that looks good over a background color)
 	/// Converted from https://stackoverflow.com/questions/28644311/how-to-get-the-rgb-code-int-from-an-uicolor-in-swift
-	public func contrastingColor(fallback: UIColor) -> UIColor
+	func contrastingColor(fallback: UIColor) -> UIColor
 	{
 		guard let rgba = try? self.getRGBA() else { return fallback }
 		

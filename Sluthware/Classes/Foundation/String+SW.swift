@@ -56,17 +56,6 @@ public extension String
 	
 	
 	
-	init<T>(_ elements: T..., separator: String)
-	{
-		self.init(elements, separator)
-	}
-	
-	init<T>(_ collection: T, _ separator: String)
-		where T: Collection
-	{
-		self = collection.toString(separatedBy: separator)
-	}
-	
 	func removing(charactersNotIn characterSet: CharacterSet) -> String
 	{
 		return String(self.unicodeScalars.filter { characterSet.contains($0) })

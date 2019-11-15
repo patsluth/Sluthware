@@ -17,8 +17,8 @@ import RxCocoa
 
 public extension ObservableType
 {
-	public func unwrapOrComplete<T>() -> Observable<T>
-		where E == T?
+    func unwrapOrComplete<T>() -> Observable<T>
+		where Element == T?
 	{
 		return self.flatMap({ t -> Observable<T> in
 			if let t = t {

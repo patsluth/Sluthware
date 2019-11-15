@@ -17,11 +17,11 @@ import RxCocoa
 
 public extension ObservableType
 {
-	public func asOptional(catchError: @escaping (Error) throws -> Observable<E?>) -> Observable<E?>
+    func asOptional(catchError: @escaping (Error) throws -> Observable<Element?>) -> Observable<Element?>
 	{
 		return self
 			.materialize()
-			.flatMap({ event -> Observable<E?> in
+			.flatMap({ event -> Observable<Element?> in
 				switch event {
 				case .next(let value):
 					return .just(value)

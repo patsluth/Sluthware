@@ -135,14 +135,14 @@ extension Fraction
 
 public extension Fraction
 {
-	public typealias MixedNumber = (whole: Int, fraction: Fraction)
+    typealias MixedNumber = (whole: Int, fraction: Fraction)
 	
 	
 	
 	
 	
 	/// Convert fraction to a whole number and proper fraction
-	public func asMixedNumber(reduced: Bool = true) -> MixedNumber
+    func asMixedNumber(reduced: Bool = true) -> MixedNumber
 	{
 		let sign = self.sign
 		var mixedNumber = MixedNumber(whole: 0, fraction: self.absolute())

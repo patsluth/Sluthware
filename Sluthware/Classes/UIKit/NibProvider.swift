@@ -24,7 +24,7 @@ public protocol NibProvider
 
 public extension UINib
 {
-	public typealias Provider = NibProvider
+    typealias Provider = NibProvider
 }
 
 
@@ -35,12 +35,12 @@ public extension UINib.Provider
 	where Self: UIView
 {
 	@available(*, deprecated, renamed: "installNib")
-	public func installNibView()
+    func installNibView()
 	{
 		self.installNib()
 	}
 	
-	public func installNib()
+    func installNib()
 	{
 		//		DispatchQueue.once
 		

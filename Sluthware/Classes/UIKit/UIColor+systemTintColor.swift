@@ -14,7 +14,7 @@ import Foundation
 
 public extension UIColor
 {
-	public static var systemTintColor: UIColor {
+    static var systemTintColor: UIColor {
 		return UIButton(type: .system).tintColor
 	}
 }

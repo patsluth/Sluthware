@@ -75,13 +75,15 @@ class ViewController2: UIViewController
 		
 		
 		self.collectionView.reloadData()
-		self.pageControl.numberOfPages = self.collectionView.lastPage()?.x ?? 0
+        self.pageControl.numberOfPages = self.collectionView.lastPage.x
 		
 		let color = UIColor.green.lighter(by: 0.5)
-		self.collectionView.backgroundColor = UIColor.gradient(size: UIScreen.main.bounds.size,
-															   startPoint: CGPoint(x: 0.0, y: 0.5),
-															   endPoint: CGPoint(x: 1.0, y: 0.5),
-															   colors: color, color.darker(by: 0.5))
+		self.collectionView.backgroundColor = UIColor.gradient(
+            size: UIScreen.main.bounds.size,
+            startPoint: CGPoint(x: 0.0, y: 0.5),
+            endPoint: CGPoint(x: 1.0, y: 0.5),
+            colors: color, color.darker(by: 0.5)
+        )
 		
 		
 		
@@ -200,7 +202,7 @@ extension ViewController2: UICollectionViewDelegateFlowLayout
 	
 	func scrollViewDidScroll(_ scrollView: UIScrollView)
 	{
-		self.pageControl.currentPage = scrollView.currentPage()?.x ?? 0
+        self.pageControl.currentPage = scrollView.currentPage.x
 	}
 	
 	func screenshot()
@@ -212,7 +214,7 @@ extension ViewController2: UICollectionViewDelegateFlowLayout
 		
 		
 		
-		var fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("test.pdf")
+		let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("test.pdf")
 		pdfData?.write(to: fileURL, atomically: true)
 		
 		print(fileURL)

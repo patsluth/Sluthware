@@ -16,58 +16,70 @@ import UIKit
 
 public protocol Makeable: NSObjectProtocol
 {
-	typealias MadeClosure = (Self) -> Void
-	
-	init()
+    typealias MadeClosure = (Self) -> Void
+    
+    init()
 }
 
 extension NSObject: Makeable {  }
 
 public extension Makeable
 {
-	@discardableResult
-	static func make(_ block: MadeClosure? = nil) -> Self
-	{
-		let made = Self()
-		
-		defer { made.didMake(block) }
-		
-		return made
-	}
-	
-	internal func didMake(_ block: MadeClosure? = nil)
-	{
-		#if os(iOS)
-		
-		let view = self as? UIView
-		
-		view?.translatesAutoresizingMaskIntoConstraints = false
-		block?(self)
-		view?.setNeedsUpdateConstraints()
-		view?.setNeedsLayout()
-		
-		#endif
-	}
+    @discardableResult
+    static func make(_ block: MadeClosure? = nil) -> Self
+    {
+        let made = Self()
+        
+		defer {
+			block?(made)
+		}
+        
+        return made
+    }
 }
-
-
-
-
 
 #if os(iOS)
 
 public extension Makeable
-	where Self: UIButton
+	where Self: UIView
 {
 	@discardableResult
-	static func make(type: UIButton.ButtonType, _ block: MadeClosure? = nil) -> Self
+	static func make(_ block: MadeClosure? = nil) -> Self
 	{
-		let made = Self(type: type)
+		let made: Self!
+		if let nib = (Self.self as? NibProvider.Type)?.nib,
+			let nibView = nib.instantiate(withOwner: nil, options: nil).first as? Self {
+			made = nibView
+		} else {
+			made = Self()
+			made.translatesAutoresizingMaskIntoConstraints = false
+		}
 		
-		defer { made.didMake(block) }
+		defer {
+			made.setNeedsUpdateConstraints()
+			made.setNeedsLayout()
+			block?(made)
+		}
 		
 		return made
 	}
+}
+
+public extension Makeable
+    where Self: UIButton
+{
+    @discardableResult
+    static func make(type: UIButton.ButtonType, _ block: MadeClosure? = nil) -> Self
+    {
+        let made = Self(type: type)
+		made.translatesAutoresizingMaskIntoConstraints = false
+        
+		defer {
+			block?(made)
+		}
+        
+        return made
+    }
 }
 
 
@@ -75,18 +87,21 @@ public extension Makeable
 
 
 public extension Makeable
-	where Self: UICollectionView
+    where Self: UICollectionView
 {
-	@discardableResult
-	static func make<T>(layout: T, _ block: MadeClosure? = nil) -> Self
-		where T: UICollectionViewLayout
-	{
-		let made = Self(frame: .zero, collectionViewLayout: layout)
-		
-		defer { made.didMake(block) }
-		
-		return made
-	}
+    @discardableResult
+    static func make<T>(layout: T, _ block: MadeClosure? = nil) -> Self
+        where T: UICollectionViewLayout
+    {
+        let made = Self(frame: .zero, collectionViewLayout: layout)
+		made.translatesAutoresizingMaskIntoConstraints = false
+        
+		defer {
+			block?(made)
+		}
+        
+        return made
+    }
 }
 
 #endif

@@ -28,7 +28,7 @@ public extension Font
         return self.withSize(self.pointSize * CGFloat(percent))
     }
     
-    public func forFraction() -> Font!
+    func forFraction() -> Font!
     {
         #if os(iOS) || os(watchOS) || os(tvOS)
         let attributes = [

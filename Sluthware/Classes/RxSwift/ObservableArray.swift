@@ -290,13 +290,13 @@ extension ObservableArray: RangeReplaceableCollection
 	{
 		let deleted = (subRange.lowerBound..<subRange.upperBound)
 			.reduce(into: Event.Delete(), { $0[$1] = self[$1] })
-		
+
 		let oldCount = self.count
 		self._elements.replaceSubrange(subRange, with: newCollection)
 		let first = subRange.lowerBound
 		let newCount = self.count
 		let end = first + (newCount - oldCount) + subRange.count
-		
+
 		let inserted = (first..<end)
 			.reduce(into: Event.Insert(), { $0[$1] = self[$1] })
 		self.on(event: Event(inserted: inserted,

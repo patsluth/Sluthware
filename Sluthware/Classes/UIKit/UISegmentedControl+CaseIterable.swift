@@ -16,7 +16,7 @@ import UIKit
 public extension UISegmentedControl
 {
 	@available(swift, introduced: 4.2)
-	public convenience init<T>(_ type: T.Type)
+    convenience init<T>(_ type: T.Type)
 		where T: RawRepresentable, T: CaseIterable, T.RawValue == String
 	{
 		let items = type.allCases.map({ $0.rawValue })
@@ -30,7 +30,7 @@ public extension UISegmentedControl
 		}
 	}
 	
-	public func setItems<T>(_ type: T.Type, animated: Bool = false)
+    func setItems<T>(_ type: T.Type, animated: Bool = false)
 		where T: RawRepresentable, T: CaseIterable, T.RawValue == String
 	{
 		self.removeAllSegments()

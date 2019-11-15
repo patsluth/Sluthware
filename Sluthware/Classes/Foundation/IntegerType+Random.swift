@@ -14,7 +14,7 @@ import Foundation
 
 public extension IntegerType
 {
-	public static func random(_ range: Range<Self>) -> Self
+    static func random(_ range: Range<Self>) -> Self
 	{
 		return range.lowerBound + Self(arc4random_uniform(UInt32(range.upperBound - range.lowerBound)))
 	}

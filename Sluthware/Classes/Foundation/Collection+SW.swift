@@ -14,13 +14,13 @@ import Foundation
 
 public extension Collection
 {
-	@available(*, deprecated, renamed: "joined(separator:)")
+	@available(*, deprecated, renamed: "joined(by:)")
 	func toString(separatedBy separator: String) -> String
 	{
-		return self.joined(separator: separator)
+		return self.joined(by: separator)
 	}
 	
-	func joined(separator: String = " ") -> String
+	func joined(by separator: String) -> String
 	{
 		return self.map({ "\($0)" }).joined(separator: separator)
 	}

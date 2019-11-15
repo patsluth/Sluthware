@@ -55,7 +55,7 @@ public extension UIView
 				return view.systemSize(fittingSize: self.fittingSize,
 									   horizontal: .required,
 									   vertical: .fittingSizeLevel)
-			case .Height(let fittingHeight):
+            case .Height(_):
 				return view.systemSize(fittingSize: self.fittingSize,
 									   horizontal: .required,
 									   vertical: .fittingSizeLevel)

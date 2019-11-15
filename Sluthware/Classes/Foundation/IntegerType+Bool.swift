@@ -14,11 +14,8 @@ import Foundation
 
 public extension IntegerType
 {
-	public var boolValue: Bool {
-		get
-		{
-			return (self == 0) ? false : true
-		}
+    var boolValue: Bool {
+		return (self == 0) ? false : true
 	}
 }
 

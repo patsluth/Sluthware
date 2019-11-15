@@ -14,7 +14,7 @@ import Foundation
 
 public extension Date
 {
-	public init?(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int)
+    init?(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int)
 	{
 		let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
 		guard let date = calendar.date(from: DateComponents(year: year,
@@ -29,7 +29,7 @@ public extension Date
 		self = date
 	}
 	
-	public func adding(_ timeComponent: TimeComponent,
+    func adding(_ timeComponent: TimeComponent,
 					   _ ordinal: TimeInterval = 1.0) -> Date
 	{
 		return self.addingTimeInterval(timeComponent.timeInterval * ordinal)

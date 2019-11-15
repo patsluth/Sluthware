@@ -31,7 +31,7 @@ public enum TimeComponent: String, CaseIterable
 
 public extension TimeComponent
 {
-	public var timeInterval: TimeInterval {
+    var timeInterval: TimeInterval {
 		switch self {
 		case .nanosecond:		return 1e-9
 		case .second: 			return 1
@@ -45,7 +45,7 @@ public extension TimeComponent
 		}
 	}
 	
-	public var calendarComponent: Calendar.Component {
+    var calendarComponent: Calendar.Component {
 		switch self {
 		case .nanosecond:		return .nanosecond
 		case .second: 			return .second

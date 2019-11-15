@@ -16,7 +16,7 @@ import RxCocoa
 
 public extension ObservableType
 {
-	public func ignore<O>(until otherObservable: O) -> Observable<E>
+    func ignore<O>(until otherObservable: O) -> Observable<Element>
 		where O: ObservableType
 	{
 		return otherObservable.flatMapLatest({ _ in
