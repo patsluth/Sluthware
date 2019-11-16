@@ -71,7 +71,10 @@ public extension URL
         }), reject: nil)
         
         cache.retrieveImage(forKey: thumbnailCacheKey, options: nil, completionHandler: {
-            guard promise.isPending && !promise.isCancelled else { return }
+            guard promise.isPending && !promise.isCancelled else {
+                resolver.reject(PMKError.cancelled)
+                return
+            }
             
             if let image = try? $0.get().image {
                 resolver.fulfill(image)
